@@ -530,6 +530,68 @@
   };
 
   /* -------------------------------------------
+     THEME TOGGLE (Light/Dark Mode)
+     ------------------------------------------- */
+  const ThemeToggle = {
+    toggle: null,
+    htmlEl: null,
+    key: 'lla-theme',
+
+    init() {
+      this.htmlEl = document.documentElement;
+      this.toggle = document.querySelector('.theme-toggle');
+      if (!this.toggle) return;
+
+      // Load saved preference
+      const saved = localStorage.getItem(this.key);
+      if (saved === 'light') {
+        this.htmlEl.setAttribute('data-theme', 'light');
+        this.toggle.classList.add('active');
+      }
+
+      // Click handler
+      this.toggle.addEventListener('click', () => this.toggleTheme());
+
+      // Update icon on load
+      this.updateIcon();
+    },
+
+    toggleTheme() {
+      const isLight = this.htmlEl.getAttribute('data-theme') === 'light';
+
+      // Add transition class for smooth switch
+      this.htmlEl.classList.add('theme-transitioning');
+
+      if (isLight) {
+        this.htmlEl.removeAttribute('data-theme');
+        this.toggle.classList.remove('active');
+        localStorage.setItem(this.key, 'dark');
+      } else {
+        this.htmlEl.setAttribute('data-theme', 'light');
+        this.toggle.classList.add('active');
+        localStorage.setItem(this.key, 'light');
+      }
+
+      this.updateIcon();
+
+      // Remove transition class after animation
+      setTimeout(() => {
+        this.htmlEl.classList.remove('theme-transitioning');
+      }, 500);
+    },
+
+    updateIcon() {
+      const sunIcon = this.toggle.querySelector('.icon-sun');
+      const moonIcon = this.toggle.querySelector('.icon-moon');
+      if (!sunIcon || !moonIcon) return;
+
+      const isLight = this.htmlEl.getAttribute('data-theme') === 'light';
+      sunIcon.style.display = isLight ? 'none' : 'block';
+      moonIcon.style.display = isLight ? 'block' : 'none';
+    }
+  };
+
+  /* -------------------------------------------
      INITIALIZE ALL
      ------------------------------------------- */
   function init() {
@@ -546,6 +608,7 @@
     ActiveNavHighlight.init();
     FileUpload.init();
     SuccessPopup.init();
+    ThemeToggle.init();
   }
 
   // Run when DOM is ready
