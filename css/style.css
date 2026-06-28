@@ -110,6 +110,30 @@
   --mobile-nav-bg: rgba(255, 255, 255, 0.98);
   --scrollbar-thumb: rgba(201, 162, 74, 0.2);
   --scrollbar-track: #F7F8FA;
+  --hero-bg: #1a1a2e;
+  --hero-overlay: rgba(0, 0, 0, 0.45);
+}
+
+/* Light Mode Hero Overrides */
+[data-theme="light"] .hero {
+  background-color: #1a1a2e;
+}
+[data-theme="light"] .hero::after {
+  background: rgba(0, 0, 0, 0.35);
+}
+[data-theme="light"] .hero-content h1 {
+  color: #ffffff;
+}
+[data-theme="light"] .hero-content p {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+[data-theme="light"] .hero-badge {
+  color: var(--gold-light);
+  background: rgba(201, 162, 74, 0.2);
+  border-color: rgba(201, 162, 74, 0.35);
+}
+[data-theme="light"] .hero-scroll {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 /* ===========================
@@ -213,12 +237,12 @@ p {
   border-radius: 2px;
 }
 .section-header {
-  margin-bottom: 60px;
+  margin-bottom: 64px;
   text-align: center;
 }
 .section-header h2 { margin-bottom: 8px; }
 .section-header .gold-divider-center { margin-bottom: 20px; }
-.section-header p { max-width: 650px; margin: 0 auto; font-size: 1.05rem; }
+.section-header p { max-width: 650px; margin: 0 auto; font-size: 1.05rem; line-height: 1.8; }
 
 /* ===========================
    6. Buttons
@@ -585,9 +609,6 @@ p {
   color: rgba(255, 255, 255, 0.85);
   margin: 0 auto 36px;
 }
-[data-theme="light"] .hero-content p {
-  color: rgba(0, 0, 0, 0.7);
-}
 .hero-badge {
   display: inline-block;
   padding: 8px 24px;
@@ -629,6 +650,46 @@ p {
   50% { transform: translateX(-50%) translateY(8px); }
 }
 
+/* Hero Slideshow */
+.hero-slides {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+}
+.hero-slide.active {
+  opacity: 1;
+}
+.hero-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 3;
+}
+.hero-progress-bar {
+  height: 100%;
+  width: 0;
+  background: var(--gold-gradient);
+  transition: width 0.1s linear;
+}
+
 /* ===========================
    10. Services Grid
    =========================== */
@@ -643,7 +704,7 @@ p {
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--border-subtle);
   border-radius: 10px;
-  padding: 36px 28px;
+  padding: 36px 30px;
   text-align: center;
   transition: var(--transition-smooth);
 }
@@ -714,6 +775,7 @@ p {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1px;
+  margin-bottom: 0;
 }
 
 /* ===========================
@@ -1210,7 +1272,7 @@ textarea.form-input { min-height: 100px; resize: vertical; }
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--border-light);
   border-radius: 12px;
-  padding: 40px;
+  padding: 44px;
   box-shadow: var(--glass-shadow);
   text-align: center;
   position: relative;
@@ -2226,41 +2288,107 @@ textarea.form-input { min-height: 100px; resize: vertical; }
 }
 .feature-card h4 { margin-bottom: 10px; font-size: 1.08rem; }
 .feature-card p { font-size: 0.92rem; line-height: 1.75; color: var(--text-secondary); }
-.positions-list {
+.careers-hero-actions {
   display: flex;
-  flex-direction: column;
-  gap: 24px;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+.positions-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  align-items: stretch;
 }
 .position-card {
+  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 28px;
+  flex-direction: column;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: 10px;
-  padding: 32px;
-  transition: var(--transition-fast);
+  border-radius: 12px;
+  padding: 32px 30px;
+  transition: var(--transition-smooth);
+}
+.position-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gold-gradient);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.4s ease;
 }
 .position-card:hover {
   border-color: var(--border-light);
   box-shadow: var(--shadow-gold);
+  transform: translateY(-6px);
 }
-.position-info h3 { margin-bottom: 10px; font-size: 1.2rem; }
-.position-info p { font-size: 0.92rem; margin-bottom: 16px; line-height: 1.7; color: var(--text-secondary); }
+.position-card:hover::before { transform: scaleX(1); }
+.position-info {
+  display: flex;
+  flex-direction: column;
+}
+.position-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.position-card-top h3 {
+  margin: 0;
+  font-size: 1.18rem;
+  line-height: 1.3;
+}
+.position-tag {
+  flex-shrink: 0;
+  display: inline-block;
+  padding: 5px 12px;
+  background: var(--gold-bg-soft);
+  color: var(--gold);
+  border: 1px solid var(--border-light);
+  border-radius: 3px;
+  font-size: 0.66rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  white-space: nowrap;
+}
+.position-info p {
+  font-size: 0.9rem;
+  margin-bottom: 22px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
 .position-meta {
   display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 26px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-subtle);
 }
 .position-meta span {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.82rem;
+  gap: 10px;
+  font-size: 0.83rem;
   color: var(--text-muted);
 }
-.position-meta i { color: var(--gold); }
+.position-meta i {
+  color: var(--gold);
+  width: 16px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+.position-card .careers-apply-btn {
+  margin-top: auto;
+  width: 100%;
+  justify-content: center;
+}
 
 /* ===========================
    24. Insights Page
@@ -2307,6 +2435,46 @@ textarea.form-input { min-height: 100px; resize: vertical; }
 }
 .insight-card h3 { margin-bottom: 12px; font-size: 1.15rem; }
 .insight-card p { font-size: 0.92rem; margin-bottom: 16px; flex-grow: 1; }
+
+/* Insight Card Media & Body */
+.insight-card-media {
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px 8px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+.insight-card-media::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.4));
+}
+.insight-card-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.insight-read {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.insight-read i {
+  font-size: 0.72rem;
+}
+.insight-card:has(.insight-card-media) {
+  padding: 0;
+  border-radius: 8px;
+}
 
 /* ===========================
    25. Scroll Animations
@@ -2371,6 +2539,18 @@ textarea.form-input { min-height: 100px; resize: vertical; }
   .insights-grid { grid-template-columns: 1fr; }
   .legal-updates-grid { grid-template-columns: 1fr; }
   .page-hero { padding: 130px 0 60px; }
+  .svc-process-step {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .svc-cta-bar {
+    flex-direction: column;
+  }
+  .svc-cta-bar a {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
 }
 @media (max-width: 480px) {
   .container { padding: 0 16px; }
@@ -2615,6 +2795,42 @@ textarea.form-input { min-height: 100px; resize: vertical; }
 }
 
 /* ===========================
+   Careers Modal Header + Form Helpers
+   =========================== */
+.careers-modal-head { margin-bottom: 24px; }
+.careers-modal-eyebrow { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.careers-modal .modal-position { margin-bottom: 0; }
+.careers-form-group .req { color: #ef4444; margin-left: 2px; }
+.careers-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.careers-modal select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+/* ===========================
+   Careers Success Confirmation Cards
+   =========================== */
+.careers-success-x { position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; border: 1px solid var(--border-light); border-radius: 50%; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.85rem; transition: var(--transition-fast); }
+.careers-success-x:hover { color: var(--gold); border-color: var(--gold); background: var(--gold-bg-soft); }
+.careers-confirm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 22px 0 24px; }
+.careers-confirm-card { display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 10px; border: 1px solid var(--border-subtle); background: var(--bg-elevated); text-align: left; text-decoration: none; transition: var(--transition-fast); }
+.careers-confirm-card:hover { border-color: var(--border-light); transform: translateY(-2px); }
+.careers-confirm-card i { font-size: 1.4rem; flex-shrink: 0; }
+.careers-confirm-card.whatsapp { color: #25D366; }
+.careers-confirm-card.whatsapp i { color: #25D366; }
+.careers-confirm-card.email { color: var(--gold); }
+.careers-confirm-card.email i { color: var(--gold); }
+.careers-confirm-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.careers-confirm-text strong { font-size: 0.82rem; color: var(--text-heading); font-weight: 700; }
+.careers-confirm-text span { font-size: 0.72rem; color: var(--text-muted); line-height: 1.4; }
+.careers-success-modal .btn-primary { width: 100%; justify-content: center; }
+
+/* ===========================
    Insight Detail Modal
    =========================== */
 .insight-modal-overlay { position: fixed; inset: 0; z-index: 2000; background: var(--bg-overlay); backdrop-filter: var(--glass-blur); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; padding: 20px; }
@@ -2670,6 +2886,128 @@ select.form-input { appearance: none; -webkit-appearance: none; background-image
    =========================== */
 .service-detail-panel { display: none; }
 .service-detail-panel.active { display: block; }
+
+/* =============================================
+   Service Detail Pages
+   ============================================= */
+.service-detail-content {
+  padding: 80px 0;
+}
+.service-detail-content .container {
+  max-width: 900px;
+}
+.svc-overview {
+  margin-bottom: 60px;
+}
+.svc-overview h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-bottom: 24px;
+  color: var(--text-heading);
+}
+.svc-overview p {
+  font-size: 1rem;
+  line-height: 1.85;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+.svc-section {
+  margin-bottom: 48px;
+}
+.svc-section h3 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  margin-bottom: 24px;
+  color: var(--text-heading);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.svc-section h3 i {
+  color: var(--gold);
+  font-size: 1.1rem;
+}
+.svc-process-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.svc-process-step {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 24px;
+  transition: var(--transition-fast);
+}
+.svc-process-step:hover {
+  border-color: var(--border-light);
+  transform: translateX(4px);
+}
+.step-number {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+  background: var(--gold-gradient);
+  color: #1a1a1a;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.step-content h4 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: var(--text-heading);
+}
+.step-content p {
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin-bottom: 0;
+}
+.svc-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.svc-benefit {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  transition: var(--transition-fast);
+}
+.svc-benefit:hover {
+  border-color: var(--border-light);
+  background: var(--gold-bg-soft);
+}
+.svc-benefit i {
+  color: var(--gold);
+  font-size: 0.8rem;
+  margin-top: 4px;
+  min-width: 16px;
+}
+.svc-cta-bar {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-subtle);
+  margin-top: 16px;
+}
 
 /* ===========================
    Utility: Inline Style Replacements
@@ -3228,11 +3566,11 @@ select.form-input { appearance: none; -webkit-appearance: none; background-image
 /* Section label badge */
 .office-label {
   display: inline-block;
-  padding: 6px 18px;
+  padding: 6px 20px;
   background: var(--gold-bg-soft);
   border: 1px solid var(--border-light);
   border-radius: 2px;
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -3293,13 +3631,63 @@ select.form-input { appearance: none; -webkit-appearance: none; background-image
   align-items: center;
   justify-content: center;
   gap: 0;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
+  padding: 0 20px;
 }
 
 .booking-step {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  transition: var(--transition-fast);
+  white-space: nowrap;
+}
+
+.booking-step.active {
+  color: #1a1a1a;
+  background: var(--gold-gradient);
+  border-color: transparent;
+}
+
+.booking-step.completed {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+.booking-step-line {
+  width: 32px;
+  height: 2px;
+  background: var(--border-light);
+  margin: 0 4px;
+}
+
+.step-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--border-light);
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.booking-step.active .step-num {
+  background: rgba(0, 0, 0, 0.15);
+  color: #1a1a1a;
+}
+
+.step-label {
+  font-family: var(--font-body);
 }
 
 .booking-step-number {
@@ -3358,6 +3746,100 @@ select.form-input { appearance: none; -webkit-appearance: none; background-image
 
 .booking-step-connector.active {
   background: var(--gold-gradient);
+}
+
+/* Booking Confirmation Overlay */
+.booking-confirmation-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: var(--bg-overlay);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+  padding: 24px;
+}
+.booking-confirmation-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+.booking-confirmation-modal {
+  background: var(--bg-card-solid);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  padding: 48px 40px;
+  max-width: 460px;
+  width: 100%;
+  text-align: center;
+  transform: translateY(20px) scale(0.96);
+  transition: transform 0.35s ease;
+  box-shadow: var(--shadow-lg);
+}
+.booking-confirmation-overlay.active .booking-confirmation-modal {
+  transform: translateY(0) scale(1);
+}
+.booking-success-check {
+  margin-bottom: 24px;
+}
+.checkmark-svg {
+  width: 72px;
+  height: 72px;
+}
+.checkmark-circle {
+  stroke: var(--gold);
+  stroke-width: 2;
+  stroke-dasharray: 166;
+  stroke-dashoffset: 0;
+  animation: checkmarkCircle 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+.checkmark-check {
+  stroke: var(--gold);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: checkmarkCheck 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+@keyframes checkmarkCircle {
+  0% { stroke-dashoffset: 166; }
+  100% { stroke-dashoffset: 0; }
+}
+@keyframes checkmarkCheck {
+  0% { stroke-dashoffset: 48; }
+  100% { stroke-dashoffset: 0; }
+}
+.booking-confirmation-modal h3 {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+.confirmation-details {
+  text-align: left;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 24px;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+.confirmation-details p {
+  margin-bottom: 8px;
+}
+.confirmation-details p:last-child {
+  margin-bottom: 0;
+}
+.confirmation-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 /* Full-screen booking success confirmation overlay */
@@ -3513,6 +3995,7 @@ select.form-input { appearance: none; -webkit-appearance: none; background-image
   /* Office section stacks to single column */
   .office-grid {
     grid-template-columns: 1fr;
+    gap: 32px;
   }
   /* Office carousel shows 2 slides */
   .office-carousel-slide {
@@ -3555,6 +4038,12 @@ select.form-input { appearance: none; -webkit-appearance: none; background-image
   /* Office glass card */
   .office-glass-card {
     padding: 24px;
+  }
+  .office-action-buttons {
+    flex-direction: column;
+  }
+  .office-action-btn {
+    justify-content: center;
   }
 }
 
@@ -3966,33 +4455,36 @@ a[href$='.html'] {
 }
 
 /* Responsive: Careers modal and success popup */
+@media (max-width: 1100px) {
+  .positions-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .careers-form-row {
+    grid-template-columns: 1fr;
+  }
+}
 @media (max-width: 640px) {
+  .positions-list {
+    grid-template-columns: 1fr;
+  }
+  .position-card {
+    padding: 26px 22px;
+  }
   .careers-modal {
     padding: 28px 20px;
   }
-  .position-card {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 20px;
-  }
-  .position-card .btn-primary {
-    align-self: flex-start;
-  }
-  .position-meta {
-    gap: 12px;
-  }
   .careers-success-modal {
-    padding: 32px 24px;
+    padding: 32px 22px;
   }
-  .careers-whatsapp-hint {
-    font-size: 0.78rem;
-    flex-direction: column;
-    text-align: center;
+  .careers-confirm-grid {
+    grid-template-columns: 1fr;
   }
 }
 @media (max-width: 480px) {
   .position-card {
-    padding: 24px 20px;
+    padding: 24px 18px;
   }
   .careers-modal {
     padding: 24px 16px;

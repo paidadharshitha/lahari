@@ -781,6 +781,9 @@
   /* ==========================================================================
      14. CAREERS APPLY MODAL
      "Apply Now" buttons open a modal pre-filled with the job position.
+     Form submit shows a success popup with WhatsApp + email confirmation UI.
+     Requires the careers modal markup to exist before this script runs —
+     on careers.html the main.js <script> tag is the last element in <body>.
      ========================================================================== */
 
   (function () {
@@ -794,15 +797,32 @@
     var positionInput = document.getElementById('career-position');
     var form = overlay.querySelector('#careersForm');
 
+    var fileInput = document.getElementById('career-resume-file');
+    var fileLabel = document.getElementById('careerFileLabel');
+    var fileNameEl = document.getElementById('careerFileName');
+    var filePlaceholder = '<i class="fas fa-cloud-upload-alt"></i> <span>Click to upload your resume (PDF, DOC, DOCX)</span>';
+
+    var successOverlay = document.getElementById('careersSuccess');
+    var successPosition = document.getElementById('careersSuccessPosition');
+    var successEmail = document.getElementById('careersSuccessEmail');
+    var whatsappBtn = document.getElementById('careersSuccessWhatsapp');
+    var successClosers = document.querySelectorAll('.careers-success-close');
+
+    function resetFileLabel() {
+      if (fileLabel) { fileLabel.innerHTML = filePlaceholder; }
+      if (fileNameEl) { fileNameEl.textContent = ''; }
+    }
+
     function openModal(position) {
-      if (positionField) {
-        positionField.textContent = position;
-      }
-      if (positionInput) {
-        positionInput.value = position;
-      }
+      position = position || 'Open Position';
+      if (positionField) { positionField.textContent = position; }
+      if (positionInput) { positionInput.value = position; }
       overlay.classList.add('active');
       document.body.style.overflow = 'hidden';
+      var firstInput = document.getElementById('career-name');
+      if (firstInput) {
+        setTimeout(function () { firstInput.focus(); }, 320);
+      }
     }
 
     function closeModal() {
@@ -810,7 +830,12 @@
       document.body.style.overflow = '';
     }
 
-    /* Apply button click handlers */
+    function closeSuccess() {
+      if (successOverlay) { successOverlay.classList.remove('active'); }
+      document.body.style.overflow = '';
+    }
+
+    /* Apply button click handlers (work on every job card + hero + general) */
     var applyButtons = document.querySelectorAll('.careers-apply-btn');
     for (var i = 0; i < applyButtons.length; i++) {
       applyButtons[i].addEventListener('click', function () {
@@ -819,39 +844,89 @@
       });
     }
 
-    /* Close button */
+    /* Close button + overlay background click */
     if (closeBtn) {
       closeBtn.addEventListener('click', closeModal);
     }
-
-    /* Click on overlay background to close */
     overlay.addEventListener('click', function (e) {
       if (e.target === overlay) {
         closeModal();
       }
     });
 
-    /* Escape key closes modal */
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && overlay.classList.contains('active')) {
-        closeModal();
-      }
-    });
+    /* File upload label preview */
+    if (fileInput) {
+      fileInput.addEventListener('change', function () {
+        if (this.files && this.files.length > 0) {
+          var name = this.files[0].name;
+          if (fileNameEl) { fileNameEl.textContent = 'Selected: ' + name; }
+          if (fileLabel) { fileLabel.innerHTML = '<i class="fas fa-file-check"></i> <span>' + name + '</span>'; }
+        } else {
+          resetFileLabel();
+        }
+      });
+    }
 
-    /* Form submit */
+    /* Form submit -> success popup with confirmation UI */
     if (form) {
       form.addEventListener('submit', function (e) {
         e.preventDefault();
+
+        var nameInput = document.getElementById('career-name');
+        var emailInput = document.getElementById('career-email');
+        var name = (nameInput && nameInput.value) ? nameInput.value.trim() : '';
+        var email = (emailInput && emailInput.value) ? emailInput.value.trim() : '';
+        var position = (positionInput && positionInput.value) ? positionInput.value : 'the role';
+
+        if (successPosition) { successPosition.textContent = position; }
+        if (successEmail) {
+          successEmail.textContent = email
+            ? 'Confirmation sent to ' + email
+            : 'A confirmation has been sent to your inbox';
+        }
+        if (whatsappBtn) {
+          var msg = 'Hello Lahari Legal Associates, I have submitted my application for the ' +
+            position + ' role' + (name ? ('. My name is ' + name) : '') + '.';
+          whatsappBtn.href = 'https://wa.me/919876543210?text=' + encodeURIComponent(msg);
+        }
+
         closeModal();
-        var successOverlay = document.getElementById('careersSuccess');
         if (successOverlay) {
           successOverlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
         } else {
-          alert('Thank you for your application! We will review your submission and get back to you soon.');
+          alert('Application submitted successfully! Our team will get back to you within 3-5 business days.');
         }
+
         form.reset();
+        resetFileLabel();
       });
     }
+
+    /* Success popup closers (Done button + X button) */
+    for (var j = 0; j < successClosers.length; j++) {
+      successClosers[j].addEventListener('click', function (e) {
+        e.preventDefault();
+        closeSuccess();
+      });
+    }
+    if (successOverlay) {
+      successOverlay.addEventListener('click', function (e) {
+        if (e.target === successOverlay) {
+          closeSuccess();
+        }
+      });
+    }
+
+    /* Escape key closes whichever overlay is open */
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') { return; }
+      if (successOverlay && successOverlay.classList.contains('active')) {
+        closeSuccess();
+      } else if (overlay.classList.contains('active')) {
+        closeModal();
+      }
+    });
   })();
 
 
