@@ -1,0 +1,459 @@
+/* ============================================================
+   CAREERS — hero CTAs, why-join grid, position cards,
+   application modal, success state.
+   Premium glassmorphism + gold accents, full dark/light support.
+   Loaded AFTER base/components/pages so equal-specificity rules win.
+   ============================================================ */
+
+/* ============================================================
+   HERO ACTION BUTTONS (below page hero)
+   ============================================================ */
+.careers-hero-actions {
+  padding-block: clamp(1.5rem, 3vw, 2.5rem);
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.careers-hero-btns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.85rem;
+}
+
+/* ============================================================
+   WHY JOIN US — premium icon cards
+   ============================================================ */
+.careers-why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+}
+
+.careers-why-card {
+  height: 100%;
+  padding: 1.85rem 1.75rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition:
+    transform var(--t) var(--ease),
+    box-shadow var(--t) var(--ease),
+    border-color var(--t) var(--ease);
+}
+
+.careers-why-card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    var(--shadow-lg),
+    0 0 40px rgba(201, 162, 74, 0.1);
+  border-color: var(--gold-dark);
+}
+
+[data-theme="light"] .careers-why-card:hover {
+  border-color: var(--gold);
+}
+
+.careers-why-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  border-radius: var(--radius);
+  background: var(--gold-soft);
+  color: var(--gold-light);
+  font-size: 1.45rem;
+  margin-bottom: 1.25rem;
+  transition:
+    transform var(--t) var(--ease),
+    background var(--t) var(--ease),
+    box-shadow var(--t) var(--ease),
+    color var(--t) var(--ease);
+}
+
+[data-theme="light"] .careers-why-icon {
+  color: var(--gold-dark);
+}
+
+.careers-why-card:hover .careers-why-icon {
+  transform: translateY(-4px) scale(1.06);
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: #1a1408;
+  box-shadow: var(--shadow-gold);
+}
+
+.careers-why-card h3 {
+  font-size: 1.18rem;
+  margin-bottom: 0.55rem;
+  transition: color var(--t) var(--ease);
+}
+
+.careers-why-card:hover h3 {
+  color: var(--gold-light);
+}
+
+[data-theme="light"] .careers-why-card:hover h3 {
+  color: var(--gold-dark);
+}
+
+.careers-why-card p {
+  font-size: 0.93rem;
+  line-height: 1.65;
+}
+
+/* ============================================================
+   OPEN POSITIONS — premium cards with gold glow
+   ============================================================ */
+.careers-positions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.75rem;
+}
+
+.careers-position-card {
+  position: relative;
+  overflow: hidden;
+  padding: 1.85rem 1.75rem 1.75rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition:
+    transform var(--t) var(--ease),
+    box-shadow var(--t) var(--ease),
+    border-color var(--t) var(--ease);
+}
+
+.careers-position-card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    var(--shadow-lg),
+    0 0 50px rgba(201, 162, 74, 0.1);
+  border-color: var(--gold-dark);
+}
+
+[data-theme="light"] .careers-position-card:hover {
+  border-color: var(--gold);
+}
+
+/* Gold glow blob */
+.careers-position-glow {
+  position: absolute;
+  top: -60%;
+  left: -40%;
+  width: 180%;
+  height: 200%;
+  background: radial-gradient(circle at center, var(--gold-soft) 0%, transparent 65%);
+  opacity: 0;
+  transition: opacity var(--t-slow) var(--ease);
+  pointer-events: none;
+}
+
+.careers-position-card:hover .careers-position-glow {
+  opacity: 1;
+}
+
+.careers-position-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.careers-position-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.7rem;
+}
+
+.careers-position-head h3 {
+  font-size: 1.2rem;
+  line-height: 1.3;
+  transition: color var(--t) var(--ease);
+}
+
+.careers-position-card:hover .careers-position-head h3 {
+  color: var(--gold-light);
+}
+
+[data-theme="light"] .careers-position-card:hover .careers-position-head h3 {
+  color: var(--gold-dark);
+}
+
+.careers-position-desc {
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+}
+
+.careers-position-card .position-meta {
+  margin-bottom: 1.5rem;
+}
+
+/* Apply button (card-level) */
+.careers-apply-btn {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.8rem 1.4rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.93rem;
+  color: #1a1408;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition:
+    transform var(--t-fast) var(--ease),
+    box-shadow var(--t) var(--ease),
+    background-color var(--t) var(--ease);
+  box-shadow: var(--shadow-gold);
+}
+
+.careers-apply-btn i {
+  font-size: 0.78rem;
+  transition: transform var(--t) var(--ease);
+}
+
+.careers-apply-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(201, 162, 74, 0.4);
+}
+
+.careers-apply-btn:hover i {
+  transform: translateX(4px);
+}
+
+/* ============================================================
+   APPLICATION MODAL
+   ============================================================ */
+.careers-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgba(5, 4, 3, 0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: careersFadeIn 0.3s var(--ease);
+}
+
+@keyframes careersFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.careers-modal {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  animation: careersModalIn 0.35s var(--ease-out);
+}
+
+@keyframes careersModalIn {
+  from { opacity: 0; transform: translateY(24px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.careers-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background: var(--bg-muted);
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+}
+
+.careers-modal-close:hover {
+  background: var(--gold-soft);
+  color: var(--gold-dark);
+  transform: rotate(90deg);
+}
+
+[data-theme="light"] .careers-modal-close:hover {
+  color: var(--gold-dark);
+}
+
+.careers-modal-head {
+  margin-bottom: 1.75rem;
+  padding-right: 2.5rem;
+}
+
+.careers-modal-head h2 {
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  margin-bottom: 0.4rem;
+}
+
+.careers-modal-head p {
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* Form grid — 2 columns on desktop */
+.careers-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.careers-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.careers-form .form-group {
+  margin-bottom: 1.15rem;
+}
+
+/* File upload zone */
+.careers-upload {
+  position: relative;
+}
+
+.careers-upload-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.careers-upload-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  border: 1.5px dashed var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--input-bg);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition:
+    border-color var(--t-fast) var(--ease),
+    background var(--t-fast) var(--ease),
+    color var(--t-fast) var(--ease);
+}
+
+.careers-upload-label i {
+  font-size: 1.6rem;
+  color: var(--gold);
+}
+
+.careers-upload-label:hover {
+  border-color: var(--gold);
+  background: var(--gold-soft);
+  color: var(--heading-color);
+}
+
+.careers-submit-btn {
+  margin-top: 0.5rem;
+}
+
+/* ============================================================
+   SUCCESS STATE (inside modal)
+   ============================================================ */
+.careers-modal-success {
+  text-align: center;
+  padding: 1.5rem 1rem 0.5rem;
+}
+
+.careers-modal-success-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: #1a1408;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-gold);
+  animation: careersSuccessPop 0.5s var(--ease-out);
+}
+
+@keyframes careersSuccessPop {
+  0%   { transform: scale(0.5); opacity: 0; }
+  60%  { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+.careers-modal-success h3 {
+  font-size: 1.6rem;
+  margin-bottom: 0.7rem;
+}
+
+.careers-modal-success p {
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 440px;
+  margin: 0 auto 1.75rem;
+}
+
+.careers-modal-success .btn-primary {
+  min-width: 180px;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 992px) {
+  .careers-why-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .careers-positions-grid {
+    grid-template-columns: 1fr;
+  }
+  .careers-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .careers-why-grid {
+    grid-template-columns: 1fr;
+  }
+  .careers-hero-btns {
+    flex-direction: column;
+  }
+  .careers-hero-btns .btn-primary,
+  .careers-hero-btns .btn-outline {
+    width: 100%;
+  }
+}

@@ -15,27 +15,35 @@
   var slides = [
     {
       src: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80',
-      caption: 'Reception'
+      caption: 'Modern Office Reception'
     },
     {
       src: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80',
-      caption: 'Meeting Room'
+      caption: 'Executive Conference Room'
     },
     {
       src: 'https://images.unsplash.com/photo-1577412647305-991150c7d163?auto=format&fit=crop&w=1200&q=80',
-      caption: 'Consultation Room'
+      caption: 'Client Consultation Room'
     },
     {
-      src: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1200&q=80',
-      caption: 'Law Library'
+      src: 'https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=1200&q=80',
+      caption: 'Corporate Workspace'
     },
     {
       src: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80',
-      caption: 'Conference Room'
+      caption: 'Board Room'
     },
     {
-      src: 'https://images.unsplash.com/photo-1564069114553-7215e1ff1890?auto=format&fit=crop&w=1200&q=80',
-      caption: 'Executive Lobby'
+      src: 'https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=1200&q=80',
+      caption: 'Premium Office Interior'
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1462826303086-329426d1aef5?auto=format&fit=crop&w=1200&q=80',
+      caption: 'Team Meeting Space'
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=1200&q=80',
+      caption: 'Partner\'s Office'
     }
   ];
 
@@ -218,6 +226,12 @@
         img.src = slides[i].src;
         img.alt = slides[i].caption;
         img.loading = (i === 0) ? 'eager' : 'lazy';
+        img.onerror = (function (slideEl) {
+          return function () {
+            slideEl.style.background = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)';
+            this.style.display = 'none';
+          };
+        })(slide);
 
         var caption = document.createElement('div');
         caption.className = 'office-carousel-caption';

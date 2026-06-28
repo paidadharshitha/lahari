@@ -10,22 +10,6 @@
   'use strict';
 
   /* ==========================================================================
-     1. PAGE LOAD TRANSITION
-     Adds a subtle page entrance animation on DOMContentLoaded.
-     ========================================================================== */
-
-  (function () {
-    document.addEventListener('DOMContentLoaded', function () {
-      document.body.classList.add('page-transition-wrapper');
-      /* Remove the class after the CSS transition finishes (0.6s) */
-      setTimeout(function () {
-        document.body.classList.remove('page-transition-wrapper');
-      }, 600);
-    });
-  })();
-
-
-  /* ==========================================================================
      2. THEME TOGGLE
      Toggle between dark/light themes, persist preference in localStorage.
      ========================================================================== */
@@ -1011,12 +995,6 @@
         '}' +
         '.link-underline:hover::after,' +
         '.link-underline.active::after { width:60%;left:20%; }' +
-        /* Page transition */
-        '.page-transition-wrapper { animation: pageIn 0.5s ease forwards; }' +
-        '@keyframes pageIn {' +
-          '0% { opacity:0;transform:translateY(8px); }' +
-          '100% { opacity:1;transform:translateY(0); }' +
-        '}' +
         /* Slide up small */
         '.slide-up-sm { opacity:0;transform:translateY(15px);transition:opacity 0.6s ease,transform 0.6s ease; }' +
         '.slide-up-sm.visible { opacity:1;transform:translateY(0); }' +

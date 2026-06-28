@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import HeroSlideshow from "../components/HeroSlideshow";
 import StatsSection from "../components/StatsSection";
 import TestimonialsCarousel from "../components/TestimonialsCarousel";
-import OfficeGallery from "../components/OfficeGallery";
 import ServiceCard from "../components/ServiceCard";
 import SectionReveal from "../components/SectionReveal";
 import CTASection from "../components/CTASection";
@@ -124,8 +123,6 @@ export default function Home() {
       </section>
 
       <TestimonialsCarousel />
-
-      <OfficeGallery />
 
       <CTASection />
     </>

@@ -387,202 +387,6 @@
 }
 
 /* ============================================================
-   OFFICE GALLERY — premium auto-scrolling carousel
-   ============================================================ */
-.office-gallery-section {
-  padding-block: clamp(3.5rem, 8vw, 6.5rem);
-  background: var(--bg-alt);
-  overflow: hidden;
-}
-
-/* Glassmorphism carousel container */
-.office-gallery-container {
-  position: relative;
-  border-radius: var(--radius-lg);
-  padding: 1rem;
-  background: rgba(10, 9, 8, 0.3);
-  backdrop-filter: saturate(180%) blur(20px) brightness(1.04);
-  -webkit-backdrop-filter: saturate(180%) blur(20px) brightness(1.04);
-  border: 1px solid rgba(201, 162, 74, 0.2);
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.3),
-    0 0 40px rgba(201, 162, 74, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
-  transition: border-color var(--t-slow) var(--ease), box-shadow var(--t-slow) var(--ease);
-  cursor: grab;
-}
-
-.office-gallery-container:active {
-  cursor: grabbing;
-}
-
-.office-gallery-container:hover {
-  border-color: rgba(201, 162, 74, 0.4);
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.35),
-    0 0 60px rgba(201, 162, 74, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
-}
-
-[data-theme="light"] .office-gallery-container {
-  background: rgba(255, 255, 255, 0.45);
-}
-
-/* Inner frame */
-.office-gallery-frame {
-  position: relative;
-  border-radius: var(--radius);
-  overflow: hidden;
-  border: 1px solid rgba(201, 162, 74, 0.12);
-}
-
-/* Viewport + track */
-.office-gallery-viewport {
-  overflow: hidden;
-  border-radius: var(--radius);
-}
-
-.office-gallery-track {
-  display: flex;
-  gap: 1rem;
-  will-change: transform;
-}
-
-.office-gallery-container.is-paused .office-gallery-track {
-  transition: transform 0.3s var(--ease);
-}
-
-/* Individual slides */
-.office-gallery-slide {
-  flex: 0 0 clamp(280px, 30vw, 420px);
-}
-
-.office-gallery-slide-inner {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
-  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
-}
-
-.office-gallery-container:hover .office-gallery-slide-inner {
-  transform: scale(1.02);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45), 0 0 20px rgba(201, 162, 74, 0.08);
-}
-
-.office-gallery-slide-inner img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  transition: transform 8s linear;
-}
-
-.office-gallery-container:hover .office-gallery-slide-inner img {
-  transform: scale(1.05);
-}
-
-/* Caption overlay on each slide */
-.office-gallery-slide-caption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 2.5rem 1rem 0.85rem;
-  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
-  pointer-events: none;
-}
-
-.office-gallery-slide-caption span {
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--gold-light);
-}
-
-/* Gradient overlays for edge fading */
-.office-gallery-overlay {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 60px;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.office-gallery-overlay-top {
-  top: 1rem;
-  background: linear-gradient(180deg, var(--bg-alt) 0%, transparent 100%);
-}
-
-[data-theme="light"] .office-gallery-overlay-top {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, transparent 100%);
-}
-
-.office-gallery-overlay-bottom {
-  bottom: 1rem;
-  background: linear-gradient(0deg, var(--bg-alt) 0%, transparent 100%);
-}
-
-[data-theme="light"] .office-gallery-overlay-bottom {
-  background: linear-gradient(0deg, rgba(255, 255, 255, 0.6) 0%, transparent 100%);
-}
-
-/* Edge fades (left/right) */
-.office-gallery-edge {
-  position: absolute;
-  top: 1rem;
-  bottom: 1rem;
-  width: 80px;
-  pointer-events: none;
-  z-index: 3;
-}
-
-.office-gallery-edge-left {
-  left: 1rem;
-  background: linear-gradient(90deg, rgba(10, 9, 8, 0.6) 0%, transparent 100%);
-}
-
-[data-theme="light"] .office-gallery-edge-left {
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.6) 0%, transparent 100%);
-}
-
-.office-gallery-edge-right {
-  right: 1rem;
-  background: linear-gradient(270deg, rgba(10, 9, 8, 0.6) 0%, transparent 100%);
-}
-
-[data-theme="light"] .office-gallery-edge-right {
-  background: linear-gradient(270deg, rgba(255, 255, 255, 0.6) 0%, transparent 100%);
-}
-
-/* Location badge */
-.office-gallery-badge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: 1.25rem;
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  color: var(--text-faint);
-}
-
-.office-gallery-badge svg {
-  color: var(--gold);
-  flex-shrink: 0;
-}
-
-/* Office gallery header inherits section-head.center styles */
-.office-gallery-header {
-  margin-bottom: clamp(2rem, 4vw, 3.25rem);
-}
-
-/* ============================================================
    HOME — ABOUT V2 (premium portrait + stats)
    ============================================================ */
 .home-about-v2 {
@@ -852,6 +656,109 @@
 
 .about-body > p + p {
   margin-top: 0;
+}
+
+/* ============================================================
+   ABOUT — values grid + timeline
+   ============================================================ */
+.value-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Vertical timeline with gold spine */
+.timeline {
+  position: relative;
+  display: grid;
+  gap: 2rem;
+  max-width: 760px;
+  margin-inline: auto;
+  padding-left: 2rem;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: 7px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--gold), var(--gold-dark));
+  border-radius: 2px;
+  opacity: 0.5;
+}
+
+.timeline-item {
+  position: relative;
+  padding: 1.5rem 1.75rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: transform var(--t) var(--ease), border-color var(--t) var(--ease), box-shadow var(--t) var(--ease);
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  top: 1.75rem;
+  left: -2rem;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  border: 3px solid var(--bg-color);
+  box-shadow: var(--shadow-gold);
+}
+
+[data-theme="light"] .timeline-item::before {
+  border-color: var(--bg-alt);
+}
+
+.timeline-item:hover {
+  transform: translateX(4px);
+  border-color: var(--gold-dark);
+  box-shadow: var(--shadow-md), 0 0 24px rgba(201, 162, 74, 0.08);
+}
+
+[data-theme="light"] .timeline-item:hover {
+  border-color: var(--gold);
+}
+
+.timeline-year {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--gold);
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.02em;
+}
+
+.timeline-title {
+  font-size: 1.15rem;
+  margin-bottom: 0.45rem;
+}
+
+.timeline-item p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ============================================================
+   PAGE TRANSITION — subtle fade/slide on route change
+   ============================================================ */
+.page-transition {
+  animation: pageTransitionIn 0.5s var(--ease-out);
+}
+
+@keyframes pageTransitionIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ============================================================
@@ -2149,15 +2056,6 @@
   .svc-process-step {
     grid-template-columns: 1fr;
     text-align: center;
-  }
-  .office-gallery-slide {
-    flex: 0 0 clamp(240px, 60vw, 320px);
-  }
-  .office-gallery-edge {
-    width: 40px;
-  }
-  .office-gallery-overlay {
-    height: 40px;
   }
   .svc-step-num {
     margin-inline: auto;

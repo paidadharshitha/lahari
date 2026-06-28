@@ -8,6 +8,7 @@ import "./styles/base.css";
 import "./styles/components.css";
 import "./styles/pages.css";
 import "./styles/services.css";
+import "./styles/careers.css";
 
 import { ThemeProvider } from "./context/ThemeContext";
 import ScrollToTop from "./components/ScrollToTop";
