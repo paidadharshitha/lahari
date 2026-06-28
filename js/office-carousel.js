@@ -19,28 +19,28 @@
 
   var slides = [
     {
-      src: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80',
-      caption: 'Main Reception'
+      src: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80',
+      caption: 'Reception'
     },
     {
-      src: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600&q=80',
-      caption: 'Conference Room'
+      src: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=900&q=80',
+      caption: 'Meeting Room'
     },
     {
-      src: 'https://images.unsplash.com/photo-1564069114553-7215e1ff1890?w=600&q=80',
-      caption: 'Reception Lobby'
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1577412647305-991150c7d163?w=600&q=80',
+      src: 'https://images.unsplash.com/photo-1577412647305-991150c7d163?w=900&q=80',
       caption: 'Consultation Room'
     },
     {
-      src: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=600&q=80',
-      caption: 'Law Library'
+      src: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=900&q=80',
+      caption: 'Library'
     },
     {
-      src: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=80',
-      caption: 'Team Meeting'
+      src: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=900&q=80',
+      caption: 'Conference Room'
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1564069114553-7215e1ff1890?w=900&q=80',
+      caption: 'Lobby'
     }
   ];
 

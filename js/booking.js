@@ -631,7 +631,8 @@
       var name = state.confidentialMode ? 'Anonymous Client' : (document.getElementById('booking-name').value.trim());
       var phone = document.getElementById('booking-phone').value.trim();
       var email = document.getElementById('booking-email').value.trim();
-      var description = document.getElementById('booking-description').value.trim();
+      var descriptionInput = document.getElementById('booking-description');
+      var description = descriptionInput ? descriptionInput.value.trim() : '';
 
       var dateStr = state.selectedDate.getDate() + ' ' + monthNames[state.selectedDate.getMonth()] + ' ' + state.selectedDate.getFullYear();
 
