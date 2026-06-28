@@ -1,0 +1,745 @@
+/* ============================================================
+   SERVICES — Premium redesign
+   Original glassmorphism cards, detail banner, connected process
+   journey, FAQ accordion, WhatsApp CTA, button shine.
+   Loaded AFTER base/components/pages so equal-specificity rules win.
+   ============================================================ */
+
+/* ============================================================
+   SERVICE CARD v2 — premium glass with gold glow
+   ============================================================ */
+.svc-card-v2 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 2.1rem 1.8rem 1.8rem;
+  background:
+    linear-gradient(180deg, rgba(201, 162, 74, 0.06), transparent 42%),
+    var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--text-color);
+  isolation: isolate;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition:
+    transform var(--t) var(--ease),
+    box-shadow var(--t) var(--ease),
+    border-color var(--t) var(--ease);
+}
+
+[data-theme="light"] .svc-card-v2 {
+  background:
+    linear-gradient(180deg, rgba(201, 162, 74, 0.07), transparent 46%),
+    rgba(255, 255, 255, 0.86);
+}
+
+/* Top accent bar — fills with gold gradient on hover */
+.svc-card-v2-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  transition: width var(--t-slow) var(--ease);
+  z-index: 3;
+}
+
+.svc-card-v2:hover .svc-card-v2-accent {
+  width: 100%;
+}
+
+/* Diagonal shine sweep on hover */
+.svc-card-v2-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 32%,
+    rgba(201, 162, 74, 0.16) 50%,
+    transparent 68%
+  );
+  transform: translateX(-130%);
+  transition: transform 0.85s var(--ease);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.svc-card-v2:hover .svc-card-v2-shine {
+  transform: translateX(130%);
+}
+
+/* Faint index watermark ("01"–"13") */
+.svc-card-v2-num {
+  position: absolute;
+  top: 1rem;
+  right: 1.35rem;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 2.5rem;
+  line-height: 1;
+  color: var(--gold);
+  opacity: 0.12;
+  letter-spacing: 0.02em;
+  z-index: 0;
+}
+
+[data-theme="light"] .svc-card-v2-num {
+  opacity: 0.17;
+}
+
+/* Icon halo */
+.svc-card-v2-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--gold-soft);
+  color: var(--gold-light);
+  font-size: 1.5rem;
+  margin-bottom: 1.4rem;
+  transition:
+    transform var(--t) var(--ease),
+    background var(--t) var(--ease),
+    color var(--t) var(--ease),
+    box-shadow var(--t) var(--ease);
+  z-index: 2;
+}
+
+.svc-card-v2-icon::before {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  opacity: 0;
+  transform: scale(0.82);
+  transition: opacity var(--t) var(--ease), transform var(--t) var(--ease);
+}
+
+[data-theme="light"] .svc-card-v2-icon {
+  color: var(--gold-dark);
+}
+
+.svc-card-v2:hover .svc-card-v2-icon {
+  transform: translateY(-4px);
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: #1a1408;
+  box-shadow: var(--shadow-gold);
+}
+
+.svc-card-v2:hover .svc-card-v2-icon::before {
+  opacity: 0.5;
+  transform: scale(1);
+}
+
+.svc-card-v2-title {
+  position: relative;
+  z-index: 2;
+  font-size: 1.28rem;
+  margin-bottom: 0.55rem;
+  line-height: 1.25;
+}
+
+.svc-card-v2-desc {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  font-size: 0.93rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* "Learn More" pill button */
+.svc-card-v2-btn {
+  position: relative;
+  z-index: 2;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.15rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--gold-light);
+  background: var(--gold-soft);
+  transition:
+    gap var(--t) var(--ease),
+    background var(--t) var(--ease),
+    color var(--t) var(--ease),
+    box-shadow var(--t) var(--ease);
+}
+
+[data-theme="light"] .svc-card-v2-btn {
+  color: var(--gold-dark);
+}
+
+.svc-card-v2-btn i {
+  font-size: 0.72rem;
+  transition: transform var(--t) var(--ease);
+}
+
+.svc-card-v2:hover .svc-card-v2-btn {
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: #1a1408;
+  gap: 0.8rem;
+  box-shadow: var(--shadow-gold);
+}
+
+.svc-card-v2:hover .svc-card-v2-btn i {
+  transform: translateX(3px);
+}
+
+/* Card hover: lift + soft shadow + gold border glow */
+.svc-card-v2:hover,
+.svc-card-v2:focus-visible {
+  transform: translateY(-10px);
+  border-color: var(--gold-dark);
+  box-shadow:
+    var(--shadow-lg),
+    0 0 0 1px rgba(201, 162, 74, 0.25),
+    0 0 48px rgba(201, 162, 74, 0.14);
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+[data-theme="light"] .svc-card-v2:hover,
+[data-theme="light"] .svc-card-v2:focus-visible {
+  border-color: var(--gold);
+}
+
+/* ============================================================
+   SERVICES LISTING — elevated intro strip + engagement band
+   ============================================================ */
+
+/* Promote the intro strip into glass cards */
+.svc-intro-item {
+  flex-direction: row;
+  align-items: center;
+  gap: 1.1rem;
+  text-align: left;
+  padding: 1.4rem 1.6rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: transform var(--t) var(--ease),
+    border-color var(--t) var(--ease), box-shadow var(--t) var(--ease);
+}
+
+.svc-intro-item:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold-dark);
+  box-shadow: var(--shadow-md);
+}
+
+[data-theme="light"] .svc-intro-item:hover {
+  border-color: var(--gold);
+}
+
+.svc-intro-item i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--gold-soft);
+  color: var(--gold-light);
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+[data-theme="light"] .svc-intro-item i {
+  color: var(--gold-dark);
+}
+
+/* Engagement approach band */
+.svc-engage {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.svc-engage-item {
+  position: relative;
+  padding: 2.1rem 1.8rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  overflow: hidden;
+  transition: transform var(--t) var(--ease),
+    border-color var(--t) var(--ease), box-shadow var(--t) var(--ease);
+}
+
+.svc-engage-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--t-slow) var(--ease);
+}
+
+.svc-engage-item:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold-dark);
+  box-shadow: var(--shadow-md);
+}
+
+[data-theme="light"] .svc-engage-item:hover {
+  border-color: var(--gold);
+}
+
+.svc-engage-item:hover::before {
+  transform: scaleX(1);
+}
+
+.svc-engage-num {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+}
+
+.svc-engage-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius);
+  background: var(--gold-soft);
+  color: var(--gold-light);
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+[data-theme="light"] .svc-engage-icon {
+  color: var(--gold-dark);
+}
+
+.svc-engage-item h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.svc-engage-item p {
+  font-size: 0.93rem;
+  margin: 0;
+}
+
+/* ============================================================
+   SERVICE DETAIL — large banner
+   ============================================================ */
+.svc-banner {
+  position: relative;
+  padding-block: clamp(3rem, 7vw, 5.5rem);
+  background:
+    radial-gradient(900px 420px at 82% -20%, var(--gold-soft), transparent 60%),
+    radial-gradient(700px 360px at 4% 110%, var(--gold-soft), transparent 60%),
+    linear-gradient(135deg, #14110c, #221d15);
+  border-bottom: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+[data-theme="light"] .svc-banner {
+  background:
+    radial-gradient(900px 420px at 82% -20%, var(--gold-soft), transparent 60%),
+    radial-gradient(700px 360px at 4% 110%, var(--gold-soft), transparent 60%),
+    linear-gradient(135deg, #ffffff, #f4efe3);
+}
+
+.svc-banner-grid {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.5rem;
+}
+
+.svc-banner-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.svc-banner .breadcrumb {
+  justify-content: flex-start;
+  margin-bottom: 1.4rem;
+}
+
+.svc-banner-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  background: var(--gold-soft);
+  border: 1px solid rgba(201, 162, 74, 0.3);
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-pill);
+  margin-bottom: 1.2rem;
+}
+
+[data-theme="light"] .svc-banner-badge {
+  color: var(--gold-dark);
+}
+
+.svc-banner h1 {
+  font-size: clamp(2.3rem, 5.2vw, 3.6rem);
+  line-height: 1.08;
+  margin-bottom: 0.85rem;
+}
+
+.svc-banner-sub {
+  max-width: 560px;
+  font-size: 1.12rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 1.9rem;
+}
+
+.svc-banner-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+.svc-banner-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+  font-size: 0.84rem;
+  color: var(--text-muted);
+}
+
+.svc-banner-trust i {
+  color: var(--gold);
+  margin-right: 0.4rem;
+}
+
+/* Large circular icon medallion */
+.svc-banner-medallion {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(120px, 15vw, 168px);
+  height: clamp(120px, 15vw, 168px);
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: #1a1408;
+  font-size: clamp(2.6rem, 4.6vw, 4rem);
+  box-shadow: var(--shadow-gold);
+}
+
+.svc-banner-medallion::after {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 1px dashed rgba(201, 162, 74, 0.5);
+}
+
+.svc-banner-medallion::before {
+  content: "";
+  position: absolute;
+  inset: -22px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 162, 74, 0.2);
+}
+
+/* ============================================================
+   WHATSAPP BUTTON
+   ============================================================ */
+.btn-whatsapp {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.97rem;
+  padding: 0.9rem 1.6rem;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, #25d366, #128c4b);
+  color: #fff;
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.3);
+  overflow: hidden;
+  transition: transform var(--t-fast) var(--ease),
+    box-shadow var(--t) var(--ease);
+}
+
+.btn-whatsapp:hover {
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(37, 211, 102, 0.42);
+}
+
+.btn-whatsapp i {
+  font-size: 1.1rem;
+}
+
+/* ============================================================
+   BUTTON SHINE (ripple/hover sheen on primary CTA)
+   ============================================================ */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -70%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    115deg,
+    transparent,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 0.6s var(--ease);
+  pointer-events: none;
+}
+
+.btn-primary:hover::after {
+  left: 140%;
+}
+
+/* ============================================================
+   PROCESS — connected numbered journey
+   ============================================================ */
+.svc-journey {
+  position: relative;
+  display: grid;
+  gap: 1.6rem;
+  counter-reset: journey;
+}
+
+.svc-journey::before {
+  content: "";
+  position: absolute;
+  left: 27px;
+  top: 30px;
+  bottom: 30px;
+  width: 2px;
+  background: linear-gradient(
+    180deg,
+    var(--gold),
+    var(--gold-soft) 85%,
+    transparent
+  );
+}
+
+.svc-journey-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.svc-journey-node {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: #1a1408;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+  counter-increment: journey;
+  box-shadow: var(--shadow-gold);
+  flex-shrink: 0;
+}
+
+.svc-journey-node::before {
+  content: counter(journey, decimal-leading-zero);
+}
+
+.svc-journey-body {
+  padding-top: 0.3rem;
+}
+
+.svc-journey-body h4 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.08rem;
+  color: var(--heading-color);
+  margin-bottom: 0.4rem;
+}
+
+.svc-journey-body p {
+  font-size: 0.97rem;
+  margin: 0;
+}
+
+/* ============================================================
+   FAQ ACCORDION
+   ============================================================ */
+.faq-list {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.faq-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color var(--t) var(--ease),
+    box-shadow var(--t) var(--ease);
+}
+
+.faq-item.open {
+  border-color: var(--gold-dark);
+  box-shadow: var(--shadow-md);
+}
+
+[data-theme="light"] .faq-item.open {
+  border-color: var(--gold);
+}
+
+.faq-q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1.4rem;
+  text-align: left;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--heading-color);
+  transition: color var(--t-fast) var(--ease);
+}
+
+.faq-q:hover {
+  color: var(--gold-light);
+}
+
+[data-theme="light"] .faq-q:hover {
+  color: var(--gold-dark);
+}
+
+.faq-q i {
+  color: var(--gold);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  transition: transform var(--t) var(--ease);
+}
+
+.faq-item.open .faq-q i {
+  transform: rotate(180deg);
+}
+
+.faq-a-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s var(--ease);
+}
+
+.faq-item.open .faq-a-wrap {
+  grid-template-rows: 1fr;
+}
+
+.faq-a-inner {
+  overflow: hidden;
+}
+
+.faq-a {
+  padding: 0 1.4rem 1.4rem;
+  font-size: 0.96rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 992px) {
+  .svc-engage {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .svc-banner-grid {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .svc-banner-medallion {
+    align-self: center;
+    order: -1;
+  }
+  .svc-banner .breadcrumb {
+    justify-content: center;
+  }
+  .svc-banner-content {
+    text-align: center;
+  }
+  .svc-banner-sub {
+    margin-inline: auto;
+  }
+  .svc-banner-cta,
+  .svc-banner-trust {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .svc-engage {
+    grid-template-columns: 1fr;
+  }
+  .svc-banner-cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .svc-banner-cta .btn-primary,
+  .svc-banner-cta .btn-whatsapp,
+  .svc-banner-cta .btn-outline {
+    width: 100%;
+  }
+}

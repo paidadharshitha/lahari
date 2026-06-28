@@ -1,620 +1,980 @@
-/* =============================================
-   LAHARI LEGAL ASSOCIATES — Main JavaScript
-   ============================================= */
-
+/**
+ * LAHARI LEGAL ASSOCIATES — Main JavaScript
+ * ==========================================
+ * Core site functionality: theme toggle, navigation, scroll animations,
+ * hero slideshow, testimonials carousel, micro-interactions, and more.
+ *
+ * Pattern: Single IIFE, 'use strict', ES5-compatible (var, function, no arrows).
+ */
 (function () {
   'use strict';
 
-  /* -------------------------------------------
-     HERO SLIDER
-     ------------------------------------------- */
-  const HeroSlider = {
-    slides: [],
-    dots: [],
-    current: 0,
-    interval: null,
-    autoPlayDelay: 5000,
+  /* ==========================================================================
+     1. PAGE LOAD TRANSITION
+     Adds a subtle page entrance animation on DOMContentLoaded.
+     ========================================================================== */
 
-    init() {
-      this.slides = document.querySelectorAll('.hero-slide');
-      this.dots = document.querySelectorAll('.hero-dot');
-      if (this.slides.length === 0) return;
+  (function () {
+    document.addEventListener('DOMContentLoaded', function () {
+      document.body.classList.add('page-transition-wrapper');
+      /* Remove the class after the CSS transition finishes (0.6s) */
+      setTimeout(function () {
+        document.body.classList.remove('page-transition-wrapper');
+      }, 600);
+    });
+  })();
 
-      this.slides[0].classList.add('active');
-      if (this.dots[0]) this.dots[0].classList.add('active');
 
-      // Dot navigation
-      this.dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-          this.goTo(index);
-          this.resetAutoPlay();
-        });
-      });
+  /* ==========================================================================
+     2. THEME TOGGLE
+     Toggle between dark/light themes, persist preference in localStorage.
+     ========================================================================== */
 
-      this.startAutoPlay();
-    },
+  (function () {
+    var STORAGE_KEY = 'll-theme';
+    var toggle = document.querySelector('.theme-toggle');
+    var icon = toggle ? toggle.querySelector('i') : null;
 
-    goTo(index) {
-      this.slides[this.current].classList.remove('active');
-      if (this.dots[this.current]) this.dots[this.current].classList.remove('active');
-
-      this.current = index;
-
-      this.slides[this.current].classList.add('active');
-      if (this.dots[this.current]) this.dots[this.current].classList.add('active');
-    },
-
-    next() {
-      const next = (this.current + 1) % this.slides.length;
-      this.goTo(next);
-    },
-
-    startAutoPlay() {
-      this.interval = setInterval(() => this.next(), this.autoPlayDelay);
-    },
-
-    resetAutoPlay() {
-      clearInterval(this.interval);
-      this.startAutoPlay();
+    function getTheme() {
+      return localStorage.getItem(STORAGE_KEY) || 'dark';
     }
-  };
 
-  /* -------------------------------------------
-     STICKY HEADER
-     ------------------------------------------- */
-  const StickyHeader = {
-    header: null,
-    threshold: 80,
-
-    init() {
-      this.header = document.querySelector('.site-header');
-      if (!this.header) return;
-
-      window.addEventListener('scroll', () => this.onScroll(), { passive: true });
-      this.onScroll(); // Initial check
-    },
-
-    onScroll() {
-      if (window.scrollY > this.threshold) {
-        this.header.classList.add('scrolled');
-      } else {
-        this.header.classList.remove('scrolled');
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem(STORAGE_KEY, theme);
+      if (icon) {
+        icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
       }
     }
-  };
 
-  /* -------------------------------------------
-     MOBILE NAVIGATION
-     ------------------------------------------- */
-  const MobileNav = {
-    hamburger: null,
-    nav: null,
-    links: null,
-    isOpen: false,
+    /* Apply saved theme on load */
+    applyTheme(getTheme());
 
-    init() {
-      this.hamburger = document.querySelector('.hamburger');
-      this.nav = document.querySelector('.mobile-nav');
-      if (!this.hamburger || !this.nav) return;
-
-      this.links = this.nav.querySelectorAll('a');
-
-      this.hamburger.addEventListener('click', () => this.toggle());
-
-      this.links.forEach(link => {
-        link.addEventListener('click', () => this.close());
-      });
-    },
-
-    toggle() {
-      this.isOpen = !this.isOpen;
-      this.hamburger.classList.toggle('active', this.isOpen);
-      this.nav.classList.toggle('active', this.isOpen);
-      document.body.style.overflow = this.isOpen ? 'hidden' : '';
-    },
-
-    close() {
-      this.isOpen = false;
-      this.hamburger.classList.remove('active');
-      this.nav.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-  };
-
-  /* -------------------------------------------
-     SMOOTH SCROLL FOR ANCHOR LINKS
-     ------------------------------------------- */
-  const SmoothScroll = {
-    init() {
-      document.querySelectorAll('a[href^="#"]').forEach(link => {
-        link.addEventListener('click', (e) => {
-          const target = document.querySelector(link.getAttribute('href'));
-          if (target) {
-            e.preventDefault();
-            const headerHeight = document.querySelector('.site-header')?.offsetHeight || 80;
-            const top = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-            window.scrollTo({ top, behavior: 'smooth' });
-          }
-        });
+    if (toggle) {
+      toggle.addEventListener('click', function () {
+        document.documentElement.classList.add('theme-transitioning');
+        applyTheme(getTheme() === 'dark' ? 'light' : 'dark');
+        setTimeout(function () {
+          document.documentElement.classList.remove('theme-transitioning');
+        }, 400);
       });
     }
-  };
+  })();
 
-  /* -------------------------------------------
-     SCROLL REVEAL ANIMATIONS
-     ------------------------------------------- */
-  const ScrollReveal = {
-    elements: [],
 
-    init() {
-      this.elements = document.querySelectorAll('.reveal');
-      if (this.elements.length === 0) return;
+  /* ==========================================================================
+     3. SERVICES DROPDOWN (Desktop)
+     Click and hover interactions for the desktop nav services dropdown.
+     ========================================================================== */
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
-              observer.unobserve(entry.target);
+  (function () {
+    var wrappers = document.querySelectorAll('.nav-dropdown-wrapper');
+
+    function closeAllDropdowns() {
+      var openWrappers = document.querySelectorAll('.nav-dropdown-wrapper.open');
+      for (var j = 0; j < openWrappers.length; j++) {
+        openWrappers[j].classList.remove('open');
+      }
+    }
+
+    for (var i = 0; i < wrappers.length; i++) {
+      (function (wrapper) {
+        var trigger = wrapper.querySelector('.nav-dropdown-trigger');
+
+        /* Click toggle */
+        if (trigger) {
+          trigger.addEventListener('click', function (e) {
+            e.stopPropagation();
+            var isOpen = wrapper.classList.contains('open');
+            closeAllDropdowns();
+            if (!isOpen) {
+              wrapper.classList.add('open');
             }
           });
-        },
-        {
-          threshold: 0.1,
-          rootMargin: '0px 0px -40px 0px'
         }
-      );
 
-      this.elements.forEach(el => observer.observe(el));
+        /* Mouseenter open */
+        wrapper.addEventListener('mouseenter', function () {
+          closeAllDropdowns();
+          wrapper.classList.add('open');
+        });
+
+        /* Mouseleave close */
+        wrapper.addEventListener('mouseleave', function () {
+          wrapper.classList.remove('open');
+        });
+      })(wrappers[i]);
     }
-  };
 
-  /* -------------------------------------------
-     LAZY LOADING IMAGES
-     ------------------------------------------- */
-  const LazyLoad = {
-    init() {
-      const images = document.querySelectorAll('img[data-src]');
-      if (images.length === 0) return;
+    /* Close on outside click */
+    document.addEventListener('click', function () {
+      closeAllDropdowns();
+    });
 
-      if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                if (img.dataset.srcset) {
-                  img.srcset = img.dataset.srcset;
-                }
-                img.removeAttribute('data-src');
-                img.removeAttribute('data-srcset');
-                img.classList.add('loaded');
-                observer.unobserve(img);
-              }
-            });
-          },
-          {
-            threshold: 0.01,
-            rootMargin: '200px 0px'
+    /* Close on Escape key */
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        closeAllDropdowns();
+      }
+    });
+  })();
+
+
+  /* ==========================================================================
+     4. MOBILE NAV
+     Hamburger menu toggle with body scroll lock and backdrop overlay.
+     ========================================================================== */
+
+  (function () {
+    var toggle = document.querySelector('.mobile-toggle');
+    var mobileNav = document.querySelector('.mobile-nav');
+    var overlay = null;
+
+    function createOverlay() {
+      overlay = document.createElement('div');
+      overlay.className = 'mobile-nav-overlay';
+      document.body.appendChild(overlay);
+      overlay.addEventListener('click', closeMobileNav);
+    }
+
+    function openMobileNav() {
+      mobileNav.classList.add('open');
+      document.body.classList.add('mobile-nav-open');
+      if (!overlay) {
+        createOverlay();
+      }
+      setTimeout(function () {
+        overlay.classList.add('visible');
+      }, 10);
+    }
+
+    function closeMobileNav() {
+      mobileNav.classList.remove('open');
+      document.body.classList.remove('mobile-nav-open');
+      if (overlay) {
+        overlay.classList.remove('visible');
+        setTimeout(function () {
+          if (overlay && overlay.parentNode) {
+            overlay.parentNode.removeChild(overlay);
           }
-        );
+          overlay = null;
+        }, 300);
+      }
+    }
 
-        images.forEach(img => observer.observe(img));
+    function toggleMobileNav() {
+      if (mobileNav.classList.contains('open')) {
+        closeMobileNav();
       } else {
-        // Fallback: load all images
-        images.forEach(img => {
-          img.src = img.dataset.src;
-          img.removeAttribute('data-src');
+        openMobileNav();
+      }
+    }
+
+    if (toggle && mobileNav) {
+      toggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        toggleMobileNav();
+      });
+
+      /* Close when a nav link is clicked */
+      var mobileLinks = mobileNav.querySelectorAll('a');
+      for (var i = 0; i < mobileLinks.length; i++) {
+        mobileLinks[i].addEventListener('click', function () {
+          closeMobileNav();
         });
       }
     }
-  };
+  })();
 
-  /* -------------------------------------------
-     FORM VALIDATION
-     ------------------------------------------- */
-  const FormValidation = {
-    init() {
-      const forms = document.querySelectorAll('[data-validate]');
-      forms.forEach(form => {
-        form.addEventListener('submit', (e) => {
-          e.preventDefault();
-          if (this.validateForm(form)) {
-            this.showSuccess(form);
-          }
-        });
 
-        // Real-time validation on blur
-        const inputs = form.querySelectorAll('input, textarea, select');
-        inputs.forEach(input => {
-          input.addEventListener('blur', () => {
-            this.validateField(input);
-          });
-        });
-      });
-    },
+  /* ==========================================================================
+     5. MOBILE SERVICES TOGGLE
+     Accordion-style expand/collapse for mobile services list.
+     ========================================================================== */
 
-    validateField(field) {
-      const group = field.closest('.form-group');
-      if (!group) return true;
+  (function () {
+    var toggleBtn = document.querySelector('.mobile-services-toggle');
+    var servicesList = document.querySelector('.mobile-services-list');
 
-      const error = group.querySelector('.form-error');
-      let isValid = true;
-      let message = '';
-
-      // Required check
-      if (field.hasAttribute('required') && !field.value.trim()) {
-        isValid = false;
-        message = 'This field is required';
-      }
-
-      // Email check
-      if (field.type === 'email' && field.value.trim()) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(field.value.trim())) {
-          isValid = false;
-          message = 'Please enter a valid email address';
+    if (toggleBtn && servicesList) {
+      toggleBtn.addEventListener('click', function () {
+        var isOpen = servicesList.classList.contains('open');
+        servicesList.classList.toggle('open');
+        toggleBtn.classList.toggle('active');
+        /* Rotate chevron icon */
+        var arrow = toggleBtn.querySelector('i');
+        if (arrow) {
+          arrow.style.transform = isOpen ? '' : 'rotate(180deg)';
         }
-      }
-
-      // Phone check
-      if (field.type === 'tel' && field.value.trim()) {
-        const phoneRegex = /^[\+]?[\d\s\-\(\)]{8,15}$/;
-        if (!phoneRegex.test(field.value.trim())) {
-          isValid = false;
-          message = 'Please enter a valid phone number';
-        }
-      }
-
-      // Min length check
-      if (field.minLength > 0 && field.value.trim() && field.value.trim().length < field.minLength) {
-        isValid = false;
-        message = `Minimum ${field.minLength} characters required`;
-      }
-
-      if (isValid) {
-        group.classList.remove('error');
-        if (error) error.textContent = '';
-      } else {
-        group.classList.add('error');
-        if (error) error.textContent = message;
-      }
-
-      return isValid;
-    },
-
-    validateForm(form) {
-      let isValid = true;
-      const fields = form.querySelectorAll('input, textarea, select');
-
-      fields.forEach(field => {
-        if (!this.validateField(field)) {
-          isValid = false;
-        }
-      });
-
-      return isValid;
-    },
-
-    showSuccess(form) {
-      const popup = document.querySelector('.success-popup');
-      if (popup) {
-        popup.classList.add('active');
-        form.reset();
-
-        // Clear all error states
-        form.querySelectorAll('.form-group.error').forEach(group => {
-          group.classList.remove('error');
-        });
-
-        // Close on overlay click
-        popup.addEventListener('click', (e) => {
-          if (e.target === popup) {
-            popup.classList.remove('active');
-          }
-        });
-
-        // Close button
-        const closeBtn = popup.querySelector('.popup-close');
-        if (closeBtn) {
-          closeBtn.addEventListener('click', () => {
-            popup.classList.remove('active');
-          });
-        }
-      }
-    }
-  };
-
-  /* -------------------------------------------
-     BLOG FILTER
-     ------------------------------------------- */
-  const BlogFilter = {
-    init() {
-      const filterBtns = document.querySelectorAll('.filter-btn');
-      const cards = document.querySelectorAll('.blog-card[data-category]');
-
-      if (filterBtns.length === 0 || cards.length === 0) return;
-
-      filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const category = btn.dataset.filter;
-
-          // Update active button
-          filterBtns.forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-
-          // Filter cards
-          cards.forEach(card => {
-            if (category === 'all' || card.dataset.category === category) {
-              card.style.display = '';
-              card.style.opacity = '0';
-              card.style.transform = 'translateY(20px)';
-              requestAnimationFrame(() => {
-                card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-              });
-            } else {
-              card.style.display = 'none';
-            }
-          });
-        });
       });
     }
-  };
+  })();
 
-  /* -------------------------------------------
-     COUNTER ANIMATION
-     ------------------------------------------- */
-  const CounterAnimation = {
-    init() {
-      const counters = document.querySelectorAll('[data-count]');
-      if (counters.length === 0) return;
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              this.animateCounter(entry.target);
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.5 }
-      );
+  /* ==========================================================================
+     6. ACTIVE NAV HIGHLIGHTING
+     Compares current page filename against nav links and adds .active class.
+     ========================================================================== */
 
-      counters.forEach(counter => observer.observe(counter));
-    },
+  (function () {
+    var path = window.location.pathname;
+    var filename = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
 
-    animateCounter(el) {
-      const target = parseInt(el.dataset.count, 10);
-      const suffix = el.dataset.suffix || '';
-      const duration = 2000;
-      const start = 0;
-      const startTime = performance.now();
-
-      const update = (currentTime) => {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-
-        // Ease out cubic
-        const eased = 1 - Math.pow(1 - progress, 3);
-        const current = Math.floor(eased * target);
-
-        el.textContent = current + suffix;
-
-        if (progress < 1) {
-          requestAnimationFrame(update);
+    function setActive(links) {
+      for (var i = 0; i < links.length; i++) {
+        var href = links[i].getAttribute('href');
+        if (!href) {
+          continue;
+        }
+        var linkFile = href.substring(href.lastIndexOf('/') + 1);
+        /* Remove hash fragment for comparison */
+        if (linkFile.indexOf('#') !== -1) {
+          linkFile = linkFile.substring(0, linkFile.indexOf('#'));
+        }
+        if (linkFile === filename) {
+          links[i].classList.add('active');
         } else {
-          el.textContent = target + suffix;
+          links[i].classList.remove('active');
         }
-      };
-
-      requestAnimationFrame(update);
+      }
     }
-  };
 
-  /* -------------------------------------------
-     COOKIE CONSENT
-     ------------------------------------------- */
-  const CookieConsent = {
-    banner: null,
+    /* Desktop nav direct links */
+    var mainNavLinks = document.querySelectorAll('.main-nav > a');
+    setActive(mainNavLinks);
 
-    init() {
-      this.banner = document.querySelector('.cookie-consent');
-      if (!this.banner) return;
+    /* Mobile nav direct links */
+    var mobileNavLinks = document.querySelectorAll('.mobile-nav > a');
+    setActive(mobileNavLinks);
+  })();
 
-      // Check if consent already given
-      if (localStorage.getItem('cookieConsent')) {
+
+  /* ==========================================================================
+     7. SCROLL ANIMATIONS (IntersectionObserver — Enhanced)
+     Observes fade-in elements and adds .visible class on intersection.
+     Supports stagger-children containers for cascading reveal.
+     ========================================================================== */
+
+  (function () {
+    var classes = [
+      '.fade-in', '.fade-in-up', '.fade-in-left', '.fade-in-right',
+      '.slide-up-sm', '.scale-in'
+    ];
+    var elements = [];
+    var c, els, i;
+
+    for (c = 0; c < classes.length; c++) {
+      els = document.querySelectorAll(classes[c]);
+      for (i = 0; i < els.length; i++) {
+        elements.push(els[i]);
+      }
+    }
+
+    if ('IntersectionObserver' in window && elements.length > 0) {
+      var observer = new IntersectionObserver(function (entries) {
+        for (var j = 0; j < entries.length; j++) {
+          if (entries[j].isIntersecting) {
+            var el = entries[j].target;
+
+            /* Handle stagger-children: add .visible to each child with delay */
+            if (el.classList.contains('stagger-children')) {
+              var children = el.children;
+              for (var k = 0; k < children.length; k++) {
+                (function (child, delay) {
+                  setTimeout(function () {
+                    child.classList.add('visible');
+                  }, delay);
+                })(children[k], k * 100);
+              }
+            }
+
+            el.classList.add('visible');
+            observer.unobserve(el);
+          }
+        }
+      }, {
+        threshold: 0.1
+      });
+
+      for (var m = 0; m < elements.length; m++) {
+        observer.observe(elements[m]);
+      }
+    } else {
+      /* Fallback: show all elements immediately */
+      for (var n = 0; n < elements.length; n++) {
+        elements[n].classList.add('visible');
+      }
+    }
+  })();
+
+
+  /* ==========================================================================
+     8. HEADER SCROLL EFFECT
+     Adds .scrolled class to .site-header when user scrolls past 50px.
+     ========================================================================== */
+
+  (function () {
+    var header = document.querySelector('.site-header');
+    if (!header) {
+      return;
+    }
+
+    function onScroll() {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    /* Run once on load */
+    onScroll();
+  })();
+
+
+  /* ==========================================================================
+     9. HERO SLIDESHOW
+     Cycles through .hero-slide elements with a progress bar indicator.
+     ========================================================================== */
+
+  (function () {
+    var slides = document.querySelectorAll('.hero-slide');
+    var progressBar = document.querySelector('.hero-progress-bar');
+    if (!slides.length || !progressBar) {
+      return;
+    }
+
+    var INTERVAL = 6000; /* 6 seconds */
+    var current = 0;
+    var total = slides.length;
+    var timer = null;
+    var progressStart = null;
+    var progressRAF = null;
+
+    function showSlide(index) {
+      for (var i = 0; i < total; i++) {
+        slides[i].classList.remove('active');
+      }
+      slides[index].classList.add('active');
+    }
+
+    function animateProgress(timestamp) {
+      if (!progressStart) {
+        progressStart = timestamp;
+      }
+      var elapsed = timestamp - progressStart;
+      var pct = Math.min((elapsed / INTERVAL) * 100, 100);
+      progressBar.style.width = pct + '%';
+
+      if (elapsed < INTERVAL) {
+        progressRAF = requestAnimationFrame(animateProgress);
+      }
+    }
+
+    function nextSlide() {
+      current = (current + 1) % total;
+      showSlide(current);
+      progressStart = null;
+      cancelAnimationFrame(progressRAF);
+      progressBar.style.width = '0%';
+      progressRAF = requestAnimationFrame(animateProgress);
+    }
+
+    function startSlideshow() {
+      showSlide(0);
+      progressStart = null;
+      progressRAF = requestAnimationFrame(animateProgress);
+      timer = setInterval(nextSlide, INTERVAL);
+    }
+
+    /* Initialize */
+    startSlideshow();
+  })();
+
+
+  /* ==========================================================================
+     10. SMOOTH SCROLL FOR ANCHOR LINKS
+     Smooth scrolls to anchor targets with an 80px header offset.
+     ========================================================================== */
+
+  (function () {
+    var HEADER_OFFSET = 80;
+
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('a[href^="#"]');
+      if (!link) {
         return;
       }
 
-      // Show banner after a short delay
-      setTimeout(() => {
-        this.banner.classList.add('active');
-      }, 1500);
-
-      // Accept
-      const acceptBtn = this.banner.querySelector('.btn-cookie-accept');
-      if (acceptBtn) {
-        acceptBtn.addEventListener('click', () => {
-          localStorage.setItem('cookieConsent', 'accepted');
-          this.banner.classList.remove('active');
-        });
+      var href = link.getAttribute('href');
+      if (!href || href === '#' || href.length < 2) {
+        return;
       }
 
-      // Decline
-      const declineBtn = this.banner.querySelector('.btn-cookie-decline');
-      if (declineBtn) {
-        declineBtn.addEventListener('click', () => {
-          localStorage.setItem('cookieConsent', 'declined');
-          this.banner.classList.remove('active');
-        });
+      var target = document.querySelector(href);
+      if (!target) {
+        return;
       }
+
+      e.preventDefault();
+      var top = target.getBoundingClientRect().top + window.pageYOffset - HEADER_OFFSET;
+
+      window.scrollTo({
+        top: top,
+        behavior: 'smooth'
+      });
+    });
+  })();
+
+
+  /* ==========================================================================
+     11. TESTIMONIALS CAROUSEL
+     Auto-rotating carousel with prev/next buttons and dot indicators.
+     ========================================================================== */
+
+  (function () {
+    var track = document.querySelector('.testimonials-track');
+    var cards = track ? track.querySelectorAll('.testimonial-slide') : [];
+    var dotsContainer = document.getElementById('testimonialDots');
+    var prevBtn = document.getElementById('prevTestimonial');
+    var nextBtn = document.getElementById('nextTestimonial');
+
+    if (!track || !cards.length) {
+      return;
     }
-  };
 
-  /* -------------------------------------------
-     ACTIVE NAV LINK HIGHLIGHTING
-     ------------------------------------------- */
-  const ActiveNavHighlight = {
-    sections: [],
-    navLinks: [],
+    var total = cards.length;
+    var current = 0;
+    var autoTimer = null;
+    var INTERVAL = 5000; /* 5 seconds */
+    var dots = [];
 
-    init() {
-      this.sections = document.querySelectorAll('section[id]');
-      this.navLinks = document.querySelectorAll('.main-nav a[href^="#"]');
-
-      if (this.sections.length === 0 || this.navLinks.length === 0) return;
-
-      window.addEventListener('scroll', () => this.onScroll(), { passive: true });
-    },
-
-    onScroll() {
-      const scrollPos = window.scrollY + 150;
-
-      this.sections.forEach(section => {
-        const top = section.offsetTop;
-        const height = section.offsetHeight;
-        const id = section.getAttribute('id');
-
-        if (scrollPos >= top && scrollPos < top + height) {
-          this.navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === '#' + id) {
-              link.classList.add('active');
-            }
+    /* Build dot indicators */
+    function buildDots() {
+      if (!dotsContainer) {
+        return;
+      }
+      dotsContainer.innerHTML = '';
+      dots = [];
+      for (var i = 0; i < total; i++) {
+        var dot = document.createElement('button');
+        dot.className = 'testimonial-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('data-index', i);
+        dot.setAttribute('aria-label', 'Go to testimonial ' + (i + 1));
+        (function (idx) {
+          dot.addEventListener('click', function () {
+            goTo(idx);
+            resetAuto();
           });
-        }
+        })(i);
+        dotsContainer.appendChild(dot);
+        dots.push(dot);
+      }
+    }
+
+    function goTo(index) {
+      if (index < 0) {
+        index = total - 1;
+      }
+      if (index >= total) {
+        index = 0;
+      }
+      current = index;
+
+      var cardWidth = cards[0].offsetWidth;
+      var gap = parseInt(window.getComputedStyle(track).gap) || 24;
+      track.style.transform = 'translateX(-' + (current * (cardWidth + gap)) + 'px)';
+
+      /* Update dots */
+      for (var i = 0; i < dots.length; i++) {
+        dots[i].classList.toggle('active', i === current);
+      }
+    }
+
+    function nextSlide() {
+      goTo(current + 1);
+    }
+
+    function prevSlide() {
+      goTo(current - 1);
+    }
+
+    function startAuto() {
+      autoTimer = setInterval(nextSlide, INTERVAL);
+    }
+
+    function resetAuto() {
+      clearInterval(autoTimer);
+      startAuto();
+    }
+
+    /* Button handlers */
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function () {
+        prevSlide();
+        resetAuto();
       });
     }
-  };
-
-  /* -------------------------------------------
-     FILE UPLOAD LABEL
-     ------------------------------------------- */
-  const FileUpload = {
-    init() {
-      const fileInputs = document.querySelectorAll('.file-upload input[type="file"]');
-      fileInputs.forEach(input => {
-        input.addEventListener('change', (e) => {
-          const label = input.closest('.file-upload').querySelector('.file-upload-name');
-          if (label) {
-            const files = e.target.files;
-            if (files.length > 0) {
-              label.textContent = files[0].name;
-            } else {
-              label.textContent = 'No file chosen';
-            }
-          }
-        });
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function () {
+        nextSlide();
+        resetAuto();
       });
     }
-  };
 
-  /* -------------------------------------------
-     SUCCESS POPUP CLOSE ON ESCAPE
-     ------------------------------------------- */
-  const SuccessPopup = {
-    init() {
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          const popup = document.querySelector('.success-popup.active');
-          if (popup) {
-            popup.classList.remove('active');
-          }
-        }
-      });
+    /* Build and initialize */
+    buildDots();
+    goTo(0);
+    startAuto();
+  })();
+
+
+  /* ==========================================================================
+     12. SERVICES SPA ROUTING
+     Single-page experience on services.html: show/hide service details
+     based on the URL hash, sidebar link clicks, and back/forward navigation.
+     ========================================================================== */
+
+  (function () {
+    /* Only run on pages with the SPA layout */
+    var spaLayout = document.querySelector('.services-spa-layout');
+    if (!spaLayout) {
+      return;
     }
-  };
 
-  /* -------------------------------------------
-     THEME TOGGLE (Light/Dark Mode)
-     ------------------------------------------- */
-  const ThemeToggle = {
-    toggle: null,
-    htmlEl: null,
-    key: 'lla-theme',
+    var sidebarLinks = document.querySelectorAll('.services-sidebar-link');
+    var serviceDetails = document.querySelectorAll('[id^="service-"]');
+    var servicesSection = document.querySelector('.services-spa-content') || spaLayout;
 
-    init() {
-      this.htmlEl = document.documentElement;
-      this.toggle = document.querySelector('.theme-toggle');
-      if (!this.toggle) return;
+    function showService(serviceId) {
+      /* Build the expected detail element id: service-{slug} */
+      var detailId = 'service-' + serviceId;
 
-      // Load saved preference
-      const saved = localStorage.getItem(this.key);
-      if (saved === 'light') {
-        this.htmlEl.setAttribute('data-theme', 'light');
-        this.toggle.classList.add('active');
+      /* Hide all service details */
+      for (var i = 0; i < serviceDetails.length; i++) {
+        serviceDetails[i].style.display = 'none';
       }
 
-      // Click handler
-      this.toggle.addEventListener('click', () => this.toggleTheme());
+      /* Show matching detail */
+      var target = document.getElementById(detailId);
+      if (target) {
+        target.style.display = 'block';
+      }
 
-      // Update icon on load
-      this.updateIcon();
-    },
+      /* Update sidebar active states */
+      for (var j = 0; j < sidebarLinks.length; j++) {
+        var linkService = sidebarLinks[j].getAttribute('data-service');
+        if (linkService && linkService === serviceId) {
+          sidebarLinks[j].classList.add('active');
+        } else {
+          sidebarLinks[j].classList.remove('active');
+        }
+      }
 
-    toggleTheme() {
-      const isLight = this.htmlEl.getAttribute('data-theme') === 'light';
+      /* Smooth scroll to top of services section */
+      var top = servicesSection.getBoundingClientRect().top + window.pageYOffset - 80;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    }
 
-      // Add transition class for smooth switch
-      this.htmlEl.classList.add('theme-transitioning');
-
-      if (isLight) {
-        this.htmlEl.removeAttribute('data-theme');
-        this.toggle.classList.remove('active');
-        localStorage.setItem(this.key, 'dark');
+    function handleHash() {
+      var hash = window.location.hash;
+      if (hash && hash.length > 1) {
+        showService(hash.replace('#', ''));
       } else {
-        this.htmlEl.setAttribute('data-theme', 'light');
-        this.toggle.classList.add('active');
-        localStorage.setItem(this.key, 'light');
+        /* No hash: show first service by default */
+        showService(sidebarLinks.length > 0 ? sidebarLinks[0].getAttribute('data-service') : '');
       }
-
-      this.updateIcon();
-
-      // Remove transition class after animation
-      setTimeout(() => {
-        this.htmlEl.classList.remove('theme-transitioning');
-      }, 500);
-    },
-
-    updateIcon() {
-      const sunIcon = this.toggle.querySelector('.icon-sun');
-      const moonIcon = this.toggle.querySelector('.icon-moon');
-      if (!sunIcon || !moonIcon) return;
-
-      const isLight = this.htmlEl.getAttribute('data-theme') === 'light';
-      sunIcon.style.display = isLight ? 'none' : 'block';
-      moonIcon.style.display = isLight ? 'block' : 'none';
     }
-  };
 
-  /* -------------------------------------------
-     INITIALIZE ALL
-     ------------------------------------------- */
-  function init() {
-    HeroSlider.init();
-    StickyHeader.init();
-    MobileNav.init();
-    SmoothScroll.init();
-    ScrollReveal.init();
-    LazyLoad.init();
-    FormValidation.init();
-    BlogFilter.init();
-    CounterAnimation.init();
-    CookieConsent.init();
-    ActiveNavHighlight.init();
-    FileUpload.init();
-    SuccessPopup.init();
-    ThemeToggle.init();
-  }
+    /* Sidebar link clicks */
+    for (var k = 0; k < sidebarLinks.length; k++) {
+      (function (link) {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          var serviceId = link.getAttribute('data-service');
+          window.location.hash = serviceId;
+          showService(serviceId);
+        });
+      })(sidebarLinks[k]);
+    }
 
-  // Run when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
+    /* Hashchange event for back/forward navigation */
+    window.addEventListener('hashchange', handleHash);
+    handleHash();
+  })();
+
+
+  /* ==========================================================================
+     13. INSIGHTS MODAL (Unified)
+     Handles both category cards (data-category) and article cards (data-insight).
+     ========================================================================== */
+
+  (function () {
+    var overlay = document.querySelector('.insight-modal-overlay');
+    if (!overlay) { return; }
+
+    var closeBtn = overlay.querySelector('.insight-modal-close');
+    var modalTitle = overlay.querySelector('#insightModalTitle');
+    var modalBody = overlay.querySelector('#insightModalContent');
+    var modalTag = overlay.querySelector('#insightModalTag');
+    var modalDate = overlay.querySelector('#insightModalDate');
+
+    /* Content for top 4 category cards */
+    var categoryContent = {
+      'legal-news': {
+        title: 'Legal News',
+        tag: 'Legal News',
+        date: '',
+        html: '<ul style="list-style:none;display:flex;flex-direction:column;gap:16px;">' +
+          '<li><strong>Supreme Court Upholds Digital Privacy Ruling</strong><br>The Supreme Court has reaffirmed the right to digital privacy as a fundamental right under Article 21, striking down provisions that allowed unchecked surveillance. The ruling impacts ongoing data protection litigation across India.</li>' +
+          '<li><strong>New Land Acquisition Guidelines Issued</strong><br>The Ministry of Rural Development has released updated guidelines for land acquisition, impacting ongoing property dispute cases in Telangana.</li>' +
+          '<li><strong>Telangana High Court Expands Fast-Track Courts</strong><br>An additional 12 fast-track courts will be operational by Q3 2026 to address pending civil and criminal cases in Hyderabad.</li>' +
+          '</ul>'
+      },
+      'court-judgments': {
+        title: 'Court Judgments',
+        tag: 'Judgments',
+        date: '',
+        html: '<ul style="list-style:none;display:flex;flex-direction:column;gap:16px;">' +
+          '<li><strong>Krishna v. State of Telangana (2026)</strong><br>Landmark judgment on tenant eviction procedures, requiring landlords to provide 90-day notice periods before filing eviction suits.</li>' +
+          '<li><strong>Ramesh Enterprises v. GTech Solutions (2026)</strong><br>High Court ruled in favor of enforcing arbitration clauses in commercial contracts, streamlining dispute resolution.</li>' +
+          '<li><strong>Srinivas v. Srinivas (2026)</strong><br>Family Court ruling on mutual consent divorce timelines, reducing mandatory waiting periods in amicable separations.</li>' +
+          '</ul>'
+      },
+      'government-updates': {
+        title: 'Government Updates',
+        tag: 'Policy',
+        date: '',
+        html: '<ul style="list-style:none;display:flex;flex-direction:column;gap:16px;">' +
+          '<li><strong>Telangana RERA Amendments 2026</strong><br>New registration requirements for real estate developers and agents effective from July 2026.</li>' +
+          '<li><strong>Digital Court Filing Mandate</strong><br>All district courts in Telangana must adopt e-filing systems by December 2026.</li>' +
+          '<li><strong>New Cybersecurity Compliance Requirements</strong><br>Businesses handling personal data must comply with updated IT Act provisions by September 2026.</li>' +
+          '</ul>'
+      },
+      'legal-alerts': {
+        title: 'Legal Alerts',
+        tag: 'Alerts',
+        date: '',
+        html: '<ul style="list-style:none;display:flex;flex-direction:column;gap:16px;">' +
+          '<li><strong>Deadline: Annual Compliance Filing</strong><br>Companies registered in Telangana must complete annual compliance filings before September 30, 2026.</li>' +
+          '<li><strong>New GST Advisory</strong><br>Revised GST return filing procedures effective from August 2026. All businesses must update their registration details.</li>' +
+          '<li><strong>Property Tax Reassessment</strong><br>GHMC has announced property tax reassessment for commercial properties in Jubilee Hills and Banjara Hills.</li>' +
+          '</ul>'
+      }
+    };
+
+    /* Content for article insight cards */
+    var articleContent = {
+      'legal-updates': {
+        title: 'New Land Acquisition Laws in Telangana',
+        tag: 'Legal Updates',
+        date: 'June 2026',
+        html: '<p>The Telangana government has introduced significant amendments to land acquisition procedures under the Telangana Land Acquisition, Rehabilitation and Resettlement Act. These changes affect both property owners and developers across the state.</p>' +
+          '<p><strong>Key Changes:</strong></p>' +
+          '<ul style="list-style:disc;padding-left:20px;display:flex;flex-direction:column;gap:10px;">' +
+          '<li>Enhanced compensation rates for acquired land, now linked to current market value rather than government circle rates.</li>' +
+          '<li>Mandatory social impact assessment for all acquisitions exceeding 5 acres.</li>' +
+          '<li>Faster dispute resolution through dedicated Land Acquisition Tribunals.</li>' +
+          '<li>Increased rehabilitation package including housing and employment guarantees.</li>' +
+          '</ul>' +
+          '<p><strong>What This Means for You:</strong> If you own land in Telangana or are planning property transactions, these new provisions offer stronger protections and fairer compensation. However, compliance requirements have also increased. We recommend consulting with our property law experts to understand how these changes specifically affect your holdings.</p>' +
+          '<p>Contact our Property Disputes team for a detailed assessment of your land acquisition concerns.</p>'
+      },
+      'case-studies': {
+        title: 'How We Secured a Major Corporate Settlement',
+        tag: 'Case Study',
+        date: 'May 2026',
+        html: '<p>A detailed look at our recent landmark case where we negotiated a favorable settlement for a mid-size IT company in a complex breach-of-contract dispute worth over 15 crores.</p>' +
+          '<p><strong>Background:</strong> Our client, a Hyderabad-based IT services company, engaged us after their former vendor refused to deliver on a multi-crore service agreement. The vendor had already received partial payment and was countersuing for alleged non-payment.</p>' +
+          '<p><strong>Our Strategy:</strong></p>' +
+          '<ul style="list-style:disc;padding-left:20px;display:flex;flex-direction:column;gap:10px;">' +
+          '<li>Comprehensive contract analysis revealing 14 specific breach clauses violated by the vendor.</li>' +
+          '<li>Strategic evidence compilation including email communications, delivery milestones, and financial records.</li>' +
+          '<li>Aggressive pre-trial negotiation positioning our client for maximum leverage.</li>' +
+          '<li>Coordinated arbitration proceedings under the commercial arbitration framework.</li>' +
+          '</ul>' +
+          '<p><strong>Outcome:</strong> After 4 months of intensive legal proceedings and negotiation, we secured a settlement of 15.2 crores in favor of our client — representing one of the largest commercial dispute resolutions in Telangana\'s IT sector this year.</p>'
+      },
+      'law-tips': {
+        title: '5 Things Every Startup Must Know About Indian Business Law',
+        tag: 'Law Tips',
+        date: 'April 2026',
+        html: '<p>Starting a business in India? Here are the essential legal fundamentals every founder needs to get right from day one:</p>' +
+          '<p><strong>1. Choose the Right Business Structure</strong><br>The type of entity you register (Private Limited, LLP, OPC) has profound tax, liability, and compliance implications. Most tech startups benefit from Private Limited company registration for ease of raising capital.</p>' +
+          '<p><strong>2. Protect Your Intellectual Property</strong><br>Register trademarks for your brand name and logo immediately. File patents for unique inventions and processes. Copyright your software code and content. IP protection should begin on Day 1, not after you scale.</p>' +
+          '<p><strong>3. Employment Law Compliance</strong><br>Proper employment contracts, PF/ESI registration, gratuity provisions, and adherence to labor laws are mandatory. Non-compliance can result in penalties and legal disputes with employees.</p>' +
+          '<p><strong>4. Tax Registration and GST</strong><br>Obtain GST registration if your annual turnover exceeds the threshold. Understand input tax credits, filing deadlines, and e-way bill requirements. Late filings attract penalties and interest.</p>' +
+          '<p><strong>5. Founders Agreement</strong><br>A comprehensive founders agreement covering equity split, roles, vesting schedules, exit clauses, and dispute resolution mechanisms prevents costly legal battles if co-founders disagree or depart.</p>'
+      },
+      'government-rules': {
+        title: 'Key Changes in Family Law Legislation 2026',
+        tag: 'Government Rules',
+        date: 'March 2026',
+        html: '<p>Recent amendments to the Hindu Marriage Act and associated family law provisions have introduced significant changes to divorce procedures, custody arrangements, and maintenance guidelines.</p>' +
+          '<p><strong>Key Amendments:</strong></p>' +
+          '<ul style="list-style:disc;padding-left:20px;display:flex;flex-direction:column;gap:10px;">' +
+          '<li><strong>Reduced Waiting Period:</strong> The mandatory waiting period for mutual consent divorce has been reduced from 6 months to 3 months for couples with no minor children.</li>' +
+          '<li><strong>Enhanced Maintenance Guidelines:</strong> New formulas for calculating alimony and child maintenance, now factoring in the cost of living index and earning capacity of both spouses.</li>' +
+          '<li><strong>Shared Custody Preference:</strong> Courts now prefer shared custody arrangements over sole custody, prioritizing the childs relationship with both parents.</li>' +
+          '<li><strong>Mediation-First Approach:</strong> Mandatory family mediation before contested hearings in most family law disputes, reducing court burden and promoting amicable resolutions.</li>' +
+          '</ul>' +
+          '<p><strong>Impact:</strong> These changes make divorce proceedings faster and less adversarial while ensuring better financial protection for dependent spouses. If you are considering family law proceedings, our experienced team can help you navigate these updated provisions effectively.</p>'
+      }
+    };
+
+    function openModal(key, isArticle) {
+      var data = isArticle ? articleContent[key] : categoryContent[key];
+      if (!data) { return; }
+      if (modalTitle) { modalTitle.textContent = data.title; }
+      if (modalTag) { modalTag.textContent = data.tag; }
+      if (modalDate) { modalDate.textContent = data.date; }
+      if (modalBody) { modalBody.innerHTML = data.html; }
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    /* Category card click handlers */
+    var catCards = document.querySelectorAll('.insight-category-card');
+    for (var i = 0; i < catCards.length; i++) {
+      catCards[i].addEventListener('click', function () {
+        var cat = this.getAttribute('data-category');
+        openModal(cat, false);
+      });
+    }
+
+    /* Article insight card click handlers */
+    var artCards = document.querySelectorAll('.insight-card[data-insight]');
+    for (var j = 0; j < artCards.length; j++) {
+      artCards[j].addEventListener('click', function () {
+        var key = this.getAttribute('data-insight');
+        openModal(key, true);
+      });
+    }
+
+    /* Close button */
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeModal);
+    }
+
+    /* Click on overlay background to close */
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) {
+        closeModal();
+      }
+    });
+
+    /* Escape key closes modal */
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && overlay.classList.contains('active')) {
+        closeModal();
+      }
+    });
+  })();
+
+
+  /* ==========================================================================
+     14. CAREERS APPLY MODAL
+     "Apply Now" buttons open a modal pre-filled with the job position.
+     ========================================================================== */
+
+  (function () {
+    var overlay = document.querySelector('.careers-modal-overlay');
+    if (!overlay) {
+      return;
+    }
+
+    var closeBtn = overlay.querySelector('.careers-modal-close');
+    var positionField = overlay.querySelector('.careers-modal-position');
+    var form = overlay.querySelector('#careersForm');
+
+    function openModal(position) {
+      if (positionField) {
+        positionField.textContent = position;
+      }
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    /* Apply button click handlers */
+    var applyButtons = document.querySelectorAll('.careers-apply-btn');
+    for (var i = 0; i < applyButtons.length; i++) {
+      applyButtons[i].addEventListener('click', function () {
+        var position = this.getAttribute('data-position') || 'Open Position';
+        openModal(position);
+      });
+    }
+
+    /* Close button */
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeModal);
+    }
+
+    /* Click on overlay background to close */
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) {
+        closeModal();
+      }
+    });
+
+    /* Escape key closes modal */
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && overlay.classList.contains('active')) {
+        closeModal();
+      }
+    });
+
+    /* Form submit */
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        alert('Thank you for your application! We will review your submission and get back to you soon.');
+        closeModal();
+        form.reset();
+      });
+    }
+  })();
+
+
+  /* ==========================================================================
+     15. FORM ENHANCEMENTS
+     Generic form handling: prevents default submission and displays a
+     success message with an icon.
+     ========================================================================== */
+
+  (function () {
+    /* Select forms that are NOT already handled by a specific handler */
+    var forms = document.querySelectorAll('form:not(#careersForm):not(#booking-form)');
+
+    for (var i = 0; i < forms.length; i++) {
+      (function (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          var heading = form.getAttribute('data-success-heading') || 'Thank You!';
+          var message = form.getAttribute('data-success-message') || 'Your message has been received. We will get back to you shortly.';
+
+          form.innerHTML =
+            '<div class="form-success">' +
+              '<div class="form-success-icon"><i class="fas fa-check-circle"></i></div>' +
+              '<h3>' + heading + '</h3>' +
+              '<p>' + message + '</p>' +
+            '</div>';
+        });
+      })(forms[i]);
+    }
+  })();
+
+
+  /* ==========================================================================
+     16. MICRO-INTERACTIONS INITIALIZATION
+     Adds interactive classes to elements for enhanced user experience:
+     - .card-lift on service cards (hover lift effect)
+     - .btn-glow on primary buttons (subtle glow on hover)
+     - .link-underline on nav links (animated underline on hover)
+     ========================================================================== */
+
+  (function () {
+    /* Card lift effect for service cards */
+    var serviceCards = document.querySelectorAll('.service-card, .feature-card, .insight-card, .position-card');
+    for (var i = 0; i < serviceCards.length; i++) {
+      serviceCards[i].classList.add('card-lift');
+    }
+
+    /* Button glow for primary buttons */
+    var primaryButtons = document.querySelectorAll('.btn-primary');
+    for (var j = 0; j < primaryButtons.length; j++) {
+      primaryButtons[j].classList.add('btn-glow');
+    }
+
+    /* Link underline for nav links */
+    var navLinks = document.querySelectorAll('.main-nav > a, .nav-dropdown-trigger');
+    for (var k = 0; k < navLinks.length; k++) {
+      navLinks[k].classList.add('link-underline');
+    }
+
+    /* Inject micro-interaction styles */
+    if (!document.getElementById('micro-interaction-styles')) {
+      var style = document.createElement('style');
+      style.id = 'micro-interaction-styles';
+      style.textContent =
+        /* Card lift */
+        '.card-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }' +
+        '.card-lift:hover { transform: translateY(-4px); box-shadow: var(--shadow-gold); }' +
+        /* Button glow */
+        '.btn-glow { position: relative; overflow: hidden; }' +
+        '.btn-glow::after {' +
+          'content:"";position:absolute;inset:0;border-radius:inherit;' +
+          'box-shadow:0 0 20px rgba(201,162,74,0.3);opacity:0;' +
+          'transition:opacity 0.3s ease;' +
+        '}' +
+        '.btn-glow:hover::after { opacity:1; }' +
+        /* Link underline */
+        '.link-underline { position: relative; }' +
+        '.link-underline::after {' +
+          'content:"";position:absolute;bottom:0;left:50%;width:0;height:2px;' +
+          'background:var(--gold);transition:width 0.3s ease,left 0.3s ease;' +
+        '}' +
+        '.link-underline:hover::after,' +
+        '.link-underline.active::after { width:60%;left:20%; }' +
+        /* Page transition */
+        '.page-transition-wrapper { animation: pageIn 0.5s ease forwards; }' +
+        '@keyframes pageIn {' +
+          '0% { opacity:0;transform:translateY(8px); }' +
+          '100% { opacity:1;transform:translateY(0); }' +
+        '}' +
+        /* Slide up small */
+        '.slide-up-sm { opacity:0;transform:translateY(15px);transition:opacity 0.6s ease,transform 0.6s ease; }' +
+        '.slide-up-sm.visible { opacity:1;transform:translateY(0); }' +
+        /* Scale in */
+        '.scale-in { opacity:0;transform:scale(0.95);transition:opacity 0.6s ease,transform 0.6s ease; }' +
+        '.scale-in.visible { opacity:1;transform:scale(1); }';
+      document.head.appendChild(style);
+    }
+  })();
+
+
+  /* ==========================================================================
+     17. DISCLAIMER POPUP
+     Shows a disclaimer popup on first visit, stored in sessionStorage.
+     ========================================================================== */
+
+  (function () {
+    var popup = document.querySelector('.disclaimer-overlay');
+    if (!popup) {
+      return;
+    }
+
+    var disclaimerKey = 'll-disclaimer-accepted';
+
+    /* Check if already accepted this session */
+    if (sessionStorage.getItem(disclaimerKey)) {
+      return;
+    }
+
+    /* Show popup */
+    popup.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+
+    var acceptBtn = popup.querySelector('.disclaimer-accept');
+    if (acceptBtn) {
+      acceptBtn.addEventListener('click', function () {
+        popup.style.display = 'none';
+        document.body.style.overflow = '';
+        sessionStorage.setItem(disclaimerKey, 'true');
+      });
+    }
+  })();
+
+
 })();

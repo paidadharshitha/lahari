@@ -1,0 +1,118 @@
+/* ============================================================
+   Design tokens — colors, typography, spacing, shadows.
+   DARK theme is the DEFAULT (:root). Light theme overrides via
+   [data-theme="light"]. All components reference these variables.
+   ============================================================ */
+
+:root {
+  /* Brand */
+  --gold: #c9a24a;
+  --gold-light: #e0bd6a;
+  --gold-dark: #a07e2c;
+  --gold-soft: rgba(201, 162, 74, 0.16);
+
+  /* Surfaces — DARK (default) */
+  --bg-color: #0a0908;
+  --bg-alt: #111110;
+  --bg-elevated: #1a1816;
+  --bg-muted: #1f1c18;
+  --bg-overlay: rgba(10, 9, 8, 0.88);
+
+  /* Text */
+  --text-color: #ece8df;
+  --text-muted: #b3ad9e;
+  --text-faint: #807a6c;
+  --heading-color: #fbf9f3;
+
+  /* Borders */
+  --border-color: #2c2820;
+  --border-strong: #3a3528;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.65);
+  --shadow-gold: 0 12px 34px rgba(201, 162, 74, 0.22);
+  --shadow-glow: 0 0 30px rgba(201, 162, 74, 0.15);
+
+  /* Component tokens */
+  --header-bg: rgba(10, 9, 8, 0.78);
+  --footer-bg: #050403;
+  --footer-text: #9b9484;
+  --card-bg: #1a1816;
+  --input-bg: #111110;
+  --input-border: #3a3528;
+  --chip-bg: #1f1c18;
+
+  /* Semantic aliases */
+  --primary-color: var(--gold);
+  --accent-color: var(--gold);
+
+  /* Typography */
+  --font-heading: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  /* Layout */
+  --container: 1200px;
+  --container-narrow: 820px;
+  --header-h: 76px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --t-fast: 0.18s;
+  --t: 0.3s;
+  --t-slow: 0.5s;
+}
+
+/* LIGHT THEME */
+[data-theme="light"] {
+  --bg-color: #fbfaf7;
+  --bg-alt: #ffffff;
+  --bg-elevated: #ffffff;
+  --bg-muted: #f3f1ea;
+  --bg-overlay: rgba(251, 250, 247, 0.92);
+
+  --text-color: #1c1b19;
+  --text-muted: #56524a;
+  --text-faint: #8a857a;
+  --heading-color: #14110c;
+
+  --border-color: #e6e1d4;
+  --border-strong: #d3ccba;
+
+  --shadow-sm: 0 1px 2px rgba(20, 17, 12, 0.06);
+  --shadow-md: 0 8px 24px rgba(20, 17, 12, 0.08);
+  --shadow-lg: 0 20px 50px rgba(20, 17, 12, 0.12);
+  --shadow-gold: 0 12px 30px rgba(201, 162, 74, 0.28);
+  --shadow-glow: 0 0 25px rgba(201, 162, 74, 0.1);
+
+  --header-bg: rgba(251, 250, 247, 0.82);
+  --footer-bg: #14110c;
+  --footer-text: #c9c3b6;
+  --card-bg: #ffffff;
+  --input-bg: #ffffff;
+  --input-border: #d3ccba;
+  --chip-bg: #f3f1ea;
+
+  --gold-soft: rgba(201, 162, 74, 0.12);
+}
+
+/* Smooth crossfade when switching themes — only after first paint. */
+.theme-transitioning,
+.theme-transitioning *,
+.theme-transitioning *::before,
+.theme-transitioning *::after {
+  transition:
+    background-color var(--t) var(--ease),
+    border-color var(--t) var(--ease),
+    color var(--t) var(--ease),
+    fill var(--t) var(--ease),
+    box-shadow var(--t) var(--ease) !important;
+}
