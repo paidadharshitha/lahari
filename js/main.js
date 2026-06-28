@@ -790,12 +790,16 @@
     }
 
     var closeBtn = overlay.querySelector('.careers-modal-close');
-    var positionField = overlay.querySelector('.careers-modal-position');
+    var positionField = overlay.querySelector('.modal-position');
+    var positionInput = document.getElementById('career-position');
     var form = overlay.querySelector('#careersForm');
 
     function openModal(position) {
       if (positionField) {
         positionField.textContent = position;
+      }
+      if (positionInput) {
+        positionInput.value = position;
       }
       overlay.classList.add('active');
       document.body.style.overflow = 'hidden';
@@ -838,8 +842,13 @@
     if (form) {
       form.addEventListener('submit', function (e) {
         e.preventDefault();
-        alert('Thank you for your application! We will review your submission and get back to you soon.');
         closeModal();
+        var successOverlay = document.getElementById('careersSuccess');
+        if (successOverlay) {
+          successOverlay.classList.add('active');
+        } else {
+          alert('Thank you for your application! We will review your submission and get back to you soon.');
+        }
         form.reset();
       });
     }

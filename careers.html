@@ -269,25 +269,84 @@
     <h2>Apply Now</h2>
     <p class="modal-position" id="careersModalPosition">Position</p>
     <form id="careersForm">
-      <div class="form-group">
+      <div class="careers-form-group">
         <label for="career-name">Full Name</label>
-        <input type="text" id="career-name" class="form-input" placeholder="Enter your full name" required>
+        <input type="text" id="career-name" name="fullName" placeholder="Enter your full name" required>
       </div>
-      <div class="form-group">
+      <div class="careers-form-group">
         <label for="career-email">Email Address</label>
-        <input type="email" id="career-email" class="form-input" placeholder="Enter your email" required>
+        <input type="email" id="career-email" name="email" placeholder="Enter your email address" required>
       </div>
-      <div class="form-group">
+      <div class="careers-form-group">
         <label for="career-phone">Phone Number</label>
-        <input type="tel" id="career-phone" class="form-input" placeholder="Enter your phone number">
+        <input type="tel" id="career-phone" name="phone" placeholder="Enter your phone number" required>
       </div>
-      <div class="form-group">
-        <label for="career-resume">Cover Note</label>
-        <textarea id="career-resume" class="form-input" rows="4" placeholder="Tell us about your experience and why you want to join Lahari Legal Associates..."></textarea>
+      <div class="careers-form-group">
+        <label for="career-position">Position Applied For</label>
+        <input type="text" id="career-position" name="position" readonly>
+      </div>
+      <div class="careers-form-group">
+        <label>Upload Resume</label>
+        <div class="careers-file-upload">
+          <label class="careers-file-upload-label" for="career-resume-file">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <span id="careerFileLabel">Click to upload your resume (PDF, DOC, DOCX)</span>
+          </label>
+          <input type="file" id="career-resume-file" name="resume" accept=".pdf,.doc,.docx">
+          <div class="careers-file-name" id="careerFileName"></div>
+        </div>
+      </div>
+      <div class="careers-form-group">
+        <label for="career-cover">Cover Note</label>
+        <textarea id="career-cover" name="coverNote" rows="4" placeholder="Tell us about your experience and why you want to join Lahari Legal Associates..."></textarea>
       </div>
       <button type="submit" class="btn-primary btn-full-width">Submit Application</button>
     </form>
   </div>
 </div>
+
+<!-- Success Popup -->
+<div class="careers-success-overlay" id="careersSuccess">
+  <div class="careers-success-modal">
+    <div class="careers-success-icon"><i class="fas fa-check"></i></div>
+    <h3>Application Submitted!</h3>
+    <p>Thank you for applying. Our team will review your application and get back to you within 3–5 business days.</p>
+    <a href="#" class="btn-primary" id="careersSuccessClose" onclick="return false;">Close</a>
+    <div class="careers-whatsapp-hint">
+      <i class="fab fa-whatsapp"></i>
+      <span>For quick follow-up, message us on WhatsApp</span>
+    </div>
+  </div>
+</div>
+<script>
+(function() {
+  var fileInput = document.getElementById('career-resume-file');
+  var fileLabel = document.getElementById('careerFileLabel');
+  var fileNameEl = document.getElementById('careerFileName');
+  if (fileInput) {
+    fileInput.addEventListener('change', function() {
+      if (this.files && this.files.length > 0) {
+        var name = this.files[0].name;
+        fileNameEl.textContent = 'Selected: ' + name;
+        fileLabel.innerHTML = '<i class="fas fa-file-check"></i> <span>' + name + '</span>';
+      }
+    });
+  }
+  var successOverlay = document.getElementById('careersSuccess');
+  var successClose = document.getElementById('careersSuccessClose');
+  if (successOverlay && successClose) {
+    successClose.addEventListener('click', function() {
+      successOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+    successOverlay.addEventListener('click', function(e) {
+      if (e.target === successOverlay) {
+        successOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+})();
+</script>
 </body>
 </html>
