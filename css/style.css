@@ -1,6 +1,6 @@
 /* =============================================
    LAHARI LEGAL ASSOCIATES — Premium Design System
-   Theme: Dark (Deep Black + Gold) / Light (White + Gold)
+   Theme: Dark (Deep Black + Gold)
    ============================================= */
 
 /* ===========================
@@ -42,7 +42,6 @@
   --font-body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --transition-fast: all 0.25s ease;
-  --theme-transition-speed: 0.4s;
   --container-max: 1200px;
   --container-wide: 1400px;
   --header-height: 80px;
@@ -63,286 +62,10 @@
   --scrollbar-track: #0A0A0A;
 }
 
-[data-theme="light"] {
-  --gold: #C9A24A;
-  --gold-light: #D4B35E;
-  --gold-dark: #A68A2E;
-  --gold-gradient: linear-gradient(135deg, #C9A24A 0%, #D4B35E 50%, #C9A24A 100%);
-  --gold-rgb: 201, 162, 74;
-  --bg-primary: #ffffff;
-  --bg-secondary: #f7f8fa;
-  --bg-elevated: #ffffff;
-  --bg-card: rgba(255, 255, 255, 0.9);
-  --bg-card-solid: #ffffff;
-  --bg-card-hover: #f5f6f8;
-  --bg-overlay: rgba(255, 255, 255, 0.95);
-  --bg-glass: rgba(255, 255, 255, 0.7);
-  --bg-input: #f5f6f8;
-  --bg-footer: #f7f8fa;
-  --bg-stats: #f7f8fa;
-  --text-primary: #111827;
-  --text-secondary: #4b5563;
-  --text-muted: #6b7280;
-  --text-heading: #111827;
-  --border-subtle: rgba(229, 231, 235, 0.6);
-  --border-light: rgba(229, 231, 235, 0.9);
-  --border-medium: rgba(209, 213, 219, 0.8);
-  --border-strong: rgba(75, 85, 99, 0.4);
-  --border-surface: rgba(229, 231, 235, 0.5);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.08);
-  --shadow-gold: 0 2px 12px rgba(201, 162, 74, 0.06);
-  --shadow-gold-strong: 0 4px 20px rgba(201, 162, 74, 0.08);
-  --shadow-gold-hover: 0 4px 16px rgba(201, 162, 74, 0.1);
-  --glass-blur: blur(16px);
-  --glass-blur-strong: blur(20px);
-  --glass-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-  --gold-bg-soft: rgba(201, 162, 74, 0.04);
-  --gold-bg-medium: rgba(201, 162, 74, 0.07);
-  --gold-bg-strong: rgba(201, 162, 74, 0.1);
-  --header-bg: rgba(255, 255, 255, 0.88);
-  --header-border: rgba(229, 231, 235, 0.5);
-  --header-scrolled-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
-  --dropdown-bg: rgba(255, 255, 255, 0.98);
-  --dropdown-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  --dropdown-hover-bg: rgba(201, 162, 74, 0.05);
-  --mobile-nav-bg: rgba(255, 255, 255, 0.98);
-  --scrollbar-thumb: rgba(201, 162, 74, 0.25);
-  --scrollbar-track: #f7f8fa;
-  --hero-bg: #1a1a2e;
-  --hero-overlay: rgba(0, 0, 0, 0.45);
-}
-
-/* =============================================
-   LIGHT MODE OVERRIDES
-   Only light mode styles below. Dark mode is UNCHANGED.
-   ============================================= */
-
-/* Light Mode Hero Overrides — hero stays dark for visual impact */
-[data-theme="light"] .hero {
-  background-color: #1a1a2e;
-}
-[data-theme="light"] .hero::after {
-  background: rgba(0, 0, 0, 0.2);
-}
-[data-theme="light"] .hero-content h1 {
-  color: #ffffff;
-}
-[data-theme="light"] .hero-content p {
-  color: rgba(255, 255, 255, 0.9) !important;
-}
-[data-theme="light"] .hero-badge {
-  color: var(--gold-light);
-  background: rgba(201, 162, 74, 0.2);
-  border-color: rgba(201, 162, 74, 0.35);
-}
-[data-theme="light"] .hero-scroll {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-/* Light Mode — Navy Primary Buttons */
-[data-theme="light"] .btn-primary {
- background: #1f3a5f;
-  color: #ffffff;
-  border: 1px solid transparent;
-}
-[data-theme="light"] .btn-primary:hover {
- background: #162a44;
-  box-shadow: 0 4px 16px rgba(31, 58, 95, 0.25);
- transform: translateY(-2px);
-}
-[data-theme="light"] .btn-outline {
-  color: #1f3a5f;
-  border-color: #1f3a5f;
-  background: transparent;
-}
-[data-theme="light"] .btn-outline:hover {
-  background: #1f3a5f;
-  color: #ffffff;
-}
-
-/* Light Mode — Contact Submit Button */
-[data-theme="light"] .contact-submit-btn {
- background: #1f3a5f;
-  color: #ffffff;
-}
-[data-theme="light"] .contact-submit-btn:hover {
-  background: #162a44;
-  box-shadow: 0 4px 16px rgba(31, 58, 95, 0.25);
-}
-
-/* Light Mode — Service type options */
-[data-theme="light"] .service-type-option.active {
-  background: #1f3a5f;
-  color: #ffffff;
-  border-color: #1f3a5f;
-}
-
-/* Light Mode — Cards: white bg, #e5e7eb border, subtle shadow */
-[data-theme="light"] .service-card,
-[data-theme="light"] .feature-card,
-[data-theme="light"] .position-card,
-[data-theme="light"] .value-card,
-[data-theme="light"] .insight-card,
-[data-theme="light"] .insight-category-card,
-[data-theme="light"] .legal-update-card,
-[data-theme="light"] .svc-benefit,
-[data-theme="light"] .timeline-entry,
-[data-theme="light"] .svc-process-step,
-[data-theme="light"] .about-advocate-data-item {
-  background: #ffffff;
-  border-color: #e5e7eb;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-}
-[data-theme="light"] .service-card:hover,
-[data-theme="light"] .feature-card:hover,
-[data-theme="light"] .position-card:hover,
-[data-theme="light"] .value-card:hover,
-[data-theme="light"] .insight-card:hover,
-[data-theme="light"] .insight-category-card:hover,
-[data-theme="light"] .legal-update-card:hover,
-[data-theme="light"] .svc-benefit:hover,
-[data-theme="light"] .timeline-entry:hover {
-  border-color: #d1d5db;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-}
-
-/* Light Mode — Glass Cards (contact, booking, testimonial) */
-[data-theme="light"] .contact-form-card,
-[data-theme="light"] .contact-info-card {
-  background: rgba(255, 255, 255, 0.85);
-  border-color: #e5e7eb;
-}
-[data-theme="light"] .contact-form-card:hover,
-[data-theme="light"] .contact-info-card:hover {
-  border-color: #d1d5db;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-}
-[data-theme="light"] .booking-form-panel {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: #e5e7eb;
-}
-[data-theme="light"] .testimonial-glass {
-  background: rgba(255, 255, 255, 0.85);
-  border-color: #e5e7eb;
-}
-
-/* Light Mode — Stat Cards */
-[data-theme="light"] .advocate-stat-card {
-  background: #ffffff;
-  border-color: #e5e7eb;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-}
-
-/* Light Mode — Glass Inputs (contact page) */
-[data-theme="light"] .glass-input {
-  background: rgba(255, 255, 255, 0.8);
-  border-color: #e5e7eb;
-  color: #111827;
-}
-[data-theme="light"] .glass-input:hover {
-  background: rgba(255, 255, 255, 0.95);
-  border-color: #d1d5db;
-}
-[data-theme="light"] .glass-input:focus {
-  background: #ffffff;
-  border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(201, 162, 74, 0.1);
-}
-[data-theme="light"] .glass-select option {
-  background: #ffffff;
-  color: #111827;
-}
-
-/* Light Mode — Booking Calendar */
-[data-theme="light"] .booking-calendar {
-  background: #ffffff;
-  border-color: #e5e7eb;
-}
-
-/* Light Mode — Page Hero */
-[data-theme="light"] .page-hero {
-  background: #f7f8fa;
-}
-
-/* Light Mode — Article Hero gradient overlay */
-[data-theme="light"] .article-hero::after {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.75) 100%);
-}
-
-/* Light Mode — Contact Info Icon */
-[data-theme="light"] .contact-info-icon {
-  background: rgba(201, 162, 74, 0.08);
-  border-color: rgba(201, 162, 74, 0.15);
-}
-
-/* Light Mode — Careers Modal */
-[data-theme="light"] .careers-form-group input,
-[data-theme="light"] .careers-form-group textarea,
-[data-theme="light"] .careers-form-group select {
-  background: #f5f6f8;
-  border-color: #e5e7eb;
-  color: #111827;
-}
-[data-theme="light"] .careers-form-group input:focus,
-[data-theme="light"] .careers-form-group textarea:focus {
-  background: #ffffff;
-  border-color: var(--gold);
-}
-[data-theme="light"] .careers-form-group input[readonly] {
-  background: #eef0f2;
-  color: #4b5563;
-}
-[data-theme="light"] .careers-file-upload-label {
-  background: #f5f6f8;
-  border-color: #e5e7eb;
-}
-[data-theme="light"] .careers-success-modal,
-[data-theme="light"] .careers-modal {
-  background: #ffffff;
-  border-color: #e5e7eb;
-}
-[data-theme="light"] .booking-confirmation-modal {
-  background: #ffffff;
-}
-
-/* Light Mode — Legal Feed Cards */
-[data-theme="light"] .legal-feed-card {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: #e5e7eb;
-}
-
-/* Light Mode — Section borders */
-[data-theme="light"] .stats-section,
-[data-theme="light"] .advocate-section,
-[data-theme="light"] .testimonials-section,
-[data-theme="light"] .location-section,
-[data-theme="light"] .about-advocate-section,
-[data-theme="light"] .timeline-section {
-  background: #f7f8fa;
-}
-
-/* Light Mode — Footer */
-[data-theme="light"] .site-footer {
-  background: #f7f8fa;
-}
-
-/* Light Mode — WhatsApp float shadow for light bg */
-[data-theme="light"] .whatsapp-float {
-  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
-}
 
 /* ===========================
    2. Reset & Base
    =========================== */
-html.theme-transitioning,
-html.theme-transitioning *,
-html.theme-transitioning *::before,
-html.theme-transitioning *::after {
-  transition: background-color 0.4s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
-}
-
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -363,7 +86,6 @@ html {
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  transition: background-color var(--theme-transition-speed) ease, color var(--theme-transition-speed) ease;
   overflow-x: hidden;
   -webkit-text-size-adjust: 100%;
 }
@@ -529,6 +251,7 @@ p {
   margin: 0 auto;
   padding: 0 24px;
   height: 100%;
+  overflow: visible;
 }
 .logo {
   display: flex;
@@ -664,25 +387,6 @@ p {
   align-items: center;
   gap: 12px;
 }
-.theme-toggle {
-  width: 40px;
-  height: 40px;
-  border: 1px solid var(--border-light);
-  border-radius: 50%;
-  background: transparent;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--gold);
-  font-size: 1rem;
-  transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.3s ease;
-}
-.theme-toggle:hover {
-  background: var(--gold-bg-soft);
-  border-color: var(--gold);
-}
-.theme-toggle:active { transform: scale(0.92); }
 .header-cta .btn-primary {
   padding: 10px 24px;
   font-size: 0.82rem;
@@ -884,21 +588,6 @@ p {
 .hero-slide.active {
   opacity: 1;
 }
-.hero-progress {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.1);
-  z-index: 3;
-}
-.hero-progress-bar {
-  height: 100%;
-  width: 0;
-  background: var(--gold-gradient);
-  transition: width 0.1s linear;
-}
 
 /* ===========================
    10. Services Grid
@@ -979,6 +668,18 @@ p {
   font-size: 2.5rem;
   margin-bottom: 8px;
 }
+
+/* Counter animation: fade-in + upward slide */
+.stat-item h3.counter {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.stat-item h3.counter.animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .stat-item p {
   font-size: 0.9rem;
   color: var(--text-muted);
@@ -2943,37 +2644,6 @@ textarea.form-input { min-height: 100px; resize: vertical; }
   .whatsapp-float { width: 52px; height: 52px; bottom: 16px; right: 16px; font-size: 1.4rem; }
 }
 
-/* Light Mode + Mobile Compatibility */
-@media (max-width: 768px) {
-  [data-theme="light"] .glass-input {
-    background: rgba(245, 246, 248, 0.9);
-    border-color: rgba(28, 28, 28, 0.12);
-  }
-  [data-theme="light"] .glass-input:focus {
-    background: #fff;
-    border-color: var(--gold);
-  }
-  [data-theme="light"] .mobile-nav {
-    background: rgba(255, 255, 255, 0.98);
-    border-left: 1px solid rgba(28, 28, 28, 0.06);
-  }
-  [data-theme="light"] .mobile-nav a,
-  [data-theme="light"] .mobile-services-toggle {
-    color: var(--text-secondary);
-  }
-  [data-theme="light"] .btn-primary {
-    color: #1a1a1a;
-  }
-  [data-theme="light"] .btn-outline {
-    color: var(--gold);
-    border-color: var(--gold);
-  }
-  [data-theme="light"] .contact-info-icon {
-    background: rgba(201, 162, 74, 0.08);
-    border-color: rgba(201, 162, 74, 0.15);
-  }
-}
-
 /* Ensure no horizontal overflow on any element */
 .container,
 .section-padding,
@@ -4485,18 +4155,6 @@ body.scroll-locked {
   from { transform: scale(1); }
   to   { transform: scale(1.14); }
 }
-.hero-progress {
-  position: absolute; left: 0; right: 0; bottom: 0;
-  height: 3px; background: rgba(255,255,255,0.1); z-index: 3;
-}
-.hero-progress-bar {
-  display: block; height: 100%; width: 0;
-  background: var(--gold-gradient);
-}
-/* Keep hero text legible (light) even in light theme, since hero stays dark */
-[data-theme="light"] .hero-content p { color: rgba(255,255,255,0.85) !important; }
-[data-theme="light"] .hero-content h1 { color: #fff; }
-
 /* =============================================
    39. Booking Confirmation Overlay (fix)
    ============================================= */

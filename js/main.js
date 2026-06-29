@@ -9,42 +9,6 @@
 (function () {
   'use strict';
 
-  /* ==========================================================================
-     2. THEME TOGGLE
-     Toggle between dark/light themes, persist preference in localStorage.
-     ========================================================================== */
-
-  (function () {
-    var STORAGE_KEY = 'll-theme';
-    var toggle = document.querySelector('.theme-toggle');
-    var icon = toggle ? toggle.querySelector('i') : null;
-
-    function getTheme() {
-      return localStorage.getItem(STORAGE_KEY) || 'dark';
-    }
-
-    function applyTheme(theme) {
-      document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem(STORAGE_KEY, theme);
-      if (icon) {
-        icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-      }
-    }
-
-    /* Apply saved theme on load */
-    applyTheme(getTheme());
-
-    if (toggle) {
-      toggle.addEventListener('click', function () {
-        document.documentElement.classList.add('theme-transitioning');
-        applyTheme(getTheme() === 'dark' ? 'light' : 'dark');
-        setTimeout(function () {
-          document.documentElement.classList.remove('theme-transitioning');
-        }, 400);
-      });
-    }
-  })();
-
 
   /* ==========================================================================
      3. SERVICES DROPDOWN (Desktop)
@@ -324,8 +288,7 @@
 
   (function () {
     var slides = document.querySelectorAll('.hero-slide');
-    var progressBar = document.querySelector('.hero-progress-bar');
-    if (!slides.length || !progressBar) {
+    if (!slides.length) {
       return;
     }
 
@@ -333,8 +296,6 @@
     var current = 0;
     var total = slides.length;
     var timer = null;
-    var progressStart = null;
-    var progressRAF = null;
 
     function showSlide(index) {
       for (var i = 0; i < total; i++) {
@@ -343,32 +304,13 @@
       slides[index].classList.add('active');
     }
 
-    function animateProgress(timestamp) {
-      if (!progressStart) {
-        progressStart = timestamp;
-      }
-      var elapsed = timestamp - progressStart;
-      var pct = Math.min((elapsed / INTERVAL) * 100, 100);
-      progressBar.style.width = pct + '%';
-
-      if (elapsed < INTERVAL) {
-        progressRAF = requestAnimationFrame(animateProgress);
-      }
-    }
-
     function nextSlide() {
       current = (current + 1) % total;
       showSlide(current);
-      progressStart = null;
-      cancelAnimationFrame(progressRAF);
-      progressBar.style.width = '0%';
-      progressRAF = requestAnimationFrame(animateProgress);
     }
 
     function startSlideshow() {
       showSlide(0);
-      progressStart = null;
-      progressRAF = requestAnimationFrame(animateProgress);
       timer = setInterval(nextSlide, INTERVAL);
     }
 
@@ -1007,7 +949,85 @@
 
 
   /* ==========================================================================
-     17. DISCLAIMER POPUP
+     17. ANIMATED COUNTER (Stats Section)
+     Smooth number counter triggered by IntersectionObserver.
+     Uses easeOutExpo easing for fast-start, slow-end animation.
+     Runs only once per element.
+     ========================================================================== */
+
+  (function () {
+    var counters = document.querySelectorAll('.counter');
+    if (!counters.length) { return; }
+
+    var hasAnimated = false;
+
+    /* easeOutExpo: fast at start, slow at end */
+    function easeOutExpo(t) {
+      return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+    }
+
+    function animateCounter(el) {
+      var target = parseInt(el.getAttribute('data-target'), 10);
+      var suffix = el.getAttribute('data-suffix') || '';
+      var duration = parseInt(el.getAttribute('data-duration'), 10) || 2000;
+      var startTime = null;
+
+      el.classList.add('animated');
+
+      function step(timestamp) {
+        if (!startTime) { startTime = timestamp; }
+        var progress = Math.min((timestamp - startTime) / duration, 1);
+        var easedProgress = easeOutExpo(progress);
+        var current = Math.floor(easedProgress * target);
+        el.textContent = current + suffix;
+
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = target + suffix;
+        }
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    if ('IntersectionObserver' in window) {
+      var statsSection = document.querySelector('.stats-section');
+      if (statsSection) {
+        var counterObserver = new IntersectionObserver(function (entries) {
+          for (var i = 0; i < entries.length; i++) {
+            if (entries[i].isIntersecting && !hasAnimated) {
+              hasAnimated = true;
+              counterObserver.unobserve(statsSection);
+
+              var items = statsSection.querySelectorAll('.counter');
+              for (var j = 0; j < items.length; j++) {
+                (function (item, delay) {
+                  setTimeout(function () {
+                    animateCounter(item);
+                  }, delay);
+                })(items[j], j * 150);
+              }
+            }
+          }
+        }, { threshold: 0.2 });
+
+        counterObserver.observe(statsSection);
+      }
+    } else {
+      /* Fallback: show final values immediately */
+      for (var k = 0; k < counters.length; k++) {
+        var t = counters[k].getAttribute('data-target');
+        var s = counters[k].getAttribute('data-suffix') || '';
+        counters[k].textContent = t + s;
+        counters[k].classList.add('animated');
+      }
+    }
+  })();
+
+
+  /* ==========================================================================
+     18. DISCLAIMER POPUP
      Shows a disclaimer popup on first visit, stored in sessionStorage.
      ========================================================================== */
 

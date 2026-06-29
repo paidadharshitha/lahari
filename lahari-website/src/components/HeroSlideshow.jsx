@@ -44,12 +44,10 @@ const INTERVAL = 6000; // 6 seconds per slide
 
 export default function HeroSlideshow() {
   const [current, setCurrent] = useState(0);
-  const [progress, setProgress] = useState(0);
   const [loaded, setLoaded] = useState(false);
 
   const advance = useCallback(() => {
     setCurrent((prev) => (prev + 1) % IMAGES.length);
-    setProgress(0);
   }, []);
 
   // Entrance animation
@@ -63,18 +61,6 @@ export default function HeroSlideshow() {
     const timer = setInterval(advance, INTERVAL);
     return () => clearInterval(timer);
   }, [advance]);
-
-  // Progress bar fill (smooth)
-  useEffect(() => {
-    const start = Date.now();
-    const frame = requestAnimationFrame(function tick() {
-      const elapsed = Date.now() - start;
-      const pct = Math.min((elapsed / INTERVAL) * 100, 100);
-      setProgress(pct);
-      if (pct < 100) requestAnimationFrame(tick);
-    });
-    return () => cancelAnimationFrame(frame);
-  }, [current]);
 
   return (
     <section className={`hero-slideshow${loaded ? ' hero-loaded' : ''}`}>
@@ -163,18 +149,9 @@ export default function HeroSlideshow() {
             aria-label={`Go to slide ${i + 1}`}
             onClick={() => {
               setCurrent(i);
-              setProgress(0);
             }}
           />
         ))}
-      </div>
-
-      {/* Progress bar */}
-      <div className="hero-progress">
-        <div
-          className="hero-progress-bar"
-          style={{ width: `${progress}%` }}
-        />
       </div>
 
       {/* Scroll indicator */}
