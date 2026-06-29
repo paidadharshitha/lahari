@@ -69,57 +69,62 @@
   --gold-dark: #A68A2E;
   --gold-gradient: linear-gradient(135deg, #C9A24A 0%, #D4B35E 50%, #C9A24A 100%);
   --gold-rgb: 201, 162, 74;
-  --bg-primary: #FFFFFF;
-  --bg-secondary: #F7F8FA;
-  --bg-elevated: #FFFFFF;
-  --bg-card: rgba(255, 255, 255, 0.85);
-  --bg-card-solid: #FFFFFF;
-  --bg-card-hover: #F5F6F8;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f7f8fa;
+  --bg-elevated: #ffffff;
+  --bg-card: rgba(255, 255, 255, 0.9);
+  --bg-card-solid: #ffffff;
+  --bg-card-hover: #f5f6f8;
   --bg-overlay: rgba(255, 255, 255, 0.95);
-  --bg-glass: rgba(255, 255, 255, 0.6);
-  --bg-input: #F5F6F8;
-  --bg-footer: #F7F8FA;
-  --bg-stats: #F7F8FA;
-  --text-primary: #1C1C1C;
-  --text-secondary: #4A4A4A;
-  --text-muted: #6B6B6B;
-  --text-heading: #1C1C1C;
-  --border-subtle: rgba(28, 28, 28, 0.06);
-  --border-light: rgba(28, 28, 28, 0.1);
-  --border-medium: rgba(28, 28, 28, 0.15);
-  --border-strong: rgba(28, 28, 28, 0.25);
-  --border-surface: rgba(0, 0, 0, 0.04);
-  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.1);
-  --shadow-gold: 0 4px 24px rgba(201, 162, 74, 0.08);
-  --shadow-gold-strong: 0 8px 40px rgba(201, 162, 74, 0.12);
-  --shadow-gold-hover: 0 6px 32px rgba(201, 162, 74, 0.15);
-  --glass-blur: blur(12px);
+  --bg-glass: rgba(255, 255, 255, 0.7);
+  --bg-input: #f5f6f8;
+  --bg-footer: #f7f8fa;
+  --bg-stats: #f7f8fa;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+  --text-heading: #111827;
+  --border-subtle: rgba(229, 231, 235, 0.6);
+  --border-light: rgba(229, 231, 235, 0.9);
+  --border-medium: rgba(209, 213, 219, 0.8);
+  --border-strong: rgba(75, 85, 99, 0.4);
+  --border-surface: rgba(229, 231, 235, 0.5);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-gold: 0 2px 12px rgba(201, 162, 74, 0.06);
+  --shadow-gold-strong: 0 4px 20px rgba(201, 162, 74, 0.08);
+  --shadow-gold-hover: 0 4px 16px rgba(201, 162, 74, 0.1);
+  --glass-blur: blur(16px);
   --glass-blur-strong: blur(20px);
-  --glass-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-  --gold-bg-soft: rgba(201, 162, 74, 0.05);
-  --gold-bg-medium: rgba(201, 162, 74, 0.08);
-  --gold-bg-strong: rgba(201, 162, 74, 0.12);
-  --header-bg: rgba(255, 255, 255, 0.92);
-  --header-border: rgba(28, 28, 28, 0.06);
-  --header-scrolled-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+  --glass-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  --gold-bg-soft: rgba(201, 162, 74, 0.04);
+  --gold-bg-medium: rgba(201, 162, 74, 0.07);
+  --gold-bg-strong: rgba(201, 162, 74, 0.1);
+  --header-bg: rgba(255, 255, 255, 0.88);
+  --header-border: rgba(229, 231, 235, 0.5);
+  --header-scrolled-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
   --dropdown-bg: rgba(255, 255, 255, 0.98);
-  --dropdown-shadow: 0 12px 48px rgba(0, 0, 0, 0.12);
-  --dropdown-hover-bg: rgba(201, 162, 74, 0.06);
+  --dropdown-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --dropdown-hover-bg: rgba(201, 162, 74, 0.05);
   --mobile-nav-bg: rgba(255, 255, 255, 0.98);
-  --scrollbar-thumb: rgba(201, 162, 74, 0.2);
-  --scrollbar-track: #F7F8FA;
+  --scrollbar-thumb: rgba(201, 162, 74, 0.25);
+  --scrollbar-track: #f7f8fa;
   --hero-bg: #1a1a2e;
   --hero-overlay: rgba(0, 0, 0, 0.45);
 }
 
-/* Light Mode Hero Overrides */
+/* =============================================
+   LIGHT MODE OVERRIDES
+   Only light mode styles below. Dark mode is UNCHANGED.
+   ============================================= */
+
+/* Light Mode Hero Overrides — hero stays dark for visual impact */
 [data-theme="light"] .hero {
   background-color: #1a1a2e;
 }
 [data-theme="light"] .hero::after {
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0, 0, 0, 0.2);
 }
 [data-theme="light"] .hero-content h1 {
   color: #ffffff;
@@ -134,6 +139,198 @@
 }
 [data-theme="light"] .hero-scroll {
   color: rgba(255, 255, 255, 0.7);
+}
+
+/* Light Mode — Navy Primary Buttons */
+[data-theme="light"] .btn-primary {
+ background: #1f3a5f;
+  color: #ffffff;
+  border: 1px solid transparent;
+}
+[data-theme="light"] .btn-primary:hover {
+ background: #162a44;
+  box-shadow: 0 4px 16px rgba(31, 58, 95, 0.25);
+ transform: translateY(-2px);
+}
+[data-theme="light"] .btn-outline {
+  color: #1f3a5f;
+  border-color: #1f3a5f;
+  background: transparent;
+}
+[data-theme="light"] .btn-outline:hover {
+  background: #1f3a5f;
+  color: #ffffff;
+}
+
+/* Light Mode — Contact Submit Button */
+[data-theme="light"] .contact-submit-btn {
+ background: #1f3a5f;
+  color: #ffffff;
+}
+[data-theme="light"] .contact-submit-btn:hover {
+  background: #162a44;
+  box-shadow: 0 4px 16px rgba(31, 58, 95, 0.25);
+}
+
+/* Light Mode — Service type options */
+[data-theme="light"] .service-type-option.active {
+  background: #1f3a5f;
+  color: #ffffff;
+  border-color: #1f3a5f;
+}
+
+/* Light Mode — Cards: white bg, #e5e7eb border, subtle shadow */
+[data-theme="light"] .service-card,
+[data-theme="light"] .feature-card,
+[data-theme="light"] .position-card,
+[data-theme="light"] .value-card,
+[data-theme="light"] .insight-card,
+[data-theme="light"] .insight-category-card,
+[data-theme="light"] .legal-update-card,
+[data-theme="light"] .svc-benefit,
+[data-theme="light"] .timeline-entry,
+[data-theme="light"] .svc-process-step,
+[data-theme="light"] .about-advocate-data-item {
+  background: #ffffff;
+  border-color: #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+[data-theme="light"] .service-card:hover,
+[data-theme="light"] .feature-card:hover,
+[data-theme="light"] .position-card:hover,
+[data-theme="light"] .value-card:hover,
+[data-theme="light"] .insight-card:hover,
+[data-theme="light"] .insight-category-card:hover,
+[data-theme="light"] .legal-update-card:hover,
+[data-theme="light"] .svc-benefit:hover,
+[data-theme="light"] .timeline-entry:hover {
+  border-color: #d1d5db;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Light Mode — Glass Cards (contact, booking, testimonial) */
+[data-theme="light"] .contact-form-card,
+[data-theme="light"] .contact-info-card {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: #e5e7eb;
+}
+[data-theme="light"] .contact-form-card:hover,
+[data-theme="light"] .contact-info-card:hover {
+  border-color: #d1d5db;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+[data-theme="light"] .booking-form-panel {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: #e5e7eb;
+}
+[data-theme="light"] .testimonial-glass {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: #e5e7eb;
+}
+
+/* Light Mode — Stat Cards */
+[data-theme="light"] .advocate-stat-card {
+  background: #ffffff;
+  border-color: #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+/* Light Mode — Glass Inputs (contact page) */
+[data-theme="light"] .glass-input {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: #e5e7eb;
+  color: #111827;
+}
+[data-theme="light"] .glass-input:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: #d1d5db;
+}
+[data-theme="light"] .glass-input:focus {
+  background: #ffffff;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 162, 74, 0.1);
+}
+[data-theme="light"] .glass-select option {
+  background: #ffffff;
+  color: #111827;
+}
+
+/* Light Mode — Booking Calendar */
+[data-theme="light"] .booking-calendar {
+  background: #ffffff;
+  border-color: #e5e7eb;
+}
+
+/* Light Mode — Page Hero */
+[data-theme="light"] .page-hero {
+  background: #f7f8fa;
+}
+
+/* Light Mode — Article Hero gradient overlay */
+[data-theme="light"] .article-hero::after {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.75) 100%);
+}
+
+/* Light Mode — Contact Info Icon */
+[data-theme="light"] .contact-info-icon {
+  background: rgba(201, 162, 74, 0.08);
+  border-color: rgba(201, 162, 74, 0.15);
+}
+
+/* Light Mode — Careers Modal */
+[data-theme="light"] .careers-form-group input,
+[data-theme="light"] .careers-form-group textarea,
+[data-theme="light"] .careers-form-group select {
+  background: #f5f6f8;
+  border-color: #e5e7eb;
+  color: #111827;
+}
+[data-theme="light"] .careers-form-group input:focus,
+[data-theme="light"] .careers-form-group textarea:focus {
+  background: #ffffff;
+  border-color: var(--gold);
+}
+[data-theme="light"] .careers-form-group input[readonly] {
+  background: #eef0f2;
+  color: #4b5563;
+}
+[data-theme="light"] .careers-file-upload-label {
+  background: #f5f6f8;
+  border-color: #e5e7eb;
+}
+[data-theme="light"] .careers-success-modal,
+[data-theme="light"] .careers-modal {
+  background: #ffffff;
+  border-color: #e5e7eb;
+}
+[data-theme="light"] .booking-confirmation-modal {
+  background: #ffffff;
+}
+
+/* Light Mode — Legal Feed Cards */
+[data-theme="light"] .legal-feed-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: #e5e7eb;
+}
+
+/* Light Mode — Section borders */
+[data-theme="light"] .stats-section,
+[data-theme="light"] .advocate-section,
+[data-theme="light"] .testimonials-section,
+[data-theme="light"] .location-section,
+[data-theme="light"] .about-advocate-section,
+[data-theme="light"] .timeline-section {
+  background: #f7f8fa;
+}
+
+/* Light Mode — Footer */
+[data-theme="light"] .site-footer {
+  background: #f7f8fa;
+}
+
+/* Light Mode — WhatsApp float shadow for light bg */
+[data-theme="light"] .whatsapp-float {
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
 }
 
 /* ===========================
@@ -167,6 +364,8 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   transition: background-color var(--theme-transition-speed) ease, color var(--theme-transition-speed) ease;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
 }
 
 ::-webkit-scrollbar { width: 8px; }
@@ -177,6 +376,16 @@ body {
 a { text-decoration: none; color: inherit; transition: var(--transition-fast); }
 ul, ol { list-style: none; }
 img { max-width: 100%; height: auto; display: block; }
+p, span, a, h1, h2, h3, h4, h5, h6, li, td, th, label, input, textarea, select, button, .service-card, .insight-card, .legal-update-card, .feature-card, .position-card, .value-card {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+img, video, iframe, svg {
+  max-width: 100%;
+}
+.office-map-wrapper iframe, .location-map-container iframe, .map-container iframe {
+  max-width: 100%;
+}
 ::selection { background: rgba(201, 162, 74, 0.3); color: var(--text-primary); }
 
 /* ===========================
@@ -589,8 +798,9 @@ p {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(10, 10, 10, 0.25) 100%);
   z-index: 1;
+  pointer-events: none;
 }
 .hero-content {
   position: absolute;
@@ -2504,64 +2714,316 @@ textarea.form-input { min-height: 100px; resize: vertical; }
 /* ===========================
    26. Responsive
    =========================== */
+
+/* Tablet (768px–1024px) */
 @media (max-width: 1024px) {
   .main-nav, .header-cta { display: none; }
   .mobile-toggle { display: flex; }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
   .all-services-grid { grid-template-columns: repeat(2, 1fr); }
   .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .stat-item h3 { font-size: 2rem; }
   .advocate-grid { grid-template-columns: 1fr; gap: 40px; }
   .advocate-image-wrap { justify-content: center; }
   .booking-container { grid-template-columns: 1fr; }
   .legal-updates-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   .values-grid { grid-template-columns: repeat(2, 1fr); }
+  .positions-list { grid-template-columns: repeat(2, 1fr); }
+  .office-grid { grid-template-columns: 1fr !important; }
+  .testimonials-carousel { max-width: 100%; }
+  .testimonial-glass { padding: 32px 24px; }
+  .contact-grid-premium { grid-template-columns: 1fr; }
 }
+
+/* Mobile (320px–768px) */
 @media (max-width: 768px) {
-  .section-padding { padding: 60px 0; }
-  .hero-content h1 { font-size: 2rem; }
-  .hero-badge { font-size: 0.65rem; padding: 6px 16px; }
+  html { font-size: 15px; }
+  .section-padding { padding: 50px 0; }
+
+  /* Header */
+  .header-inner { padding: 0 16px; }
+  .logo { font-size: 1.15rem; gap: 8px; }
+  .logo-icon { width: 36px; height: 36px; font-size: 0.95rem; }
+  .mobile-nav { width: 100%; }
+  .mobile-nav { padding-top: 80px; }
+
+  /* Hero */
+  .hero { min-height: 500px; height: auto; padding: 120px 0 60px; display: flex; align-items: center; position: relative; }
+  .hero::after { display: block; background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.35) 100%); }
+  .hero-content { width: 92%; max-width: 100%; position: relative; transform: none; left: auto; top: auto; margin: 0 auto; text-align: center; }
+  .hero-content h1 { font-size: clamp(1.6rem, 6vw, 2.2rem); margin-bottom: 14px; letter-spacing: -0.3px; }
+  .hero-content p { font-size: 0.95rem; margin: 0 auto 28px; max-width: 100%; }
+  .hero-badge { font-size: 0.6rem; padding: 6px 14px; letter-spacing: 2px; margin-bottom: 16px; }
+  .hero-scroll { display: none; }
+  .hero-slides { height: 100%; }
+  .hero-slide { background-position: center 25%; }
+
+  /* Grids — single column */
   .services-grid { grid-template-columns: 1fr; }
   .all-services-grid { grid-template-columns: 1fr; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .advocate-image-frame { width: 260px; height: 340px; }
-  .booking-service-types { grid-template-columns: 1fr 1fr; }
-  .timeslot-grid { grid-template-columns: repeat(3, 1fr); }
-  .booking-form-panel { padding: 24px; }
-  .location-grid { grid-template-columns: 1fr; }
-  .location-actions { flex-direction: column; }
-  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
-  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
-  .confirmation-actions { flex-direction: column; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .stat-item h3 { font-size: 1.8rem; }
+  .stat-item p { font-size: 0.78rem; }
+  .legal-updates-grid { grid-template-columns: 1fr; }
+  .insights-grid { grid-template-columns: 1fr; }
+  .positions-list { grid-template-columns: 1fr; }
+  .insights-categories { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+  .features-grid { grid-template-columns: 1fr; }
   .about-grid { grid-template-columns: 1fr; }
   .values-grid { grid-template-columns: 1fr; }
-  .features-grid { grid-template-columns: 1fr; }
-  .insights-grid { grid-template-columns: 1fr; }
-  .legal-updates-grid { grid-template-columns: 1fr; }
-  .page-hero { padding: 130px 0 60px; }
-  .svc-process-step {
-    flex-direction: column;
-    gap: 12px;
+
+  /* Advocate */
+  .advocate-image-frame { width: 220px; height: 300px; }
+  .advocate-stats { grid-template-columns: repeat(2, 1fr); }
+  .advocate-info h2 { text-align: center; }
+  .advocate-subtitle { text-align: center; }
+
+  /* Booking */
+  .booking-service-types { grid-template-columns: 1fr 1fr; }
+  .timeslot-grid { grid-template-columns: repeat(3, 1fr); }
+  .booking-form-panel { padding: 20px 16px; }
+  .booking-feature { gap: 12px; }
+  .booking-feature-icon { width: 36px; height: 36px; min-width: 36px; font-size: 0.85rem; }
+
+  /* Testimonials */
+  .testimonial-glass { padding: 28px 20px; }
+  .testimonial-text { font-size: 0.95rem; }
+  .testimonial-text::before { font-size: 3rem; }
+
+  /* Location */
+  .location-grid { grid-template-columns: 1fr; }
+  .location-actions { flex-direction: column; }
+  .location-map-container { min-height: 280px; }
+  .location-map-container iframe { min-height: 280px; }
+
+  /* Page Hero */
+  .page-hero { padding: 110px 0 50px; }
+  .page-hero h1 { font-size: clamp(1.5rem, 6vw, 2.2rem); }
+  .page-subtitle { font-size: 0.95rem; }
+
+  /* Section Headers */
+  .section-header { margin-bottom: 36px; }
+  .section-header p { font-size: 0.92rem; }
+
+  /* Buttons */
+  .btn-primary, .btn-outline { padding: 12px 24px; font-size: 0.82rem; letter-spacing: 1px; }
+  .confirmation-actions { flex-direction: column; }
+  .confirmation-actions a { width: 100%; text-align: center; justify-content: center; }
+
+  /* CTA */
+  .cta-section { padding: 60px 0; }
+  .cta-buttons { flex-direction: column; align-items: center; }
+  .cta-buttons a { width: 100%; max-width: 300px; justify-content: center; }
+
+  /* Service Detail Process */
+  .svc-process-step { flex-direction: column; gap: 12px; }
+  .svc-cta-bar { flex-direction: column; }
+  .svc-cta-bar a { width: 100%; text-align: center; justify-content: center; }
+
+  /* Careers */
+  .careers-hero-actions { flex-direction: column; align-items: center; }
+  .careers-hero-actions a,
+  .careers-hero-actions button { width: 100%; max-width: 280px; justify-content: center; }
+  .position-card { flex-direction: column; align-items: flex-start; }
+  .position-card-top { flex-direction: column; gap: 8px; }
+  .position-tag { align-self: flex-start; }
+  .careers-form-row { grid-template-columns: 1fr; }
+  .careers-confirm-grid { grid-template-columns: 1fr; }
+  .careers-modal { padding: 32px 24px; max-height: 85vh; }
+
+  /* Contact */
+  .contact-form-card-inner, .contact-info-card-inner { padding: 24px 16px; }
+  .contact-form-row { grid-template-columns: 1fr; }
+  .contact-premium-actions { flex-direction: column; }
+
+  /* Insights */
+  .insight-modal { padding: 28px 20px; max-height: 85vh; }
+
+  /* Office Section */
+  .office-grid { grid-template-columns: 1fr !important; }
+  .office-info-col { order: 2; }
+  .office-carousel-wrapper { order: 1; }
+  .office-map-wrapper { min-height: 250px; }
+
+  /* Stats Section */
+  .stats-section { padding: 40px 0; }
+
+  /* Legal Feed */
+  .legal-feed-section { max-height: none; overflow: visible; }
+  .legal-feed-section:hover .legal-feed-track { animation-play-state: running; }
+  .legal-feed-track { animation: none; }
+
+  /* Misc */
+  .advocate-section { padding: 50px 0; }
+  .testimonial-author-info h4 { font-size: 0.92rem; }
+  .testimonial-case-tag { font-size: 0.68rem; }
+  .carousel-controls { margin-top: 24px; }
+  .carousel-btn { width: 38px; height: 38px; font-size: 0.8rem; }
+}
+
+/* Small Mobile (320px–480px) */
+@media (max-width: 480px) {
+  html { font-size: 14px; }
+  .container { padding: 0 12px; }
+
+  /* Hero */
+  .hero { min-height: 420px; padding: 100px 0 40px; }
+  .hero-content h1 { font-size: clamp(1.4rem, 7vw, 1.8rem); }
+  .hero-content p { font-size: 0.88rem; }
+  .hero-badge { font-size: 0.55rem; padding: 5px 12px; letter-spacing: 1.5px; }
+  .hero-buttons { flex-direction: column; align-items: stretch; gap: 12px; }
+  .hero-buttons a { width: 100%; justify-content: center; padding: 12px 20px; }
+  .hero-slide { background-position: center 20%; }
+
+  /* Stats */
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .stat-item h3 { font-size: 1.5rem; }
+  .stat-item p { font-size: 0.72rem; letter-spacing: 0.5px; }
+
+  /* Cards */
+  .service-card { padding: 24px 20px; }
+  .service-icon { width: 52px; height: 52px; font-size: 1rem; }
+  .section-padding { padding: 40px 0; }
+  .section-header { margin-bottom: 28px; }
+  .section-header h2 { margin-bottom: 6px; }
+
+  /* Booking */
+  .booking-service-types { grid-template-columns: 1fr; }
+  .timeslot-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .booking-form-panel { padding: 16px 12px; }
+  .booking-info h3 { font-size: 1.2rem; }
+
+  /* Advocate */
+  .advocate-image-frame { width: 180px; height: 250px; }
+  .advocate-stats { grid-template-columns: 1fr; }
+  .stat-number { font-size: 1.5rem; }
+  .advocate-badge { font-size: 0.65rem; padding: 6px 16px; }
+
+  /* Testimonials */
+  .testimonial-glass { padding: 24px 16px; }
+  .testimonial-text { font-size: 0.88rem; line-height: 1.7; }
+  .testimonial-text::before { font-size: 2.5rem; }
+  .testimonial-stars { margin-bottom: 16px; gap: 3px; }
+  .testimonial-stars i { font-size: 0.85rem; }
+
+  /* Page Hero */
+  .page-hero { padding: 100px 0 40px; }
+  .page-badge { font-size: 0.62rem; padding: 4px 14px; }
+  .breadcrumb { font-size: 0.78rem; }
+
+  /* Footer */
+  .footer-bottom p { font-size: 0.78rem; }
+  .footer-social a { width: 36px; height: 36px; font-size: 0.82rem; }
+
+  /* CTA */
+  .cta-section p { font-size: 0.92rem; }
+
+  /* Modal */
+  .careers-modal { padding: 24px 16px; }
+  .careers-modal h2 { font-size: 1.3rem; }
+  .insight-modal { padding: 20px 16px; }
+  .insight-modal h2 { font-size: 1.3rem; }
+
+  /* Misc */
+  .position-card { padding: 24px 20px; }
+  .position-card h3 { font-size: 1.05rem; }
+  .feature-card { padding: 24px 20px; }
+  .insight-card { padding: 20px; }
+  .legal-update-card { padding: 20px; }
+  .key-areas-list li { font-size: 0.85rem; padding: 8px 12px 8px 24px; }
+
+  /* Buttons */
+  .btn-primary, .btn-outline { padding: 11px 20px; font-size: 0.78rem; }
+  .btn-sm { padding: 9px 18px; font-size: 0.75rem; }
+
+  /* WhatsApp Float */
+  .whatsapp-float { width: 52px; height: 52px; bottom: 16px; right: 16px; font-size: 1.4rem; }
+}
+
+/* Light Mode + Mobile Compatibility */
+@media (max-width: 768px) {
+  [data-theme="light"] .glass-input {
+    background: rgba(245, 246, 248, 0.9);
+    border-color: rgba(28, 28, 28, 0.12);
   }
-  .svc-cta-bar {
-    flex-direction: column;
+  [data-theme="light"] .glass-input:focus {
+    background: #fff;
+    border-color: var(--gold);
   }
-  .svc-cta-bar a {
-    width: 100%;
-    text-align: center;
-    justify-content: center;
+  [data-theme="light"] .mobile-nav {
+    background: rgba(255, 255, 255, 0.98);
+    border-left: 1px solid rgba(28, 28, 28, 0.06);
+  }
+  [data-theme="light"] .mobile-nav a,
+  [data-theme="light"] .mobile-services-toggle {
+    color: var(--text-secondary);
+  }
+  [data-theme="light"] .btn-primary {
+    color: #1a1a1a;
+  }
+  [data-theme="light"] .btn-outline {
+    color: var(--gold);
+    border-color: var(--gold);
+  }
+  [data-theme="light"] .contact-info-icon {
+    background: rgba(201, 162, 74, 0.08);
+    border-color: rgba(201, 162, 74, 0.15);
   }
 }
-@media (max-width: 480px) {
-  .container { padding: 0 16px; }
-  .hero-buttons { flex-direction: column; align-items: center; }
-  .hero-buttons a { width: 100%; justify-content: center; }
-  .timeslot-grid { grid-template-columns: repeat(2, 1fr); }
-  .advocate-stats { grid-template-columns: 1fr; }
-  .testimonial-glass { padding: 28px 20px; }
-  .section-header { margin-bottom: 40px; }
-  .cta-buttons { flex-direction: column; align-items: center; }
-  .position-card { flex-direction: column; align-items: flex-start; }
+
+/* Ensure no horizontal overflow on any element */
+.container,
+.section-padding,
+.hero,
+.page-hero,
+.site-header,
+.site-footer,
+.mobile-nav,
+.booking-container,
+.location-grid,
+.contact-grid-premium,
+.advocate-grid,
+.about-grid,
+.testimonials-carousel,
+.legal-updates-grid,
+.insights-grid,
+.office-grid,
+.position-card,
+.service-card,
+.insight-card,
+.legal-update-card {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Ensure flex and grid children don't overflow */
+.header-inner,
+.hero-content,
+.footer-grid,
+.stats-grid,
+.services-grid,
+.all-services-grid,
+.features-grid,
+.values-grid,
+.positions-list,
+.advocate-stats,
+.booking-features,
+.booking-service-types,
+.timeslot-grid,
+.calendar-days,
+.calendar-weekdays,
+.location-actions,
+.cta-buttons,
+.hero-buttons,
+.careers-hero-actions,
+.contact-premium-actions,
+.footer-social,
+.testimonials-track {
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
 /* ===========================
@@ -2875,10 +3337,8 @@ select.form-input { appearance: none; -webkit-appearance: none; background-image
 .map-container { border-radius: 12px; overflow: hidden; border: 1px solid var(--border-subtle); height: 400px; }
 .map-container iframe { width: 100%; height: 100%; border: none; }
 
-/* ===========================
-   Responsive Additions (New Components)
-   =========================== */
-@media (max-width: 1024px) { .services-spa-layout { grid-template-columns: 1fr; } .services-sidebar { position: static; } .insights-categories { grid-template-columns: repeat(2, 1fr); } }
+/* SPA sidebar responsive — handled in main responsive section */
+@media (max-width: 1024px) { .services-spa-layout { grid-template-columns: 1fr; } .services-sidebar { position: static; } }
 @media (max-width: 768px) { .insights-categories { grid-template-columns: 1fr; } }
 
 /* ===========================
@@ -3022,26 +3482,7 @@ select.form-input { appearance: none; -webkit-appearance: none; background-image
 .firm-section-desc { max-width: 700px; margin: 20px auto 0; color: var(--text-secondary); line-height: 1.8; }
 .contact-form-desc, .contact-info-desc { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 32px; line-height: 1.7; }
 
-/* Light theme overrides for glassmorphism inputs */
-[data-theme="light"] .glass-input {
-  background: rgba(245, 246, 248, 0.8);
-  border-color: rgba(28, 28, 28, 0.1);
-}
-[data-theme="light"] .glass-input:hover {
-  background: rgba(245, 246, 248, 0.95);
-  border-color: rgba(201, 162, 74, 0.3);
-}
-[data-theme="light"] .glass-input:focus {
-  background: rgba(255, 255, 255, 0.95);
-  border-color: var(--gold);
-}
-[data-theme="light"] .glass-select option {
-  background: #fff;
-  color: #1c1c1c;
-}
-[data-theme="light"] .contact-info-icon {
-  background: rgba(201, 162, 74, 0.08);
-}
+/* glassmorphism input light overrides — moved to unified light overrides section above */
 .services-view-all { text-align: center; margin-top: 40px; }
 .booking-form-label { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 10px; }
 .service-type-option i { margin-right: 6px; }
@@ -4032,8 +4473,9 @@ body.scroll-locked {
 .hero-slides { position: absolute; inset: 0; z-index: 0; }
 .hero-slide {
   position: absolute; inset: 0;
-  background-size: cover; background-position: center;
-  opacity: 0;
+  background-size: cover;
+  background-position: center 30%;
+ opacity: 0;
   transform: scale(1.08);
   transition: opacity 1.4s ease;
   will-change: opacity, transform;
@@ -4052,7 +4494,7 @@ body.scroll-locked {
   background: var(--gold-gradient);
 }
 /* Keep hero text legible (light) even in light theme, since hero stays dark */
-[data-theme="light"] .hero-content p { color: rgba(255,255,255,0.85); }
+[data-theme="light"] .hero-content p { color: rgba(255,255,255,0.85) !important; }
 [data-theme="light"] .hero-content h1 { color: #fff; }
 
 /* =============================================
@@ -4096,7 +4538,7 @@ body.scroll-locked {
 }
 .detail-value { font-size: 0.9rem; color: var(--text-primary); font-weight: 600; text-align: right; }
 .confirmation-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
-[data-theme="light"] .booking-confirmation-modal { background: #fff; }
+/* booking confirmation modal — moved to unified light overrides section above */
 
 /* =============================================
    40. Services Card Grid (replaces sidebar SPA)
@@ -4416,30 +4858,7 @@ a[href$='.html'] {
   text-overflow: ellipsis;
 }
 
-/* Fix light theme careers modal input backgrounds */
-[data-theme="light"] .careers-form-group input,
-[data-theme="light"] .careers-form-group textarea,
-[data-theme="light"] .careers-form-group select {
-  background: #F5F6F8;
-  border-color: rgba(28, 28, 28, 0.1);
-}
-[data-theme="light"] .careers-form-group input:focus,
-[data-theme="light"] .careers-form-group textarea:focus {
-  background: #fff;
-  border-color: var(--gold);
-}
-[data-theme="light"] .careers-file-upload-label {
-  background: #F5F6F8;
-  border-color: rgba(28, 28, 28, 0.1);
-}
-[data-theme="light"] .careers-success-modal,
-[data-theme="light"] .careers-modal {
-  background: #fff;
-}
-[data-theme="light"] .careers-form-group input[readonly] {
-  background: #EEF0F2;
-  color: #4A4A4A;
-}
+/* Light theme careers modal — moved to unified light overrides section above */
 
 /* =============================================
    44. About Page — Advocate Profile Section
