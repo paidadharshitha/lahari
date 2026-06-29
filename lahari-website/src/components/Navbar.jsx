@@ -11,6 +11,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dropdownPos, setDropdownPos] = useState({ top: 0, left: 0 });
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const triggerRef = useRef(null);
@@ -23,6 +24,16 @@ export default function Navbar() {
 
   const openDropdown = useCallback(() => {
     setDropdownOpen(true);
+  }, []);
+
+  /* Detect touch device — disable hover-based dropdown on touch */
+  useEffect(() => {
+    const onTouch = () => {
+      setIsTouchDevice(true);
+      window.removeEventListener("touchstart", onTouch, { passive: true });
+    };
+    window.addEventListener("touchstart", onTouch, { passive: true });
+    return () => window.removeEventListener("touchstart", onTouch, { passive: true });
   }, []);
 
   /* Reset on route change */
@@ -85,12 +96,14 @@ export default function Navbar() {
     };
   }, [dropdownOpen, closeDropdown]);
 
-  /* Hover handlers */
+  /* Hover handlers — disabled on touch devices */
   const handleMouseEnter = () => {
+    if (isTouchDevice) return;
     clearTimeout(timeoutRef.current);
     openDropdown();
   };
   const handleMouseLeaveWrapper = () => {
+    if (isTouchDevice) return;
     timeoutRef.current = setTimeout(closeDropdown, 300);
   };
   const handleDropdownMouseEnter = () => {
@@ -100,15 +113,14 @@ export default function Navbar() {
     timeoutRef.current = setTimeout(closeDropdown, 200);
   };
 
-  /* Click handler for trigger */
+  /* Click handler for trigger — pure toggle */
   const handleTriggerClick = (e) => {
-    if (dropdownOpen) {
-      closeDropdown();
-      navigate("/services");
-      return;
-    }
     e.preventDefault();
     e.stopPropagation();
+    if (dropdownOpen) {
+      closeDropdown();
+      return;
+    }
     updatePosition();
     openDropdown();
   };

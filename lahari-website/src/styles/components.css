@@ -342,6 +342,19 @@
   color: var(--gold-dark);
 }
 
+/* Fixed dropdown — rendered outside header-inner with position:fixed */
+.services-dropdown-fixed {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  display: block !important;
+ animation: dropdownFadeIn 0.2s var(--ease) forwards;
+ overflow: visible;
+ clip: auto;
+ will-change: opacity, transform;
+ z-index: 999999999 !important;
+}
+
 /* Hide desktop dropdown on mobile */
 @media (max-width: 860px) {
   .nav-dropdown-wrapper .nav-dropdown {
@@ -356,6 +369,9 @@
   }
   /* Also hide the portal dropdown on mobile */
   .nav-dropdown--portal {
+    display: none !important;
+  }
+  .services-dropdown-fixed {
     display: none !important;
   }
 }
