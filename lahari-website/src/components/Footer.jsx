@@ -82,6 +82,14 @@ export default function Footer() {
                   <span>{CONTACT.phone}</span>
                 </a>
               </li>
+              {CONTACT.altPhone && (
+                <li>
+                  <a href={`tel:${CONTACT.altPhoneHref}`}>
+                    <i className="fas fa-phone" aria-hidden="true" />
+                    <span>{CONTACT.altPhone}</span>
+                  </a>
+                </li>
+              )}
               <li>
                 <a href={`mailto:${CONTACT.email}`}>
                   <i className="fas fa-envelope" aria-hidden="true" />

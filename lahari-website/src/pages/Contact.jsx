@@ -7,6 +7,9 @@ import { SERVICES } from "../data/services";
 const INFO = [
   { icon: "fas fa-location-dot", label: "Visit Our Office", value: CONTACT.address, href: CONTACT.mapLink, target: "_blank" },
   { icon: "fas fa-phone", label: "Call Us", value: CONTACT.phone, href: `tel:${CONTACT.phoneHref}` },
+  ...(CONTACT.altPhone
+    ? [{ icon: "fas fa-phone", label: "Call Us (Alt)", value: CONTACT.altPhone, href: `tel:${CONTACT.altPhoneHref}` }]
+    : []),
   { icon: "fas fa-envelope", label: "Email Us", value: CONTACT.email, href: CONTACT.emailHref },
   { icon: "fas fa-clock", label: "Working Hours", value: CONTACT.hours },
 ];
