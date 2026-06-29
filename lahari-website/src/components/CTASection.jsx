@@ -13,7 +13,7 @@ export default function CTASection({
   title = "Ready to Discuss Your Legal Matter?",
   text = "Schedule a confidential consultation with our experienced attorneys. We will evaluate your situation, explain your options, and chart the strongest path forward.",
   primary = { label: "Book a Consultation", to: "/contact" },
-  secondary = { label: "Explore Services", to: "/services" },
+  secondary = { label: "Explore Our Expertise", to: "/services" },
 }) {
   return (
     <section className="cta-section">

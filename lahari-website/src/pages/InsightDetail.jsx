@@ -373,7 +373,7 @@ export default function InsightDetail() {
         title="Need Advice on This Topic?"
         text="These articles are for general information. For guidance specific to your circumstances, book a consultation with our team."
         primary={{ label: "Book a Consultation", to: "/contact" }}
-        secondary={{ label: "All Services", to: "/services" }}
+        secondary={{ label: "Our Expertise", to: "/services" }}
       />
     </div>
   );

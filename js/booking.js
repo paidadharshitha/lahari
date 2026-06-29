@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var WHATSAPP_NUMBER = '919876543210'; // Replace with actual number
+  var WHATSAPP_NUMBER = '919398581752'; // Replace with actual number
 
   /* ===========================
      State
@@ -665,7 +665,7 @@
       if (confirmEmail) {
         var subject = 'Consultation Booking — ' + state.selectedService;
         var body = 'Service: ' + state.selectedService + '\nDate: ' + dateStr + '\nTime: ' + (state.selectedTimeLabel || state.selectedTime) + '\nName: ' + name + '\nPhone: ' + phone + (description ? '\nCase Details:\n' + description : '');
-        confirmEmail.href = 'mailto:info@laharilegal.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        confirmEmail.href = 'mailto:laharilegal1999@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
       }
 
       // Show confirmation with animation

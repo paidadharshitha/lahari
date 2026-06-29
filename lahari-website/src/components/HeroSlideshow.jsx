@@ -110,7 +110,7 @@ export default function HeroSlideshow() {
                   <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
                   <path d="M7 21h10" />
                 </svg>
-                Trusted Legal Counsel Since 2003
+                Trusted Legal Counsel Since 2026
               </span>
               <h1 className="hero-heading">
                 Lahari Legal
@@ -131,7 +131,7 @@ export default function HeroSlideshow() {
                   </svg>
                 </Link>
                 <Link to="/services" className="btn-outline hero-btn-outline">
-                  Explore Services
+                  Our Expertise
                 </Link>
               </div>
             </div>

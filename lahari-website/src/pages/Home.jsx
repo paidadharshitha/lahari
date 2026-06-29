@@ -36,7 +36,7 @@ export default function Home() {
               Two Decades of Trusted Legal Counsel in Hyderabad
             </h2>
             <p className="section-subtitle">
-              Founded in 2003, Lahari Legal Associates has earned a reputation
+              Founded in 2026, Lahari Legal Associates has earned a reputation
               for integrity, diligence, and unwavering commitment to every client.
             </p>
           </SectionReveal>

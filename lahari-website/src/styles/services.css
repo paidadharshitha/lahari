@@ -743,3 +743,150 @@
     width: 100%;
   }
 }
+
+/* ============================================================
+   EXTRA SMALL SCREENS (320px - 480px)
+   ============================================================ */
+@media (max-width: 480px) {
+  /* Service card v2 watermark hidden on tiny screens */
+  .svc-card-v2-num {
+    display: none;
+  }
+  /* Service card v2 more compact */
+  .svc-card-v2 {
+    padding: 1.35rem 1.15rem 1.15rem;
+  }
+  .svc-card-v2-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.15rem;
+    margin-bottom: 0.85rem;
+  }
+  .svc-card-v2-icon::before {
+    inset: -5px;
+  }
+  .svc-card-v2-title {
+    font-size: 1.02rem;
+  }
+  .svc-card-v2-desc {
+    font-size: 0.82rem;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    margin-bottom: 1rem;
+  }
+  .svc-card-v2-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+  /* Journey steps compact */
+  .svc-journey-step {
+    grid-template-columns: 40px 1fr;
+    gap: 0.85rem;
+  }
+  .svc-journey-node {
+    width: 40px;
+    height: 40px;
+    font-size: 0.85rem;
+  }
+  .svc-journey::before {
+    left: 19px;
+  }
+  .svc-journey-body h4 {
+    font-size: 0.92rem;
+  }
+  .svc-journey-body p {
+    font-size: 0.85rem;
+  }
+  /* FAQ compact */
+  .faq-q {
+    padding: 0.85rem 1rem;
+    font-size: 0.88rem;
+  }
+  .faq-a {
+    padding: 0 1rem 0.85rem;
+    font-size: 0.85rem;
+  }
+  /* Service banner compact */
+  .svc-banner {
+    padding-block: clamp(2rem, 6vw, 3.5rem);
+  }
+  .svc-banner-sub {
+    font-size: 0.9rem;
+  }
+  .svc-banner-badge {
+    font-size: 0.68rem;
+    padding: 0.35rem 0.8rem;
+  }
+  .svc-banner-medallion {
+    width: 90px;
+    height: 90px;
+    font-size: 1.8rem;
+  }
+  .svc-banner-medallion::before {
+    inset: -14px;
+  }
+  .svc-banner-medallion::after {
+    inset: -6px;
+  }
+  /* Engagement items compact */
+  .svc-engage-item {
+    padding: 1.5rem 1.25rem;
+  }
+  .svc-engage-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+  .svc-engage-item h3 {
+    font-size: 1.05rem;
+  }
+  .svc-engage-item p {
+    font-size: 0.85rem;
+  }
+  /* Contact band compact */
+  .svc-contact-band {
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+  }
+  /* Intro strip items compact */
+  .svc-intro-item {
+    padding: 1.1rem 1.15rem;
+  }
+  .svc-intro-item i {
+    width: 42px;
+    height: 42px;
+    font-size: 1rem;
+  }
+  .svc-intro-text strong {
+    font-size: 0.88rem;
+  }
+  .svc-intro-text span {
+    font-size: 0.78rem;
+  }
+  /* Process step compact */
+  .svc-process-step {
+    padding: 1.15rem;
+  }
+  .svc-step-num {
+    width: 44px;
+    height: 44px;
+    font-size: 1rem;
+  }
+  .svc-step-body h4 {
+    font-size: 0.92rem;
+  }
+  .svc-step-body p {
+    font-size: 0.85rem;
+  }
+  /* Benefit cards compact */
+  .svc-benefit-card {
+    padding: 1rem 1.1rem;
+    gap: 0.7rem;
+    font-size: 0.85rem;
+  }
+  /* WhatsApp button full width on mobile */
+  .btn-whatsapp {
+    width: 100%;
+    justify-content: center;
+  }
+}

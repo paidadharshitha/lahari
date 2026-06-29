@@ -323,21 +323,22 @@ p {
 .nav-dropdown {
   position: absolute;
   top: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(8px);
+  left: 0;
+  transform: translateY(8px);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-  min-width: 300px;
+  min-width: 620px;
+  max-width: min(620px, calc(100vw - 32px));
   padding-top: 8px;
-  z-index: 100;
+  z-index: 1001;
 }
 .nav-dropdown-wrapper.open .nav-dropdown {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: translateX(-50%) translateY(0);
+  transform: translateY(0);
 }
 .nav-dropdown-inner {
   background: var(--dropdown-bg);
@@ -347,7 +348,12 @@ p {
   border-radius: 8px;
   box-shadow: var(--dropdown-shadow);
   padding: 8px;
-  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  max-height: min(78vh, 620px);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .nav-dropdown-item {
   display: flex;
@@ -2649,7 +2655,6 @@ textarea.form-input { min-height: 100px; resize: vertical; }
 .section-padding,
 .hero,
 .page-hero,
-.site-header,
 .site-footer,
 .mobile-nav,
 .booking-container,
@@ -4671,4 +4676,39 @@ a[href$='.html'] {
   .about-advocate-name h3 {
     font-size: 1.3rem;
   }
+}
+
+
+/* === svc-faqs (generated) === */
+.svc-faqs { display: flex; flex-direction: column; gap: 12px; }
+.svc-faq {
+  background: var(--surface-1, rgba(255,255,255,0.02));
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 0 18px;
+}
+.svc-faq summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 16px 0;
+  font-weight: 600;
+  color: var(--text-primary, #fff);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.svc-faq summary::-webkit-details-marker { display: none; }
+.svc-faq summary::after {
+  content: "\002B";
+  color: var(--gold);
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+.svc-faq[open] summary::after { content: "\2212"; }
+.svc-faq > p {
+  margin: 0;
+  padding: 0 0 18px;
+  color: var(--text-secondary);
+  line-height: 1.7;
 }

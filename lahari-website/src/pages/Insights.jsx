@@ -67,7 +67,7 @@ export default function Insights() {
         title="Have a Legal Question?"
         text="Our insights are general in nature. For guidance tailored to your specific situation, schedule a confidential consultation with our team."
         primary={{ label: "Book a Consultation", to: "/contact" }}
-        secondary={{ label: "Explore Services", to: "/services" }}
+        secondary={{ label: "Explore Our Expertise", to: "/services" }}
       />
     </>
   );

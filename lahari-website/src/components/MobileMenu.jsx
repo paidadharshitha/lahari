@@ -53,7 +53,7 @@ export default function MobileMenu({ open, onClose, phone }) {
                   onClick={() => setServicesOpen((o) => !o)}
                   aria-expanded={showServices}
                 >
-                  <span>Services</span>
+                  <span>Our Expertise</span>
                   <i className="fas fa-chevron-down toggle-chevron" aria-hidden="true" />
                 </button>
                 <div className={`mobile-services-list ${showServices ? "is-open" : ""}`}>

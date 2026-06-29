@@ -19,7 +19,7 @@ const PILLARS = [
   {
     icon: "fas fa-award",
     title: "Proven Track Record",
-    body: "5,000+ successful outcomes across 13 practice areas.",
+    body: "5,000+ successful outcomes across 15 practice areas.",
   },
 ];
 
@@ -47,9 +47,9 @@ export default function Services() {
     <div className="page-transition">
       <PageHero
         badge="Practice Areas"
-        title="Our Legal Services"
-        subtitle="Thirteen dedicated practice areas, each led by specialists who combine deep legal knowledge with practical, results-focused strategy."
-        crumbs={[{ label: "Home", to: "/" }, { label: "Services" }]}
+        title="Our Expertise"
+        subtitle="Fifteen dedicated practice areas, each led by specialists who combine deep legal knowledge with practical, results-focused strategy."
+        crumbs={[{ label: "Home", to: "/" }, { label: "Our Expertise" }]}
       />
 
       {/* Trust pillars */}

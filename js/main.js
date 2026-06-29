@@ -813,7 +813,7 @@
         if (whatsappBtn) {
           var msg = 'Hello Lahari Legal Associates, I have submitted my application for the ' +
             position + ' role' + (name ? ('. My name is ' + name) : '') + '.';
-          whatsappBtn.href = 'https://wa.me/919876543210?text=' + encodeURIComponent(msg);
+          whatsappBtn.href = 'https://wa.me/919398581752?text=' + encodeURIComponent(msg);
         }
 
         closeModal();

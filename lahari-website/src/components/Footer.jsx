@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { CONTACT, SOCIAL, FOOTER_PRACTICE_AREAS } from "../data/site";
+import { CONTACT, SOCIAL, FOOTER_PRACTICE_AREAS, SITE } from "../data/site";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -18,6 +18,9 @@ export default function Footer() {
               delivering strategic, results-driven representation across civil,
               criminal, corporate, and family law.
             </p>
+            <span className="footer-established">
+              Established {SITE.established}
+            </span>
             <div className="footer-social">
               {SOCIAL.map((s) => (
                 <a
@@ -51,7 +54,7 @@ export default function Footer() {
             <h4 className="footer-heading">Quick Links</h4>
             <ul className="footer-links">
               <li><Link to="/about">About Us</Link></li>
-              <li><Link to="/services">All Services</Link></li>
+              <li><Link to="/services">Our Expertise</Link></li>
               <li><Link to="/insights">Insights</Link></li>
               <li><Link to="/careers">Careers</Link></li>
               <li><Link to="/contact">Contact</Link></li>
@@ -63,8 +66,15 @@ export default function Footer() {
             <h4 className="footer-heading">Get in Touch</h4>
             <ul className="footer-contact">
               <li>
-                <i className="fas fa-location-dot" aria-hidden="true" />
-                <span>{CONTACT.address}</span>
+                <a
+                  href={CONTACT.mapLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Open office location in Google Maps"
+                >
+                  <i className="fas fa-location-dot" aria-hidden="true" />
+                  <span>{CONTACT.address}</span>
+                </a>
               </li>
               <li>
                 <a href={`tel:${CONTACT.phoneHref}`}>

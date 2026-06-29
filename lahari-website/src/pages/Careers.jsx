@@ -183,7 +183,7 @@ function ApplicationModal({ open, onClose, defaultPosition = "" }) {
                     id="career-phone"
                     type="tel"
                     className="form-control"
-                    placeholder="+91 98765 43210"
+                    placeholder="+91 93985 81752"
                     required
                   />
                 </div>
@@ -359,7 +359,7 @@ export default function Careers() {
         title="Ready to Join Our Team?"
         text="Send your CV and a short cover note to our careers inbox. We review every application and respond to shortlisted candidates within two weeks."
         primary={{ label: "Apply Now", to: "/careers" }}
-        secondary={{ label: "View Our Work", to: "/services" }}
+        secondary={{ label: "View Our Expertise", to: "/services" }}
       />
 
       {/* ── Application Modal ─────────────────────────── */}

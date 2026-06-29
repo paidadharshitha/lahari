@@ -370,6 +370,45 @@
 /* ============================================================
    HOME — ABOUT V2 (premium portrait + stats)
    ============================================================ */
+.home-about-desc {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.home-about-values {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.home-about-value {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.home-about-value .section-heading-icon {
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+.home-about-value h4 {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--heading-color);
+  margin-bottom: 0.25rem;
+}
+
+.home-about-value p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
 .home-about-v2 {
   display: grid;
   grid-template-columns: 0.8fr 1.2fr;
@@ -2061,5 +2100,417 @@
   }
   .insight-featured-image {
     height: 180px;
+  }
+  /* Hero portrait even smaller on very small screens */
+  .hero-portrait-frame {
+    width: clamp(120px, 28vw, 160px);
+  }
+  /* Timeline adjustments for small screens */
+  .timeline {
+    padding-left: 1.5rem;
+  }
+  .timeline::before {
+    left: 5px;
+  }
+  .timeline-item::before {
+    left: -1.5rem;
+    width: 14px;
+    height: 14px;
+  }
+  .timeline-item {
+    padding: 1.25rem 1.25rem;
+  }
+  /* Insight hero smaller on mobile */
+  .insight-hero-banner {
+    min-height: 360px;
+  }
+  .insight-hero-content {
+    padding-block: clamp(2rem, 6vw, 3.5rem);
+  }
+  /* Disclaimer popup mobile */
+  .disclaimer-modal {
+    padding: 1.5rem;
+    max-height: 80vh;
+  }
+  .disclaimer-actions {
+    flex-direction: column;
+  }
+  .disclaimer-actions .btn-primary,
+  .disclaimer-actions .btn-outline {
+    width: 100%;
+    justify-content: center;
+  }
+  .disclaimer-header {
+    font-size: 1.25rem;
+    gap: 0.6rem;
+  }
+  .disclaimer-body p {
+    font-size: 0.9rem;
+  }
+  .disclaimer-list li {
+    font-size: 0.88rem;
+  }
+  /* Home about values stack on very small screens */
+  .home-about-value {
+    gap: 0.75rem;
+  }
+  .home-about-value .section-heading-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 1.1rem;
+  }
+  /* Page hero responsive tweaks */
+  .page-hero {
+    padding-block: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 4vw, 3rem);
+  }
+  .page-hero-subtitle {
+    font-size: 0.95rem;
+  }
+  /* Value list */
+  .value-list {
+    grid-template-columns: 1fr;
+  }
+  /* About stats row */
+  .about-stats-row {
+    gap: 0.6rem;
+  }
+  .about-stat-card {
+    padding: 0.75rem;
+  }
+  .about-stat-value {
+    font-size: 1.25rem;
+  }
+  .about-stat-label {
+    font-size: 0.7rem;
+  }
+  /* Service detail journey on very small screens */
+  .svc-journey-step {
+    grid-template-columns: 44px 1fr;
+    gap: 1rem;
+  }
+  .svc-journey-node {
+    width: 44px;
+    height: 44px;
+    font-size: 0.95rem;
+  }
+  .svc-journey::before {
+    left: 21px;
+  }
+  .svc-journey-body h4 {
+    font-size: 0.98rem;
+  }
+  .svc-journey-body p {
+    font-size: 0.9rem;
+  }
+  /* Benefits grid single column on mobile */
+  .svc-benefits-grid {
+    grid-template-columns: 1fr;
+  }
+  /* Service contact band actions stacked */
+  .svc-contact-meta {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  /* Service detail hero smaller on mobile */
+  .service-detail-icon-big {
+    width: clamp(90px, 20vw, 130px);
+    height: clamp(90px, 20vw, 130px);
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
+  /* Insight featured card footer stack on mobile */
+  .insight-featured-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+}
+
+/* ============================================================
+   EXTRA SMALL SCREENS (320px - 400px)
+   ============================================================ */
+@media (max-width: 400px) {
+  .hero-slideshow {
+    min-height: 500px;
+  }
+  .hero-heading {
+    font-size: clamp(1.6rem, 6vw, 2.2rem);
+  }
+  .hero-badge {
+    font-size: 0.65rem;
+    padding: 0.4rem 0.8rem;
+  }
+  .hero-portrait-frame {
+    width: 110px;
+  }
+  .hero-frame-box {
+    padding: 1rem;
+    border-radius: var(--radius);
+  }
+  .btn-primary,
+  .btn-outline {
+    padding: 0.75rem 1.2rem;
+    font-size: 0.9rem;
+    width: 100%;
+    justify-content: center;
+  }
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .home-firm-stat {
+    padding: 0.75rem;
+  }
+  .home-firm-stat-value {
+    font-size: 1.4rem;
+  }
+  .home-firm-stat-label {
+    font-size: 0.72rem;
+  }
+  .section-title {
+    font-size: clamp(1.4rem, 5vw, 1.8rem);
+  }
+  .section-subtitle {
+    font-size: 0.92rem;
+  }
+  .testimonial-card {
+    padding: 1.5rem 1rem;
+  }
+  .testimonial-text {
+    font-size: 0.95rem;
+  }
+  .testimonial-author {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  .stat-number {
+    font-size: clamp(1.8rem, 5vw, 2.4rem);
+  }
+  .stat-label {
+    font-size: 0.72rem;
+  }
+  /* Timeline extra small */
+  .timeline {
+    padding-left: 1.25rem;
+  }
+  .timeline::before {
+    left: 4px;
+  }
+  .timeline-item::before {
+    left: -1.25rem;
+    width: 12px;
+    height: 12px;
+    top: 1.4rem;
+  }
+  .timeline-item {
+    padding: 1rem;
+  }
+  .timeline-title {
+    font-size: 1rem;
+  }
+  /* Contact info card on tiny screens */
+  .contact-info-item {
+    gap: 0.75rem;
+  }
+  .contact-info-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 0.95rem;
+  }
+  .contact-info-text p,
+  .contact-info-text a {
+    font-size: 0.88rem;
+  }
+  .contact-map-wrapper iframe {
+    height: 160px;
+  }
+  /* Footer bottom stack */
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  /* Card grids for tiny screens */
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .card-grid-3 {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .svc-benefit-card {
+    padding: 1rem 1.15rem;
+    font-size: 0.88rem;
+  }
+  /* Service detail adjustments */
+  .svc-banner h1 {
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
+  }
+  .svc-banner-sub {
+    font-size: 0.95rem;
+  }
+  .svc-banner-medallion {
+    width: 100px;
+    height: 100px;
+    font-size: 2rem;
+  }
+  .svc-banner-medallion::before {
+    inset: -16px;
+  }
+  .svc-banner-medallion::after {
+    inset: -8px;
+  }
+  /* Insight article */
+  .insight-hero-banner {
+    min-height: 300px;
+  }
+  .insight-hero-title {
+    font-size: clamp(1.6rem, 6vw, 2.2rem);
+  }
+  .insight-hero-excerpt {
+    font-size: 0.88rem;
+  }
+  /* CTA section */
+  .cta-inner {
+    padding: clamp(1.5rem, 5vw, 2.5rem) clamp(1rem, 4vw, 2rem);
+  }
+  .cta-text {
+    font-size: 0.92rem;
+  }
+  /* Disclaimer modal extra small */
+  .disclaimer-modal {
+    padding: 1.25rem;
+    border-radius: var(--radius);
+  }
+  .disclaimer-header h2 {
+    font-size: 1.15rem;
+  }
+  /* Form controls smaller */
+  .form-control {
+    padding: 0.75rem 0.85rem;
+    font-size: 0.92rem;
+  }
+  .form-group label {
+    font-size: 0.82rem;
+  }
+  /* FAQ text smaller */
+  .svc-faq-question {
+    padding: 1rem 1.15rem;
+    font-size: 0.92rem;
+  }
+  .faq-q {
+    padding: 1rem 1.15rem;
+    font-size: 0.92rem;
+  }
+  .svc-faq-answer-inner {
+    padding: 0 1.15rem 1rem;
+    font-size: 0.88rem;
+  }
+  .faq-a {
+    padding: 0 1.15rem 1rem;
+    font-size: 0.88rem;
+  }
+  /* Insight featured */
+  .insight-featured-body {
+    padding: 1.15rem;
+  }
+  .insight-featured-title {
+    font-size: 1.08rem;
+  }
+  .insight-featured-summary {
+    font-size: 0.85rem;
+  }
+  /* About body */
+  .about-body > p {
+    font-size: 0.95rem;
+  }
+  /* Service card v2 watermark smaller */
+  .svc-card-v2-num {
+    font-size: 1.8rem;
+    top: 0.75rem;
+    right: 1rem;
+  }
+  .svc-card-v2 {
+    padding: 1.5rem 1.35rem 1.35rem;
+  }
+  .svc-card-v2-icon {
+    width: 52px;
+    height: 52px;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .svc-card-v2-title {
+    font-size: 1.12rem;
+  }
+  .svc-card-v2-desc {
+    font-size: 0.85rem;
+    margin-bottom: 1.15rem;
+  }
+  /* Careers position card */
+  .careers-position-card {
+    padding: 1.35rem 1.25rem 1.25rem;
+  }
+  .careers-position-head h3 {
+    font-size: 1.05rem;
+  }
+  .careers-why-card {
+    padding: 1.35rem 1.25rem;
+  }
+  .careers-why-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.2rem;
+    }
+}
+
+/* ============================================================
+   TABLET BREAKPOINTS (768px - 860px)
+   ============================================================ */
+@media (min-width: 769px) and (max-width: 860px) {
+  .home-about-v2 {
+    gap: 2rem;
+  }
+  .home-portrait-frame {
+    max-width: 260px;
+  }
+  .about-portrait-frame {
+    max-width: 280px;
+  }
+  .svc-grid {
+    gap: 1.25rem;
+  }
+  .svc-card {
+    padding: 1.5rem 1.35rem 1.35rem;
+  }
+  .svc-card-icon {
+    width: 52px;
+    height: 52px;
+    font-size: 1.2rem;
+  }
+}
+
+/* ============================================================
+   LANDSCAPE MOBILE / SMALL TABLETS
+   ============================================================ */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-slideshow {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  .hero-frame-box {
+    padding: 1rem 1.5rem;
+  }
+  .hero-portrait-frame {
+    width: 120px;
+  }
+  .hero-heading {
+    font-size: 1.8rem;
+  }
+  .hero-subtitle {
+    display: none;
+  }
+  .hero-actions {
+    gap: 0.5rem;
   }
 }

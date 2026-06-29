@@ -20,7 +20,7 @@ export const INSIGHTS = [
       "Companies Act governance reforms with simplified startup compliance",
       "Tiered penalty structure for data breaches up to ₹250 crore",
     ],
-    relatedServices: ["corporate-legal-advisory", "cybercrime", "contract-drafting"],
+    relatedServices: ["contract-drafting", "cybercrime", "consumer-protection"],
     overview: [
       "The Indian legislative landscape continues to evolve rapidly in 2026, with several landmark enactments and amendments reshaping rights, obligations, and procedural frameworks across civil, criminal, and commercial domains. From the progressive reform of the Bharatiya Nyaya Sanhita to updated regulations governing digital transactions, these changes demand close attention from legal practitioners and citizens alike.",
       "This section consolidates the most significant new legislation, analyzing not just what the laws say but what they mean in practical terms — for businesses restructuring operations, individuals navigating personal rights, and professionals adapting to new compliance requirements. Each summary includes actionable guidance on how the changes may affect your specific circumstances.",
@@ -78,7 +78,7 @@ export const INSIGHTS = [
       "Telangana HC ruling increases land acquisition compensation entitlements",
       "Emergency arbitral interim measures now enforceable without court confirmation",
     ],
-    relatedServices: ["civil-law", "criminal-law", "property-disputes"],
+    relatedServices: ["land-disputes", "arbitration-adr", "money-recovery"],
     overview: [
       "Judicial precedents established by the Supreme Court and various High Courts continue to be the most dynamic source of legal development in India. In the first half of 2026, several landmark judgments have fundamentally altered the interpretation of constitutional rights, commercial obligations, and procedural law — creating new avenues for litigation and reshaping established legal principles.",
       "This section examines the most consequential recent judgments, distilling complex legal reasoning into practical analysis. Whether you are a legal professional tracking precedent developments or a citizen seeking to understand how judicial decisions may affect your rights, these summaries provide the essential context and implications you need.",
@@ -136,7 +136,7 @@ export const INSIGHTS = [
       "Stamp duty revised upward 12–18% across Hyderabad urban areas",
       "First-time homebuyer concession reduces stamp duty to 5% for properties under ₹50 lakh",
     ],
-    relatedServices: ["property-disputes", "rental-disputes", "legal-consultation"],
+    relatedServices: ["land-disputes", "rental-disputes", "contract-drafting"],
     overview: [
       "Telangana's legal and regulatory environment continues to evolve with state-specific amendments, new government schemes, and significant High Court rulings that directly impact residents, businesses, and property owners across the state. From Dharani portal reforms to updated municipal governance frameworks, staying current with these changes is essential for anyone operating within Telangana's jurisdiction.",
       "This section compiles the most important Telangana-specific legal developments, with particular focus on areas that most commonly affect our clients — property rights, municipal regulations, state-level taxation, and welfare scheme implementations.",
@@ -194,7 +194,7 @@ export const INSIGHTS = [
       "Telangana Building Regularisation Scheme closes 31 July 2026",
       "GST annual return (GSTR-9) filing deadline: 31 December 2026",
     ],
-    relatedServices: ["corporate-legal-advisory", "contract-drafting", "legal-consultation"],
+    relatedServices: ["business-startup-legal", "contract-drafting", "insolvency-bankruptcy"],
     overview: [
       "Certain legal developments demand immediate attention — compliance deadlines that cannot be extended, regulatory changes that take effect without further notice, and court directives that create binding obligations. This section highlights the most time-sensitive legal alerts, ensuring you have the information you need to act promptly and protect your interests.",
       "Each alert includes the nature of the requirement, applicable deadlines, and recommended actions. We strongly recommend reviewing these alerts regularly and consulting with legal counsel on any matters that may affect your personal or business interests.",

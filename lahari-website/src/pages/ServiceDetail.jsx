@@ -34,7 +34,7 @@ export default function ServiceDetail() {
                 <i className="fas fa-chevron-right breadcrumb-sep" aria-hidden="true" />
               </span>
               <span className="breadcrumb-item">
-                <Link to="/services">Services</Link>
+                <Link to="/services">Our Expertise</Link>
                 <i className="fas fa-chevron-right breadcrumb-sep" aria-hidden="true" />
               </span>
               <span className="breadcrumb-item">

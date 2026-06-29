@@ -11,7 +11,7 @@ export default function About() {
       <PageHero
         badge="About Us"
         title="Two Decades of Trusted Legal Advocacy"
-        subtitle="Founded in Hyderabad in 2003, Lahari Legal Associates has grown into one of Telangana's most respected full-service firms — known for integrity, diligence, and results."
+        subtitle="Founded in Hyderabad in 2026, Lahari Legal Associates has grown into one of Telangana's most respected full-service firms — known for integrity, diligence, and results."
         crumbs={[{ label: "Home", to: "/" }, { label: "About" }]}
       />
 
@@ -119,7 +119,7 @@ export default function About() {
         title="Let's Discuss How We Can Help"
         text="Reach out for a confidential consultation. Our team will review your situation and outline a clear path forward."
         primary={{ label: "Get in Touch", to: "/contact" }}
-        secondary={{ label: "View Our Services", to: "/services" }}
+        secondary={{ label: "View Our Expertise", to: "/services" }}
       />
     </>
   );

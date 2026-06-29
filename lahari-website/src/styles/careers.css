@@ -457,3 +457,85 @@
     width: 100%;
   }
 }
+
+/* ============================================================
+   EXTRA SMALL SCREENS (320px - 480px)
+   ============================================================ */
+@media (max-width: 480px) {
+  /* Careers modal extra small */
+  .careers-modal {
+    padding: 1.25rem;
+    border-radius: var(--radius);
+    max-height: 85vh;
+  }
+  .careers-modal-head h2 {
+    font-size: 1.3rem;
+  }
+  .careers-modal-head p {
+    font-size: 0.88rem;
+  }
+  /* Position card compact */
+  .careers-position-card {
+    padding: 1.25rem 1.15rem 1.15rem;
+  }
+  .careers-position-head h3 {
+    font-size: 1.02rem;
+  }
+  .careers-position-desc {
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+  .careers-position-card .position-meta {
+    font-size: 0.78rem;
+    margin-bottom: 1.15rem;
+  }
+  .careers-apply-btn {
+    padding: 0.7rem 1.15rem;
+    font-size: 0.85rem;
+  }
+  /* Why join cards compact */
+  .careers-why-card {
+    padding: 1.25rem 1.15rem;
+  }
+  .careers-why-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 1.15rem;
+    margin-bottom: 1rem;
+  }
+  .careers-why-card h3 {
+    font-size: 1.02rem;
+  }
+  .careers-why-card p {
+    font-size: 0.85rem;
+  }
+  /* Upload zone compact */
+  .careers-upload-label {
+    padding: 1.15rem 0.75rem;
+    font-size: 0.82rem;
+  }
+  .careers-upload-label i {
+    font-size: 1.3rem;
+  }
+  /* Success state compact */
+  .careers-modal-success-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+  .careers-modal-success h3 {
+    font-size: 1.3rem;
+  }
+  .careers-modal-success p {
+    font-size: 0.88rem;
+  }
+  /* Modal close button */
+  .careers-modal-close {
+    width: 36px;
+    height: 36px;
+  }
+  /* Hero action buttons */
+  .careers-hero-actions {
+    padding-block: clamp(1rem, 2.5vw, 1.5rem);
+  }
+}

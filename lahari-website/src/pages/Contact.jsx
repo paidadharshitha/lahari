@@ -5,8 +5,8 @@ import { CONTACT } from "../data/site";
 import { SERVICES } from "../data/services";
 
 const INFO = [
-  { icon: "fas fa-location-dot", label: "Visit Our Office", value: CONTACT.address },
-  { icon: "fas fa-phone", label: "Call Us", value: CONTACT.phone, href: `tel:${CONTACT.phoneHref}`, sub: CONTACT.altPhone },
+  { icon: "fas fa-location-dot", label: "Visit Our Office", value: CONTACT.address, href: CONTACT.mapLink, target: "_blank" },
+  { icon: "fas fa-phone", label: "Call Us", value: CONTACT.phone, href: `tel:${CONTACT.phoneHref}` },
   { icon: "fas fa-envelope", label: "Email Us", value: CONTACT.email, href: CONTACT.emailHref },
   { icon: "fas fa-clock", label: "Working Hours", value: CONTACT.hours },
 ];
@@ -53,12 +53,14 @@ export default function Contact() {
                   <div className="contact-info-text">
                     <h4>{item.label}</h4>
                     {item.href ? (
-                      <>
-                        <p>
-                          <a href={item.href}>{item.value}</a>
-                        </p>
-                        {item.sub && <p style={{ fontSize: "0.85rem" }}>{item.sub}</p>}
-                      </>
+                      <p>
+                        <a
+                          href={item.href}
+                          {...(item.target ? { target: item.target, rel: "noopener noreferrer" } : {})}
+                        >
+                          {item.value}
+                        </a>
+                      </p>
                     ) : (
                       <p>{item.value}</p>
                     )}
@@ -67,24 +69,25 @@ export default function Contact() {
               ))}
             </div>
 
-            <div
-              className="mt-2"
-              style={{
-                borderRadius: "var(--radius-lg)",
-                overflow: "hidden",
-                border: "1px solid var(--border-color)",
-                boxShadow: "var(--shadow-sm)",
-              }}
-            >
+            <div className="contact-map-wrapper">
               <iframe
                 title="Lahari Legal Associates office location"
                 src={CONTACT.mapEmbed}
                 width="100%"
-                height="240"
+                height="300"
                 style={{ border: 0, display: "block" }}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
               />
+              <a
+                href={CONTACT.mapLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-map-directions"
+              >
+                <i className="fas fa-directions" aria-hidden="true" /> Get Directions
+              </a>
             </div>
           </SectionReveal>
 
