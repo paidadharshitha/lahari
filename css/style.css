@@ -442,7 +442,7 @@ p {
   transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   overflow-y: auto;
 }
-.mobile-nav.active { transform: translateX(0); }
+.mobile-nav.open { transform: translateX(0); }
 .mobile-nav a {
   display: block;
   padding: 14px 0;
@@ -481,7 +481,7 @@ p {
   overflow: hidden;
   transition: max-height 0.4s ease;
 }
-.mobile-services-list.open { max-height: 500px; }
+.mobile-services-list.open { max-height: 900px; }
 .mobile-services-list a {
   padding: 10px 0 10px 16px;
   font-size: 0.92rem;
@@ -2997,7 +2997,7 @@ textarea.form-input { min-height: 100px; resize: vertical; }
    =========================== */
 body.mobile-nav-open { overflow: hidden; }
 .mobile-nav-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 998; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
-.mobile-nav-overlay.active { opacity: 1; visibility: visible; }
+.mobile-nav-overlay.visible { opacity: 1; visibility: visible; }
 
 /* ===========================
    Form Select Styling

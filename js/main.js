@@ -87,6 +87,7 @@
 
     function openMobileNav() {
       mobileNav.classList.add('open');
+      if (toggle) toggle.classList.add('active');
       document.body.classList.add('mobile-nav-open');
       if (!overlay) {
         createOverlay();
@@ -98,6 +99,7 @@
 
     function closeMobileNav() {
       mobileNav.classList.remove('open');
+      if (toggle) toggle.classList.remove('active');
       document.body.classList.remove('mobile-nav-open');
       if (overlay) {
         overlay.classList.remove('visible');
