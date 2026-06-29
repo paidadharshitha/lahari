@@ -1060,3 +1060,65 @@
 
 
 })();
+
+/* ==========================================================================
+   THEME TOGGLE (light / dark)
+   Injects a toggle button into .header-actions, persists choice in
+   localStorage, and flips [data-theme] on <html>. Dark is the default.
+   The no-flash <head> script applies the saved theme before paint; this
+   block wires the button and keeps the icon in sync.
+   ========================================================================== */
+(function () {
+  'use strict';
+  var STORAGE_KEY = 'theme';
+  var root = document.documentElement;
+  var buttons = [];
+
+  function currentTheme() {
+    return root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  }
+
+  function syncIcons(theme) {
+    for (var i = 0; i < buttons.length; i++) {
+      var icon = buttons[i].querySelector('i');
+      if (icon) icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+      buttons[i].setAttribute(
+        'aria-label',
+        theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'
+      );
+      buttons[i].setAttribute('title', theme === 'light' ? 'Dark mode' : 'Light mode');
+    }
+  }
+
+  function applyTheme(theme, save) {
+    if (theme === 'light') root.setAttribute('data-theme', 'light');
+    else root.removeAttribute('data-theme');
+    if (save) {
+      try { localStorage.setItem(STORAGE_KEY, theme); } catch (e) {}
+    }
+    syncIcons(theme);
+  }
+
+  function makeButton() {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'theme-toggle';
+    btn.innerHTML = '<i class="fas fa-sun" aria-hidden="true"></i>';
+    btn.addEventListener('click', function () {
+      applyTheme(currentTheme() === 'light' ? 'dark' : 'light', true);
+    });
+    return btn;
+  }
+
+  var actions = document.querySelector('.header-actions');
+  if (actions) {
+    var btn = makeButton();
+    var cta = actions.querySelector('.header-cta');
+    if (cta) actions.insertBefore(btn, cta);
+    else actions.insertBefore(btn, actions.firstChild);
+    buttons.push(btn);
+  }
+
+  // Sync icon to whatever theme the head script already applied.
+  syncIcons(currentTheme());
+})();
