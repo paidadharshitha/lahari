@@ -401,8 +401,10 @@
 
   function init() {
     renderCards();
-    injectScrollKeyframes();
-    startAutoScroll();
+    /* Vertical auto-scroll + pause-on-hover are handled entirely in CSS
+       (.legal-feed-track animation in style.css). The old JS horizontal
+       translateX animation fought the CSS column layout and dragged cards
+       off-screen, so it is intentionally not started here. */
     initPauseOnHover();
     initCardClicks();
 

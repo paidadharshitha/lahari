@@ -3245,6 +3245,11 @@ select.form-input { appearance: none; -webkit-appearance: none; background-image
    ============================================= */
 .legal-feed-section {
   position: relative;
+}
+
+/* Only the cards scroll/clip — the section heading stays fixed above */
+.legal-feed-container {
+  position: relative;
   max-height: 460px;
   overflow: hidden;
 }
@@ -4043,14 +4048,23 @@ select.form-input { appearance: none; -webkit-appearance: none; background-image
   .feed-card-excerpt {
     font-size: 0.85rem;
   }
-  /* Booking grid stacks */
+  /* Booking steps stay side by side (1 · 2 · 3) on mobile */
   .booking-step-indicator {
-    flex-direction: column;
-    gap: 12px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 4px;
+    padding: 0 8px;
+  }
+  .booking-step {
+    padding: 7px 12px;
+  }
+  .booking-step-line {
+    width: 16px;
+    margin: 0 2px;
   }
   .booking-step-connector {
-    width: 2px;
-    height: 20px;
+    width: 24px;
+    height: 2px;
     flex: 0 0 auto;
   }
   /* Feed modal */
