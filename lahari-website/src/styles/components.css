@@ -77,13 +77,13 @@
 /* Full wordmark logo — transparent PNG, theme-aware (no white chip) */
 .logo-full {
   display: block;
-  height: 50px;
+  height: 70px;
   width: auto;
   flex-shrink: 0;
 }
 
 .logo-full-footer {
-  height: 54px;
+  height: 78px;
 }
 
 /* Dark theme (default) shows the cream/gold mark; light theme shows the dark-ink mark */
@@ -2055,10 +2055,10 @@ textarea.form-control {
     border-radius: 9px;
   }
   .logo-full {
-    height: 40px;
+    height: 52px;
   }
   .logo-full-footer {
-    height: 44px;
+    height: 60px;
   }
   .logo-text {
     font-size: 0.95rem;

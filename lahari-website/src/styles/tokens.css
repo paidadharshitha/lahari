@@ -61,7 +61,7 @@
   /* Layout */
   --container: 1200px;
   --container-narrow: 820px;
-  --header-h: 76px;
+  --header-h: 92px;
 
   /* Motion */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
