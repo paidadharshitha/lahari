@@ -28,10 +28,7 @@ export default function MobileMenu({ open, onClose, phone }) {
       >
         <div className="mobile-menu-head">
           <Link to="/" className="logo" onClick={onClose}>
-            <span className="logo-icon">LL</span>
-            <span className="logo-text">
-              Lahari <span className="gold-text">Legal</span>
-            </span>
+            <img className="logo-full" src="/legal.jpeg" alt="Lahari Legal Associates" />
           </Link>
           <button
             type="button"
