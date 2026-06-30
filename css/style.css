@@ -264,13 +264,14 @@ p {
 }
 .logo-full {
   display: block;
-  height: 52px;
+  height: 50px;
   width: auto;
-  border-radius: 8px;
-  background: #fff;
-  padding: 5px 10px;
 }
-.footer-about .logo-full { height: 56px; }
+.footer-about .logo-full { height: 54px; }
+/* Theme-aware wordmark: dark (default) shows cream/gold; light shows dark ink */
+.logo-light { display: none; }
+[data-theme="light"] .logo-dark { display: none; }
+[data-theme="light"] .logo-light { display: block; }
 .logo-text span { color: var(--gold); }
 .main-nav {
   display: flex;
@@ -2447,8 +2448,8 @@ textarea.form-input { min-height: 100px; resize: vertical; }
   /* Header */
   .header-inner { padding: 0 16px; }
   .logo { font-size: 1.15rem; gap: 8px; }
-  .logo-full { height: 42px; padding: 4px 8px; }
-  .footer-about .logo-full { height: 46px; }
+  .logo-full { height: 40px; }
+  .footer-about .logo-full { height: 44px; }
   .mobile-nav { width: 100%; }
   .mobile-nav { padding-top: 80px; }
 

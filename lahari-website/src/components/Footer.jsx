@@ -11,7 +11,8 @@ export default function Footer() {
           {/* Brand column */}
           <div className="footer-col footer-brand">
             <Link to="/" className="logo logo-footer">
-              <img className="logo-full logo-full-footer" src="/legal.jpeg" alt="Lahari Legal Associates" />
+              <img className="logo-full logo-full-footer logo-dark" src="/legal-dark.png" alt="Lahari Legal Associates" />
+              <img className="logo-full logo-full-footer logo-light" src="/legal-light.png" alt="" aria-hidden="true" />
             </Link>
             <p className="footer-about">
               Lahari Legal Associates is a full-service law firm in Hyderabad,

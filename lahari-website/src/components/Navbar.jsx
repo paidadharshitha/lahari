@@ -125,7 +125,8 @@ export default function Navbar() {
     <header className={`site-header ${scrolled ? "scrolled" : ""}`}>
       <div className="container header-inner">
         <Link to="/" className="logo" aria-label="Lahari Legal — home">
-          <img className="logo-full" src="/legal.jpeg" alt="Lahari Legal Associates" />
+          <img className="logo-full logo-dark" src="/legal-dark.png" alt="Lahari Legal Associates" />
+          <img className="logo-full logo-light" src="/legal-light.png" alt="" aria-hidden="true" />
         </Link>
 
         <nav className="main-nav" aria-label="Primary">

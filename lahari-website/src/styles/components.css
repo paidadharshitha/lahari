@@ -74,20 +74,27 @@
   flex-shrink: 0;
 }
 
-/* Full wordmark logo */
+/* Full wordmark logo — transparent PNG, theme-aware (no white chip) */
 .logo-full {
   display: block;
-  height: 52px;
+  height: 50px;
   width: auto;
-  border-radius: 8px;
-  background: #fff;
-  padding: 5px 10px;
-  box-shadow: var(--shadow-gold);
   flex-shrink: 0;
 }
 
 .logo-full-footer {
-  height: 56px;
+  height: 54px;
+}
+
+/* Dark theme (default) shows the cream/gold mark; light theme shows the dark-ink mark */
+.logo-light {
+  display: none;
+}
+[data-theme="light"] .logo-dark {
+  display: none;
+}
+[data-theme="light"] .logo-light {
+  display: block;
 }
 
 .logo-text {
@@ -2048,11 +2055,10 @@ textarea.form-control {
     border-radius: 9px;
   }
   .logo-full {
-    height: 42px;
-    padding: 4px 8px;
+    height: 40px;
   }
   .logo-full-footer {
-    height: 46px;
+    height: 44px;
   }
   .logo-text {
     font-size: 0.95rem;
